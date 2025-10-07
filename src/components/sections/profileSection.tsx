@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
 interface Project {
   title: string;
   description: string;
@@ -27,7 +26,7 @@ const projects: Project[] = [
       "Integrated Firebase for saving loan records.",
       "Added dark/light modes, print, and reset features.",
     ],
-    image: "/images/loan-app.png",
+    image: "/images/c1.png",
     repoLink: "https://github.com/libenadugna/loan-calculator",
     liveDemo: "https://loanapp.web.app",
     category: "Mobile App",
