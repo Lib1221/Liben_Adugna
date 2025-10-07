@@ -75,7 +75,7 @@ const BlogSection: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="p-6 bg-[#1f1f1f] rounded-xl shadow-lg hover:shadow-xl border-2 border-yellow-400 transition-transform hover:-translate-y-1"
+            className="p-6 bg-[#1f1f1f] rounded-xl shadow-lg hover:shadow-xl transition-transform hover:-translate-y-1"
           >
             <div className="flex justify-between items-center mb-2">
               <span className="text-sm text-gray-400">{post.date}</span>

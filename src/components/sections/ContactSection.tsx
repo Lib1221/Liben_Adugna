@@ -25,7 +25,7 @@ const ContactSection: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="rounded-xl overflow-hidden border-2 border-yellow-400 shadow-lg mb-8"
+        className="rounded-xl overflow-hidden  shadow-lg mb-8"
       >
         <iframe
           title="Location"
@@ -41,7 +41,7 @@ const ContactSection: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
         onSubmit={handleSubmit}
-        className="bg-[#1f1f1f] rounded-xl p-8 shadow-2xl border-2 border-yellow-400 flex flex-col gap-4"
+        className="bg-[#1f1f1f] rounded-xl p-8 shadow-2xl  flex flex-col gap-4"
       >
         {submitted && (
           <div className="text-green-400 font-semibold text-center">
