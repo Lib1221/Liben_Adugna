@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   FaEnvelope,
   FaPhoneAlt,
@@ -14,6 +14,8 @@ const Sidebar: React.FC = () => {
   const avatar =
     "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759949739/liben_fupt3c.jpg";
 
+  const [loading, setLoading] = useState(true);
+
   return (
     <motion.aside
       initial={{ opacity: 0, y: 10 }}
@@ -23,21 +25,33 @@ const Sidebar: React.FC = () => {
     >
       <div className="glass rounded-xl p-6 shadow-soft border border-transparent panel-bg">
         <div className="flex flex-col items-center">
-          <div className="relative">
-            <img
+          <div className="relative h-32 w-32">
+            {/* 🟡 Spinner while image loads */}
+            {loading && (
+              <div className="absolute inset-0 flex items-center justify-center bg-[#111] rounded-full">
+                <div className="animate-spin rounded-full h-10 w-10 border-t-4 border-yellow-400"></div>
+              </div>
+            )}
+
+            <motion.img
               src={avatar}
               alt="Liben Adugna"
-              className="h-32 w-32 rounded-full object-cover"
+              className={`h-32 w-32 rounded-full object-cover transition-opacity duration-700 ${
+                loading ? "opacity-0" : "opacity-100"
+              }`}
+              onLoad={() => setLoading(false)}
             />
-            {/* ✅ Status indicator changed from green to yellow */}
-            <span className="absolute bottom-2 right-2 h-4 w-4 bg-green-400 rounded-full ring-2 ring-black"></span>
+
+            {/* 🟡 Status dot (yellow) */}
+            {!loading && (
+              <span className="absolute bottom-2 right-2 h-4 w-4 bg-green-400 rounded-full ring-2 ring-black"></span>
+            )}
           </div>
 
-          {/* ✅ Name color changed to yellow */}
+          {/* 🟡 Name and title */}
           <h2 className="mt-4 text-xl font-semibold text-yellow-400">
             Liben Adugna
           </h2>
-
           <div className="mt-2 inline-block bg-[#222] text-[#ddd] px-3 py-1 rounded-full text-sm">
             Software Developer
           </div>
@@ -45,6 +59,7 @@ const Sidebar: React.FC = () => {
 
         <hr className="my-6 border-t border-[#222]" />
 
+        {/* 🟡 Contact Info */}
         <div className="space-y-4">
           <Item
             icon={<FaEnvelope />}
@@ -59,7 +74,7 @@ const Sidebar: React.FC = () => {
           />
         </div>
 
-        {/* ✅ Updated social links + yellow hover accent */}
+        {/* 🟡 Social Links */}
         <div className="mt-6 flex justify-left gap-6 text-gray-300">
           <a
             aria-label="LinkedIn"
@@ -103,7 +118,7 @@ const Sidebar: React.FC = () => {
   );
 };
 
-// ✅ Item component with yellow accent for icons
+// 🟡 Item component with yellow accent icons
 const Item: React.FC<{ icon: React.ReactNode; title: string; value: string }> = ({
   icon,
   title,
