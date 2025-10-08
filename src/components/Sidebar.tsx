@@ -3,8 +3,7 @@ import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaLinkedin, FaGithub, FaTwitter
 import { motion } from "framer-motion";
 
 const Sidebar: React.FC = () => {
-   const avatar = "https://i.pravatar.cc/300?img=12"; // replace with your avatar
-  // const avatar = "/liben.jpg";
+    const avatar = "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759949739/liben_fupt3c.jpg"; // replace with your avatar
   return (
     <motion.aside
       initial={{ opacity: 0, y: 10 }}
@@ -26,7 +25,7 @@ const Sidebar: React.FC = () => {
         <hr className="my-6 border-t border-[#222]" />
 
         <div className="space-y-4">
-          <Item icon={<FaEnvelope />} title="Email" value="aakashrajbanshi58..." />
+          <Item icon={<FaEnvelope />} title="Email" value="adugnaliben65@gmail.com" />
           <Item icon={<FaPhoneAlt />} title="Phone" value="+251 906169046" />
           <Item icon={<FaMapMarkerAlt />} title="Location" value="Adama, Ethiopia" />
         </div>
