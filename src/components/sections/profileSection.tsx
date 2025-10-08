@@ -127,9 +127,17 @@ const PortfolioSection: React.FC = () => {
 
   return (
     <section className="mt-12 relative z-0">
-      <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-6 border-b border-gray-700 pb-3">
-        Portfolio
-      </h2>
+      <motion.h1
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-4xl md:text-5xl font-bold text-white"
+      >
+        Projects
+      </motion.h1>
+
+      {/* Accent Line */}
+      <div className="h-1 w-20 bg-yellow-400 rounded mt-3 mb-6"></div>
 
       {/* Category Tabs */}
       <div className="flex gap-4 mb-6">

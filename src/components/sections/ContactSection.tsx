@@ -22,10 +22,18 @@ const ContactSection: React.FC = () => {
   };
 
   return (
-    <section className="mt-12 max-w-3xl mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-8 text-center">
+    <section className="mt-5 max-w-3xl mx-auto">
+      <motion.h1
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-4xl md:text-5xl font-bold text-white"
+      >
         Contact Me
-      </h2>
+      </motion.h1>
+
+      {/* Accent Line */}
+      <div className="h-1 w-20 bg-yellow-400 rounded mt-3 mb-6"></div>
 
       {/* 🗺️ Map Section with Loading State */}
       <motion.div

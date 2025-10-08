@@ -7,73 +7,80 @@ interface BlogPost {
   category: string;
   date: string;
   featuredImage: string;
-  content: string;
+  link: string;
   tags: string[];
-  link?: string;
 }
 
 const blogPosts: BlogPost[] = [
   {
-    title: "Building a Chat App with Flutter & Firebase",
-    summary: "Step-by-step guide to building a real-time chat app using Flutter and Firebase.",
-    category: "Mobile",
-    date: "2025-08-10",
-    featuredImage: "https://res.cloudinary.com/prod/image/upload/e_sharpen:150/me/sharpen-portrait.jpg",
-    content: "Full content of the blog goes here...",
-    tags: ["Flutter", "Firebase", "Mobile"],
-    link: "#",
+    title: "Connecting Flutter Frontend with Django Backend: A Complete Guide",
+    summary: "Learn how to integrate your Flutter app with a Django backend for full-stack development.",
+    category: "Mobile / Backend",
+    date: "Oct 2025",
+    featuredImage: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759958313/0_lsdQqPVDMNQxIUM__bvi72n.webp",
+    link: "https://medium.com/@adugnaliben65/connecting-flutter-frontend-with-django-backend-a-complete-guide-52a75fcc6c94",
+    tags: ["Flutter", "Django", "Fullstack"],
   },
   {
-    title: "Optimizing Node.js APIs for High Performance",
-    summary: "Tips and techniques to make your Node.js backend faster and more scalable.",
+    title: "The Unmatched Importance of Python: Unlocking the Power of Modern Programming",
+    summary: "Explore why Python remains one of the most powerful and versatile programming languages today.",
     category: "Backend",
-    date: "2025-07-22",
-    featuredImage: "https://res.cloudinary.com/prod/image/upload/e_sharpen:150/me/sharpen-portrait.jpg",
-    content: "Full content of the blog goes here...",
-    tags: ["Node.js", "Performance", "Backend"],
-    link: "#",
+    date: "Sep 2025",
+    featuredImage: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759958499/0_KsGIANg1sUp_OSOQ_jqr764.webp",
+    link: "https://medium.com/@adugnaliben65/the-unmatched-importance-of-python-unlocking-the-power-of-modern-programming-6660dc19c46b",
+    tags: ["Python", "Programming", "Backend"],
   },
   {
-    title: "Fullstack E-commerce with React & Express",
-    summary: "How to build a full-featured e-commerce platform using React, Express, and MongoDB.",
-    category: "Fullstack",
-    date: "2025-06-15",
-    featuredImage: "https://res.cloudinary.com/prod/image/upload/e_sharpen:150/me/sharpen-portrait.jpg",
-    content: "Full content of the blog goes here...",
-    tags: ["React", "Express", "MongoDB", "Fullstack"],
-    link: "#",
-  },
-  {
-    title: "Designing Modern UI/UX for Mobile Apps",
-    summary: "Principles and practical tips for creating intuitive, modern UI/UX designs.",
-    category: "UI/UX",
-    date: "2025-05-30",
-    featuredImage: "https://res.cloudinary.com/prod/image/upload/e_sharpen:150/me/sharpen-portrait.jpg",
-    content: "Full content of the blog goes here...",
-    tags: ["UI/UX", "Design", "Mobile"],
-    link: "#",
+    title: "Optimizing UI Performance in Flutter: Simple Tips for Better Apps",
+    summary: "Improve your Flutter app performance with simple UI/UX optimization tips for smoother apps.",
+    category: "Mobile / UI",
+    date: "Aug 2025",
+    featuredImage: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759958315/0_Rdbw_vzDDIKKuP1e_opvbpc.webp",
+    link: "https://medium.com/@adugnaliben65/optimizing-ui-performance-in-flutter-simple-tips-for-better-apps-a8835ef3677a",
+    tags: ["Flutter", "UI", "Performance"],
   },
 ];
 
-const categories = ["All", "Mobile", "Fullstack", "Backend", "UI/UX"];
+const categories = ["All", "Mobile", "Backend", "UI"];
 
 const BlogSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [imageLoaded, setImageLoaded] = useState(false);
+
+  // Use a map to track each card's loaded state separately
+  const [loadedImages, setLoadedImages] = useState<{ [key: number]: boolean }>({});
+  const [modalImageLoaded, setModalImageLoaded] = useState(false);
 
   const filteredPosts =
     activeCategory === "All"
       ? blogPosts
-      : blogPosts.filter((post) => post.category === activeCategory);
+      : blogPosts.filter((post) => post.category.includes(activeCategory));
 
   const selectedPost = selectedIndex !== null ? blogPosts[selectedIndex] : null;
 
+  const handleCardClick = (index: number) => {
+    setSelectedIndex(index);
+    setModalImageLoaded(false); // Reset modal image loader
+  };
+
+  const handleCloseModal = () => {
+    setSelectedIndex(null);
+    setModalImageLoaded(false);
+  };
+
   return (
-    <section className="mt-12 relative z-0">
-      <h2 className="text-3xl md:text-4xl font-bold text-yellow-400 mb-6 border-b border-gray-700 pb-3">
+    <section className="mt-5 relative z-0">
+      <motion.h1
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-4xl md:text-5xl font-bold text-white"
+      >
         Blog
-      </h2>
+      </motion.h1>
+
+      {/* Accent Line */}
+      <div className="h-1 w-10 bg-yellow-400 rounded mt-3 mb-6"></div>
 
       {/* Category Tabs */}
       <div className="flex flex-wrap gap-4 mb-6">
@@ -81,7 +88,10 @@ const BlogSection: React.FC = () => {
           <button
             key={cat}
             className={`px-4 py-2 rounded-full font-semibold transition-all duration-300
-              ${activeCategory === cat ? "bg-yellow-400 text-black" : "bg-gray-800 text-gray-300 hover:bg-yellow-400 hover:text-black"}`}
+              ${activeCategory === cat
+                ? "bg-yellow-400 text-black"
+                : "bg-gray-800 text-gray-300 hover:bg-yellow-400 hover:text-black"
+              }`}
             onClick={() => setActiveCategory(cat)}
           >
             {cat}
@@ -90,22 +100,19 @@ const BlogSection: React.FC = () => {
       </div>
 
       {/* Blog Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {filteredPosts.map((post, idx) => (
           <motion.div
             key={post.title}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
-            className="bg-gray-800 rounded-xl shadow-lg overflow-hidden cursor-pointer transition-transform hover:-translate-y-1"
-            onClick={() => {
-              setSelectedIndex(blogPosts.indexOf(post));
-              setImageLoaded(false);
-            }}
+            className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden cursor-pointer hover:shadow-2xl hover:-translate-y-1 transition-transform duration-300"
+            onClick={() => handleCardClick(blogPosts.indexOf(post))}
           >
-            {/* Image with loading */}
+            {/* Card Image */}
             <div className="relative w-full h-48 bg-gray-700 flex items-center justify-center">
-              {!imageLoaded && (
+              {!loadedImages[idx] && (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <svg
                     className="animate-spin h-8 w-8 text-yellow-400"
@@ -113,16 +120,20 @@ const BlogSection: React.FC = () => {
                     fill="none"
                     viewBox="0 0 24 24"
                   >
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25"></circle>
+                    <path fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" className="opacity-75"></path>
                   </svg>
                 </div>
               )}
               <img
                 src={post.featuredImage}
                 alt={post.title}
-                className={`w-full h-full object-cover transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
-                onLoad={() => setImageLoaded(true)}
+                className={`w-full h-full object-cover transition-opacity duration-500 ${
+                  loadedImages[idx] ? "opacity-100" : "opacity-0"
+                }`}
+                onLoad={() =>
+                  setLoadedImages((prev) => ({ ...prev, [idx]: true }))
+                }
               />
             </div>
 
@@ -131,8 +142,15 @@ const BlogSection: React.FC = () => {
                 <span className="text-sm text-gray-400">{post.date}</span>
                 <span className="text-sm text-yellow-400 font-semibold">{post.category}</span>
               </div>
-              <h3 className="text-white font-semibold text-xl">{post.title}</h3>
-              <p className="text-gray-400 mt-2">{post.summary}</p>
+              <h3 className="text-white font-bold text-lg">{post.title}</h3>
+              <a
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-3 inline-block px-4 py-2 bg-yellow-400 text-black font-semibold rounded-xl hover:bg-yellow-300 transition"
+              >
+                Read on Medium
+              </a>
             </div>
           </motion.div>
         ))}
@@ -146,7 +164,7 @@ const BlogSection: React.FC = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedIndex(null)}
+            onClick={handleCloseModal}
           >
             <motion.div
               className="bg-gray-900 rounded-2xl w-full max-w-3xl p-6 relative overflow-y-auto max-h-[90vh]"
@@ -155,17 +173,15 @@ const BlogSection: React.FC = () => {
               exit={{ scale: 0.8 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close */}
               <button
-                onClick={() => setSelectedIndex(null)}
+                onClick={handleCloseModal}
                 className="absolute top-4 right-4 text-gray-400 hover:text-yellow-400 text-2xl font-bold"
               >
                 &times;
               </button>
 
-              {/* Image with loading */}
               <div className="relative w-full h-64 bg-gray-800 flex items-center justify-center mb-4">
-                {!imageLoaded && (
+                {!modalImageLoaded && (
                   <div className="absolute inset-0 flex items-center justify-center">
                     <svg
                       className="animate-spin h-8 w-8 text-yellow-400"
@@ -173,42 +189,37 @@ const BlogSection: React.FC = () => {
                       fill="none"
                       viewBox="0 0 24 24"
                     >
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" className="opacity-25"></circle>
+                      <path fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" className="opacity-75"></path>
                     </svg>
                   </div>
                 )}
                 <img
                   src={selectedPost.featuredImage}
                   alt={selectedPost.title}
-                  className={`w-full h-full object-cover rounded-lg transition-opacity duration-500 ${imageLoaded ? "opacity-100" : "opacity-0"}`}
-                  onLoad={() => setImageLoaded(true)}
+                  className={`w-full h-full object-cover rounded-lg transition-opacity duration-500 ${
+                    modalImageLoaded ? "opacity-100" : "opacity-0"
+                  }`}
+                  onLoad={() => setModalImageLoaded(true)}
                 />
               </div>
 
               <h3 className="text-yellow-400 text-2xl font-bold mb-2">{selectedPost.title}</h3>
               <p className="text-gray-400 mb-2">{selectedPost.date} • {selectedPost.category}</p>
+              <p className="text-gray-400 mt-2 text-sm">{selectedPost.summary}</p>
               <div className="flex flex-wrap gap-2 mb-4">
                 {selectedPost.tags.map((tag, i) => (
                   <span key={i} className="text-xs bg-gray-700 text-yellow-400 px-2 py-1 rounded-full">{tag}</span>
                 ))}
               </div>
-              <p className="text-gray-300 mb-4">{selectedPost.content}</p>
-
-              {/* Share Buttons */}
-              <div className="flex gap-4 mt-4">
-                <a href={`https://twitter.com/share?text=${selectedPost.title}`} target="_blank" className="text-yellow-400 hover:underline">
-                  Twitter
-                </a>
-                <a href={`https://www.linkedin.com/shareArticle?mini=true&title=${selectedPost.title}`} target="_blank" className="text-yellow-400 hover:underline">
-                  LinkedIn
-                </a>
-                {selectedPost.link && (
-                  <a href={selectedPost.link} target="_blank" className="text-yellow-400 hover:underline">
-                    Original
-                  </a>
-                )}
-              </div>
+              <a
+                href={selectedPost.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-yellow-400 text-black font-semibold rounded-xl hover:bg-yellow-300 transition"
+              >
+                Read Full on Medium
+              </a>
             </motion.div>
           </motion.div>
         )}
