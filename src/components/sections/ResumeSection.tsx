@@ -172,7 +172,7 @@ const ResumeSection: React.FC = () => {
   <h1 className="text-3xl font-bold text-white-400">Resume</h1>
 
   <a
-    href="/Liben_Adugna_Resume.pdf" // ← replace with your actual resume file path
+    href="https://drive.google.com/file/d/1NdfWjzkqm2eU2qsW_hh8kvMxyt3CSWsg/view?usp=sharing" // ← replace with your actual resume file path
     download
     className="flex items-center gap-2 bg-yellow-400 text-gray-900 font-semibold px-4 py-2 rounded-xl hover:bg-yellow-300 transition-all duration-300 shadow-md"
   >
