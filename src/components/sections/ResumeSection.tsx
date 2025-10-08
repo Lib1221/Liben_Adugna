@@ -169,7 +169,7 @@ const ResumeSection: React.FC = () => {
   return (
     <section id="resume" className="text-white space-y-10">
       <div className="flex flex-wrap items-center justify-between mb-6 border-b border-gray-700 pb-3">
-  <h1 className="text-3xl font-bold text-yellow-400">Resume</h1>
+  <h1 className="text-3xl font-bold text-white-400">Resume</h1>
 
   <a
     href="/Liben_Adugna_Resume.pdf" // ← replace with your actual resume file path
