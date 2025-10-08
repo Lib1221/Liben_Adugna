@@ -47,16 +47,98 @@ const ResumeSection: React.FC = () => {
     },
   ];
 
-  const certifications = [
+ const certifications = [
     {
-      title: "Dart & Flutter: The Ultimate Mobile App Development Course",
+      title: "Programming Fundamentals",
+      issuer: "Udacity",
+      date: "Jan 2023",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Udacity_logo.svg",
+      description:
+        "Learned core programming concepts, including variables, control structures, data structures, and problem-solving techniques.",
+      skills: ["Programming Logic", "Python", "Algorithms"],
+      link: "https://www.udacity.com/"
+    },
+    {
+      title: "Data Analysis Fundamentals",
+      issuer: "Udacity",
+      date: "Mar 2023",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Udacity_logo.svg",
+      description:
+        "Acquired skills in collecting, cleaning, and analyzing data using Python, NumPy, and pandas to extract insights.",
+      skills: ["Data Analysis", "Python", "NumPy", "pandas"],
+      link: "https://www.udacity.com/"
+    },
+    {
+      title: "Android Developer Fundamentals",
+      issuer: "Udacity",
+      date: "May 2023",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Udacity_logo.svg",
+      description:
+        "Developed Android applications using Java and Android Studio, focusing on layouts, activities, and UI navigation.",
+      skills: ["Android", "Java", "Mobile Development"],
+      link: "https://www.udacity.com/"
+    },
+    {
+      title: "Artificial Intelligence Fundamentals",
+      issuer: "Udacity",
+      date: "Jul 2023",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Udacity_logo.svg",
+      description:
+        "Explored core AI principles such as search algorithms, machine learning, and neural networks with hands-on examples.",
+      skills: ["Artificial Intelligence", "Machine Learning", "Python"],
+      link: "https://www.udacity.com/"
+    },
+    {
+      title: "AI and Career Empowerment",
+      issuer: "University of Maryland – Robert H. Smith School of Business",
+      date: "Sep 2023",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/1/1d/University_of_Maryland_seal.svg",
+      description:
+        "Developed AI literacy and professional growth strategies to navigate AI-driven career transformation and innovation.",
+      skills: ["AI Literacy", "Career Development", "Leadership"],
+      link: "https://www.rhsmith.umd.edu/"
+    },
+    {
+      title: "Communication Skills: Acquire Effective Communication",
       issuer: "Udemy",
-      date: "Oct 2025",
+      date: "Nov 2023",
       logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
       description:
-        "Learned Flutter app development, Dart programming, state management, and responsive UI design.",
-      skills: ["Flutter", "Dart", "UI Design", "Mobile Apps"],
-      link: "https://www.udemy.com/certificate/your-link"
+        "Improved verbal, written, and interpersonal communication skills for professional and team collaboration.",
+      skills: ["Communication", "Interpersonal Skills", "Public Speaking"],
+      link: "https://www.udemy.com/"
+    },
+    {
+      title: "Professional Diploma in Leadership",
+      issuer: "Udemy",
+      date: "Jan 2024",
+      logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+      description:
+        "Enhanced leadership capabilities, emotional intelligence, and team motivation for organizational success.",
+      skills: ["Leadership", "Team Management", "Decision Making"],
+      link: "https://www.udemy.com/"
+    },
+
+    {
+      title: "Strategic Thinking for Leaders and Managers",
+      issuer: "Udemy",
+      date: "Mar 2024",
+      logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+      description:
+        "Learned strategic planning, problem-solving, and organizational analysis to lead teams effectively.",
+      skills: ["Strategic Thinking", "Leadership", "Planning"],
+      link: "https://www.udemy.com/"
+    },
+
+    {
+      title: "Lean Problem Solving: Creative Solutions for Teams and Leaders",
+      issuer: "Udemy",
+      date: "May 2024",
+      logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+      description:
+        "Mastered lean problem-solving tools and creative thinking techniques to enhance team performance and innovation.",
+      skills: ["Problem Solving", "Lean Thinking", "Creativity"],
+      link: "https://www.udemy.com/"
     },
 
     {
@@ -71,38 +153,17 @@ const ResumeSection: React.FC = () => {
     },
 
     {
-      title: "Dart & Flutter: The Ultimate Mobile App Development Course",
-      issuer: "Udemy",
-      date: "Oct 2025",
-      logo: "https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg",
+      title: "ALX AI Career Essentials",
+      issuer: "ALX",
+      date: "Dec 2024",
+      logo: "https://pbs.twimg.com/profile_images/1717554980876929024/gFAybP0a_400x400.jpg",
       description:
-        "Learned Flutter app development, Dart programming, state management, and responsive UI design.",
-      skills: ["Flutter", "Dart", "UI Design", "Mobile Apps"],
-      link: "https://www.udemy.com/certificate/your-link"
-    },
-
-    
-    {
-      title: "Advanced Django & REST API Development",
-      issuer: "Coursera",
-      date: "Sep 2024",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/7/7e/Coursera_logo.svg",
-      description:
-        "Built RESTful APIs, managed Django ORM, authentication, and deployed full-stack web apps.",
-      skills: ["Django", "REST API", "Python", "PostgreSQL"],
-      link: "https://www.coursera.org/account/accomplishments"
-    },
-    {
-      title: "Google Data Analytics Professional Certificate",
-      issuer: "Google",
-      date: "Jun 2023",
-      logo: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg",
-      description:
-        "Gained skills in data cleaning, visualization, and storytelling using real business datasets.",
-      skills: ["Data Analysis", "SQL", "Visualization", "Spreadsheets"],
-      link: "https://grow.google/certificates/data-analytics/"
+        "Gained foundational understanding of AI tools, prompt engineering, and career readiness for AI-driven industries.",
+      skills: ["AI Tools", "Prompt Engineering", "Career Skills"],
+      link: "https://intranet.alxswe.com/certificates/nryHeJML8T"
     }
   ];
+  
   
 
   return (
