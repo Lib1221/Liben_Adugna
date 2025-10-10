@@ -69,7 +69,7 @@ const BlogSection: React.FC = () => {
   };
 
   return (
-    <section className="mt-5 relative z-0">
+    <section className="mt-1 relative z-0">
       <motion.h1
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
