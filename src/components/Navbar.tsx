@@ -17,7 +17,7 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
             <li
               key={it}
               className={`
-                text-sm cursor-pointer px-3 py-1 rounded-full transition-all duration-300
+                text-sm cursor-pointer px-3 py-1 rounded-full duration-300
                 ${isSelected ? "bg-yellow-400 text-black font-semibold" : "text-gray-300 hover:bg-yellow-400 hover:text-black"}
               `}
               onClick={() => setSelected(it)}
