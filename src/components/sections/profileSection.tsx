@@ -16,7 +16,57 @@ interface Project {
   category: "Mobile" | "Backend" | "Web";
 }
 
-const projects: Project[] = [
+
+  const projects: Project[] = [
+  // 🛒 Full Stack eCommerce App
+  {
+    title: "eCommerce App",
+    description:
+      "A full-featured mobile-first eCommerce platform built with Django and Flutter. Includes secure authentication, Stripe payments, and a powerful admin panel.",
+    technologies: [
+      "Django",
+      "Django REST Framework",
+      "Flutter",
+      "Stripe API",
+      "PostgreSQL",
+      "GetX",
+    ],
+    role: "Full Stack Developer",
+    duration: "2025",
+    features: [
+      "OAuth2 authentication with refresh tokens",
+      "Product catalog, search, and categories",
+      "Cart management and order tracking",
+      "Stripe PaymentSheet integration",
+      "Django Admin for user and product management",
+    ],
+    image:
+      "https://cdn.dribbble.com/userupload/12505408/file/original-4a4cb74637e6d92fcd0379878678de06.png?resize=1200x900",
+    repoLink: "https://github.com/lib1221/ecommerce-full-stack-mobile",
+    category: "Mobile",
+  },
+
+  // 💰 Mela Loan Comparison App
+  {
+    title: "Mela Loan Comparison App",
+    description:
+      "A Flutter mobile app that helps users compare loan options from different banks and choose the best offer. Includes smart loan calculators and intuitive comparison charts.",
+    technologies: ["Flutter", "Dart", "GetX", "Firebase"],
+    role: "Mobile App Developer",
+    duration: "2025",
+    features: [
+      "Loan comparison by interest rate, amount, and duration",
+      "Real-time data with Firebase integration",
+      "Modern, responsive UI with GetX state management",
+      "User-friendly loan calculator and detailed breakdowns",
+    ],
+    image:
+      "https://cdn.dribbble.com/users/14057653/screenshots/20256665/media/a43011cf2ac36b7c53cf99659d988d59.jpg",
+    repoLink: "https://github.com/wako-coder/mela-App",
+    category: "Mobile",
+  },
+
+  // 🌾 Smart Gebere
   {
     title: "Smart Gebere",
     description:
@@ -35,6 +85,76 @@ const projects: Project[] = [
     youtubeLink: "https://youtu.be/C8Kw2S8Khf0",
     category: "Mobile",
   },
+
+  // 🍔 Flutter Food Delivery
+  {
+    title: "Flutter Food Delivery",
+    description:
+      "A modern Flutter-based food ordering app where users can browse food categories, place orders, make payments via Stripe, and track deliveries with map integration.",
+    technologies: [
+      "Flutter",
+      "Firebase Authentication",
+      "Cloud Firestore",
+      "Stripe",
+      "Dio",
+      "OpenStreetMap API",
+    ],
+    role: "Mobile App Developer",
+    duration: "2025",
+    features: [
+      "User signup/login with Firebase Authentication",
+      "Category-based food browsing and order placement",
+      "Stripe-powered secure payment integration",
+      "Map view for delivery tracking and restaurant locations",
+      "Real-time order and data storage with Firestore",
+    ],
+    image:
+      "https://cdn.dribbble.com/users/1162077/screenshots/16288806/media/ed43ec25e7808c7bfb54f8de52f265e8.png",
+    repoLink: "https://github.com/Lib1221/flutter-food_delivery",
+    category: "Mobile",
+  },
+
+  // 🃏 Crazy Game
+  {
+    title: "Crazy Game",
+    description:
+      "A real-time multiplayer card game built with Flutter and Firebase, featuring chat, game rooms, leaderboards, and themed UI design.",
+    technologies: ["Flutter", "Firebase", "Provider", "Firestore"],
+    role: "Mobile App Developer",
+    duration: "2025",
+    features: [
+      "Real-time multiplayer game logic and chat",
+      "Turn-based gameplay mechanics",
+      "User authentication and profiles",
+      "Leaderboards and achievements",
+      "Dynamic, themed game UI",
+    ],
+    image: "https://img.freepik.com/free-vector/card-game-illustration_1284-15725.jpg",
+    repoLink: "https://github.com/Lib1221/Crazy-Game",
+    category: "Mobile",
+  },
+
+  // 🛍️ Advanced Java Shopping Web Application
+  {
+    title: "Advanced Java Shopping Web Application",
+    description:
+      "A full-featured e-commerce web application built using Java Servlets and JSP, featuring product search, cart management, and an admin panel.",
+    technologies: ["Java", "Servlet", "JSP", "MySQL", "Tomcat"],
+    role: "Full Stack Java Developer",
+    duration: "2025",
+    features: [
+      "User and admin authentication system",
+      "Product listing, search, and details pages",
+      "Shopping cart functionality with order management",
+      "Admin dashboard for user and product management",
+    ],
+    image: "https://img.youtube.com/vi/qLFG0Y1u77g/0.jpg",
+    repoLink: "https://github.com/your-username/Advanced_java_shopping",
+    youtubeLink: "https://www.youtube.com/watch?v=qLFG0Y1u77g",
+    category: "Web",
+  },
+
+  // 💼 Portfolio Website
   {
     title: "Portfolio Website",
     description:
@@ -47,23 +167,28 @@ const projects: Project[] = [
       "Dark/light mode toggle",
       "Integrated resume download and GitHub links",
     ],
-    image: "https://res.cloudinary.com/prod/image/upload/e_sharpen:150/me/sharpen-portrait.jpg",
+    image:
+      "https://res.cloudinary.com/prod/image/upload/e_sharpen:150/me/sharpen-portrait.jpg",
     repoLink: "https://github.com/libenadugna/portfolio",
     liveDemo: "https://libenadugna.vercel.app",
     category: "Web",
   },
+
+  // ⚙️ Backend API Service
   {
     title: "Backend API Service",
-    description: "A RESTful API built with Django and PostgreSQL for managing user data and authentication.",
+    description:
+      "A RESTful API built with Django and PostgreSQL for managing user data, authentication, and CRUD operations.",
     technologies: ["Django", "PostgreSQL", "Docker"],
     role: "Backend Developer",
     duration: "2025",
     features: ["User authentication", "CRUD endpoints", "Dockerized service"],
     repoLink: "https://github.com/libenadugna/backend-api",
-    liveDemo: "",
     category: "Backend",
   },
 ];
+
+
 
 
 const techIcons: Record<string, JSX.Element> = {
