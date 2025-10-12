@@ -214,7 +214,7 @@ const ProjectsSection: React.FC = () => {
   const categories: Array<"All" | "Mobile" | "Backend" | "Web"> = ["All", "Mobile", "Backend", "Web"];
 
   return (
-    <div className="py-8 px-4 max-w-5xl mx-auto text-white">
+    <div className=" px-4 max-w-5xl mx-auto text-white">
       <motion.h1
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -265,7 +265,7 @@ const ProjectsSection: React.FC = () => {
               />
             )}
 
-            <p className="text-gray-400 italic mb-2">{project.description}</p>
+            <h4 className="text-gray-400 italic mb-2">{project.description}</h4>
 
             {project.features && (
               <ul className="list-disc list-inside text-gray-400 mb-2 space-y-1">

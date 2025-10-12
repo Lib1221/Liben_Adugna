@@ -7,17 +7,33 @@ import {
   SiDjango,
   SiPython,
   SiPostman,
+  SiTailwindcss,
+  SiPostgresql,
+  SiGit,
+  SiGithub,
+  SiFramer,
+  SiStripe,
+  SiNodedotjs,
+  SiGetx,
 } from "react-icons/si";
 import { motion } from "framer-motion";
 
 const skills = [
   { icon: <SiFlutter />, label: "Flutter", color: "#02569B" },
+  { icon: <SiGetx />, label: "GetX", color: "#6CC644" },
   { icon: <SiFirebase />, label: "Firebase", color: "#FFCA28" },
-  { icon: <SiTypescript />, label: "TypeScript", color: "#3178C6" },
   { icon: <SiReact />, label: "React", color: "#61DAFB" },
+  { icon: <SiTypescript />, label: "TypeScript", color: "#3178C6" },
+  { icon: <SiTailwindcss />, label: "Tailwind CSS", color: "#38BDF8" },
   { icon: <SiDjango />, label: "Django", color: "#092E20" },
   { icon: <SiPython />, label: "Python", color: "#3776AB" },
+  { icon: <SiPostgresql />, label: "PostgreSQL", color: "#336791" },
+  { icon: <SiStripe />, label: "Stripe", color: "#635BFF" },
+  { icon: <SiNodedotjs />, label: "Node.js", color: "#68A063" },
   { icon: <SiPostman />, label: "Postman", color: "#FF6C37" },
+  { icon: <SiFramer />, label: "Framer Motion", color: "#0055FF" },
+  { icon: <SiGit />, label: "Git", color: "#F05032" },
+  { icon: <SiGithub />, label: "GitHub", color: "#FFFFFF" },
 ];
 
 // Duplicate the array for an infinite loop
@@ -41,7 +57,7 @@ const SkillsSection: React.FC = () => {
             x: {
               repeat: Infinity,
               repeatType: "loop",
-              duration: 25, // slow smooth scroll
+              duration: 10, // slow smooth scroll
               ease: "linear",
             },
           }}

@@ -1,13 +1,34 @@
 import React from "react";
-import { FaMobileAlt, FaLaptopCode, FaPalette, FaServer } from "react-icons/fa";
+import { FaMobileAlt, FaLaptopCode, FaBrain, FaServer } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const cards = [
-  { icon: <FaMobileAlt />, title: "Mobile Apps", text: "Professional development of applications for Android and iOS.", color: "#4F46E5" }, // Indigo
-  { icon: <FaLaptopCode />, title: "Web Development", text: "High-quality development of websites at a professional level.", color: "#10B981" }, // Green
-  { icon: <FaPalette />, title: "UI/UX Design", text: "Modern and high-quality UI/UX design.", color: "#F59E0B" }, // Yellow
-  { icon: <FaServer />, title: "Backend Development", text: "High-performance backend services designed for scalability.", color: "#EF4444" }, // Red
+  { 
+    icon: <FaMobileAlt />, 
+    title: "Mobile Apps", 
+    text: "Professional development of applications for Android and iOS.", 
+    color: "#4F46E5" // Indigo
+  },
+  { 
+    icon: <FaLaptopCode />, 
+    title: "Web Development", 
+    text: "High-quality development of websites at a professional level.", 
+    color: "#10B981" // Green
+  },
+  { 
+    icon: <FaServer />, 
+    title: "Backend Development", 
+    text: "High-performance backend services designed for scalability.", 
+    color: "#EF4444" // Red
+  },
+  { 
+    icon: <FaBrain />, 
+    title: "Competitive Programming", 
+    text: "Solving algorithmic and data structure problems efficiently for competitions.", 
+    color: "#8B5CF6" // Purple
+  },
 ];
+
 
 const ServicesSection: React.FC = () => {
   return (
