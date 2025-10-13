@@ -13,41 +13,14 @@ interface Project {
   repoLink?: string;
   liveDemo?: string;
   youtubeLink?: string;
-  category: "Mobile" | "Backend" | "Web";
+  category: "Mobile" | "Web";
 }
 
 
   const projects: Project[] = [
   // 🛒 Full Stack eCommerce App
 
-  {
-    title: "Gosho Dating App",
-    description:
-      "A modern dating app designed for genuine connections. Built with Flutter and Firebase using Riverpod and Cubit for efficient state management. Includes real-time chat, social login, and secure profile management.",
-    technologies: [
-      "Flutter",
-      "Firebase",
-      "Riverpod",
-      "Cubit",
-      "Google Sign-In",
-      "Facebook Login",
-      "Cloud Firestore",
-    ],
-    role: "Mobile App Developer",
-    duration: "2025",
-    features: [
-      "Google, Facebook, and Email authentication integration",
-      "Swipe-based matching with like/dislike system",
-      "Real-time chat with message reactions and typing indicators",
-      "Profile customization with photo upload and bio editing",
-      "User discovery with distance and interest filters",
-      "Dark/Light theme support with persistent settings",
-    ],
-    image:
-      "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_1_xqfntf.png",
-    repoLink: "https://github.com/lib1221/gosho-dating-app",
-    category: "Mobile",
-  },
+  
 
   
 
@@ -88,6 +61,34 @@ interface Project {
     image: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_2_xmic9m.png",
     repoLink: "https://github.com/lib1221/Smart_Gebere",
     youtubeLink: "https://youtu.be/C8Kw2S8Khf0",
+    category: "Mobile",
+  },
+  {
+    title: "Gosho Dating App",
+    description:
+      "A modern dating app designed for genuine connections. Built with Flutter and Firebase using Riverpod and Cubit for efficient state management. Includes real-time chat, social login, and secure profile management.",
+    technologies: [
+      "Flutter",
+      "Firebase",
+      "Riverpod",
+      "Cubit",
+      "Google Sign-In",
+      "Facebook Login",
+      "Cloud Firestore",
+    ],
+    role: "Mobile App Developer",
+    duration: "2025",
+    features: [
+      "Google, Facebook, and Email authentication integration",
+      "Swipe-based matching with like/dislike system",
+      "Real-time chat with message reactions and typing indicators",
+      "Profile customization with photo upload and bio editing",
+      "User discovery with distance and interest filters",
+      "Dark/Light theme support with persistent settings",
+    ],
+    image:
+      "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_1_xqfntf.png",
+    repoLink: "https://github.com/lib1221/gosho-dating-app",
     category: "Mobile",
   },
 
@@ -229,7 +230,7 @@ interface Project {
       "Integrated resume download and GitHub links",
     ],
     image:
-      "https://res.cloudinary.com/prod/image/upload/e_sharpen:150/me/sharpen-portrait.jpg",
+      "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760339187/Contact_j5lvc6.png",
     repoLink: "https://github.com/libenadugna/portfolio",
     liveDemo: "https://libenadugna.vercel.app",
     category: "Web",
@@ -261,7 +262,7 @@ const ProjectsSection: React.FC = () => {
   const filteredProjects =
     selectedCategory === "All" ? projects : projects.filter((p) => p.category === selectedCategory);
 
-  const categories: Array<"All" | "Mobile" | "Backend" | "Web"> = ["All", "Mobile", "Backend", "Web"];
+  const categories: Array<"All" | "Mobile" | "Web"> = ["All", "Mobile", "Web"];
 
   return (
     <div className=" px-4 max-w-5xl mx-auto text-white">
@@ -307,13 +308,14 @@ const ProjectsSection: React.FC = () => {
             <h4 className="font-bold text-white text-lg">{project.title}</h4>
             <p className="text-yellow-500">{project.role}</p>
 
-            {project.image && (
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full max-w-md max-h-48 object-cover rounded-lg mb-4 shadow-lg"
-              />
-            )}
+            {project.image && project.image.trim() !== "" && (
+  <img
+    src={project.image}
+    alt={project.title}
+    className="w-full max-w-md max-h-48 object-cover rounded-lg mb-4 shadow-lg"
+  />
+)}
+
 
             <h4 className="text-gray-400 italic mb-2">{project.description}</h4>
 
