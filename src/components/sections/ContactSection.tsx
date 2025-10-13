@@ -16,10 +16,19 @@ const ContactSection: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+  
+    const subject = encodeURIComponent(`Message from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+  
+    // Open default email app with prefilled content
+    window.location.href = `mailto:adugnaliben65@gmail.com?subject=${subject}&body=${body}`;
+  
     setSubmitted(true);
     setFormData({ name: "", email: "", message: "" });
   };
+  
 
   return (
     <section className="mt-1 max-w-3xl mx-auto">
