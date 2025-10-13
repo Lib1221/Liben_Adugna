@@ -22,7 +22,7 @@ const ContactSection: React.FC = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "518274f7-4347-4b0e-8359-45a9a3b4cfe9", // 👈 Replace with your Web3Forms access key
+          access_key: "b4958228-cdbd-438f-9bea-e0def7a6b3c1", // 👈 Replace with your Web3Forms access key
           ...formData,
         }),
       });
