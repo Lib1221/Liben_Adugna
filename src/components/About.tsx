@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const About: React.FC = () => {
   const highlights = [
     { title: "Experience", desc: "3+ years building mobile & web apps." },
-    { title: "Education", desc: "Top-ranked student in Computer Science." },
+    { title: "Education", desc: "Top-ranked student in software engineering." },
     { title: "Certificates", desc: "Flutter & Dart Ultimate Course + more." },
   ];
 
