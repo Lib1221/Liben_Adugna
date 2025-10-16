@@ -11,13 +11,15 @@ function App() {
 
       {/* 🧱 Main layout */}
       <div className="relative z-10 p-8 max-w-7xl mx-auto grid grid-cols-12 gap-8">
-        {/* Left sidebar */}
-        <div className="col-span-12 lg:col-span-4">
-          <Sidebar />
+        {/* Left sidebar - fixed but slightly inward */}
+        <div className="col-span-12 lg:col-span-3">
+          <div className="lg:fixed lg:top-30 lg:left-[20%] lg:h-screen lg:w-[20%] p-6">
+            <Sidebar />
+          </div>
         </div>
 
-        {/* Right main content */}
-        <div className="col-span-12 lg:col-span-8">
+        {/* Right main content - more width & centered feel */}
+        <div className="col-span-12 lg:col-span-9 lg:ml-[23%]">
           <Main />
         </div>
       </div>
