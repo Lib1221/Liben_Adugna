@@ -22,7 +22,7 @@ const Sidebar: React.FC = () => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
-      className="sticky top-20"
+      className="sticky top-20 hidden md:block"
     >
       <div className="glass rounded-xl p-6 shadow-soft border border-transparent panel-bg">
         <div className="flex flex-col items-center">
@@ -104,4 +104,45 @@ const SocialLink: React.FC<{ icon: React.ReactNode; url: string }> = ({ icon, ur
   </a>
 );
 
-export default Sidebar;
+const MobileBottomNav: React.FC = () => {
+  return (
+    <div className="md:hidden fixed bottom-0 inset-x-0 z-50">
+      <div className="mx-auto max-w-xl">
+        <nav className="m-4 rounded-2xl bg-[#0b0b0b]/80 backdrop-blur border border-[#1f1f1f] shadow-lg">
+          <ul className="flex justify-around items-center py-3 text-gray-300">
+            <li>
+              <a href="mailto:adugnaliben65@gmail.com" aria-label="Email" className="p-2 rounded-full hover:bg-[#1a1a1a] hover:text-yellow-400 transition">
+                <FaEnvelope size={22} />
+              </a>
+            </li>
+            <li>
+              <a href="tel:+251906169046" aria-label="Call" className="p-2 rounded-full hover:bg-[#1a1a1a] hover:text-yellow-400 transition">
+                <FaPhoneAlt size={22} />
+              </a>
+            </li>
+            <li>
+              <SocialLink icon={<FaGithub size={22} />} url="https://github.com/lib1221" />
+            </li>
+            <li>
+              <SocialLink icon={<FaLinkedin size={22} />} url="https://www.linkedin.com/in/liben-adugna-6b192a2b9/" />
+            </li>
+            <li>
+              <SocialLink icon={<FaTelegram size={22} />} url="https://t.me/liben12" />
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  );
+};
+
+const WrappedSidebar: React.FC = () => {
+  return (
+    <>
+      <Sidebar />
+      <MobileBottomNav />
+    </>
+  );
+};
+
+export default WrappedSidebar;
