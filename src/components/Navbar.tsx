@@ -22,30 +22,60 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
   ];
 
   return (
-    <nav className="flex justify-end mb-6">
-      <ul className="flex gap-2 sm:gap-4 items-center">
-        {items.map((item) => {
-          const isSelected = selected === item.label;
-          return (
-            <li
-              key={item.label}
-              onClick={() => setSelected(item.label)}
-              className={`cursor-pointer flex items-center justify-center px-3 py-2 rounded-full duration-300
+    <>
+      {/* Desktop/top navbar */}
+      <nav className="hidden md:flex justify-end mb-6">
+        <ul className="flex gap-2 lg:gap-4 items-center">
+          {items.map((item) => {
+            const isSelected = selected === item.label;
+            return (
+              <li
+                key={item.label}
+                onClick={() => setSelected(item.label)}
+                className={`cursor-pointer flex items-center justify-center px-3 py-2 rounded-full duration-300
                 ${
                   isSelected
                     ? "bg-yellow-400 text-black font-semibold"
                     : "text-gray-300 hover:bg-yellow-400 hover:text-black"
                 }
               `}
-            >
-              {/* 📱 Show icon on small screens, 🖥️ text on larger */}
-              <span className="sm:hidden">{item.icon}</span>
-              <span className="hidden sm:inline text-sm">{item.label}</span>
-            </li>
-          );
-        })}
-      </ul>
-    </nav>
+              >
+                <span className="hidden sm:inline text-sm">{item.label}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </nav>
+
+      {/* Mobile/bottom navbar */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 z-50">
+        <div className="mx-auto max-w-xl">
+          <nav className="m-4 rounded-2xl bg-[#0b0b0b]/80 backdrop-blur border border-[#1f1f1f] shadow-lg">
+            <ul className="flex justify-around items-center py-3 text-gray-300">
+              {items.map((item) => {
+                const isSelected = selected === item.label;
+                return (
+                  <li key={item.label}>
+                    <button
+                      type="button"
+                      aria-label={item.label}
+                      onClick={() => setSelected(item.label)}
+                      className={`p-2 rounded-full transition ${
+                        isSelected
+                          ? "bg-yellow-400 text-black"
+                          : "hover:bg-[#1a1a1a] hover:text-yellow-400"
+                      }`}
+                    >
+                      {item.icon}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </>
   );
 };
 
