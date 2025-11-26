@@ -36,9 +36,8 @@ const Sidebar: React.FC = () => {
             <motion.img
               src={avatar}
               alt="Liben Adugna"
-              className={`h-32 w-32 rounded-full object-cover transition-opacity duration-700 ${
-                loading ? "opacity-0" : "opacity-100"
-              }`}
+              className={`h-32 w-32 rounded-full object-cover transition-opacity duration-700 ${loading ? "opacity-0" : "opacity-100"
+                }`}
               onLoad={() => setLoading(false)}
             />
 
@@ -51,7 +50,7 @@ const Sidebar: React.FC = () => {
             Liben Adugna
           </h2>
           <div className="mt-2 inline-block bg-[#222] text-[#ddd] px-3 py-1 rounded-full text-sm">
-            Software Developer
+            Software & Laravel Developer
           </div>
         </div>
 

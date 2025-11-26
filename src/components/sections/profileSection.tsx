@@ -1,6 +1,6 @@
 import React, { useState, type JSX } from "react";
 import { motion } from "framer-motion";
-import { SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiDjango, SiPostgresql, SiDocker, SiMongodb } from "react-icons/si";
+import { SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiDjango, SiPostgresql, SiDocker, SiMongodb, SiLaravel } from "react-icons/si";
 
 interface Project {
   title: string;
@@ -17,12 +17,28 @@ interface Project {
 }
 
 
-  const projects: Project[] = [
+const projects: Project[] = [
   // 🛒 Full Stack eCommerce App
+  {
+    title: "Private Enterprise System",
+    description:
+      "A large-scale enterprise application built with Laravel and Vue.js. Features complex role-based access control, real-time reporting, and integration with multiple third-party services. (Private Project)",
+    technologies: ["Laravel", "Vue.js", "MySQL", "Redis"],
+    role: "Full Stack Developer",
+    duration: "2025",
+    features: [
+      "Role-Based Access Control (RBAC)",
+      "Real-time data visualization",
+      "Automated reporting system",
+      "Secure API integration",
+    ],
+    image: "https://via.placeholder.com/600x400?text=Private+Project", // Placeholder image
+    category: "Web",
+  },
 
-  
 
-  
+
+
 
   // 💰 Mela Loan Comparison App
   {
@@ -157,7 +173,7 @@ interface Project {
     repoLink: "https://github.com/lib1221/flutter-exam",
     category: "Mobile",
   },
-  
+
 
   // 🍔 Flutter Food Delivery
   {
@@ -214,7 +230,7 @@ interface Project {
     category: "Mobile",
   },
 
- 
+
 
   // 💼 Portfolio Website
   {
@@ -236,7 +252,7 @@ interface Project {
     category: "Web",
   },
 
-  
+
 ];
 
 
@@ -254,6 +270,7 @@ const techIcons: Record<string, JSX.Element> = {
   PostgreSQL: <SiPostgresql className="text-blue-700 w-4 h-4" />,
   Docker: <SiDocker className="text-blue-500 w-4 h-4" />,
   MongoDB: <SiMongodb className="text-green-600 w-4 h-4" />,
+  Laravel: <SiLaravel className="text-red-600 w-4 h-4" />,
 };
 
 const ProjectsSection: React.FC = () => {
@@ -282,11 +299,10 @@ const ProjectsSection: React.FC = () => {
           <button
             key={cat}
             onClick={() => setSelectedCategory(cat)}
-            className={`px-4 py-2 rounded-full font-medium transition-colors ${
-              selectedCategory === cat
-                ? "bg-yellow-400 text-gray-900"
-                : "bg-gray-800 text-yellow-400 hover:bg-yellow-500"
-            }`}
+            className={`px-4 py-2 rounded-full font-medium transition-colors ${selectedCategory === cat
+              ? "bg-yellow-400 text-gray-900"
+              : "bg-gray-800 text-yellow-400 hover:bg-yellow-500"
+              }`}
           >
             {cat}
           </button>
@@ -309,12 +325,12 @@ const ProjectsSection: React.FC = () => {
             <p className="text-yellow-500">{project.role}</p>
 
             {project.image && project.image.trim() !== "" && (
-  <img
-    src={project.image}
-    alt={project.title}
-    className="w-full max-w-md max-h-48 object-cover rounded-lg mb-4 shadow-lg"
-  />
-)}
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full max-w-md max-h-48 object-cover rounded-lg mb-4 shadow-lg"
+              />
+            )}
 
 
             <h4 className="text-gray-400 italic mb-2">{project.description}</h4>

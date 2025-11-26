@@ -19,7 +19,7 @@ const AboutSection: React.FC = () => {
 
       {/* About Text */}
       <p className="text-gray-300 leading-relaxed text-base md:text-lg max-w-3xl">
-        A passionate Flutter developer with strong expertise in cross-platform apps, REST APIs, UI/UX,
+        A passionate Software & Laravel Developer with strong expertise in cross-platform apps, REST APIs, UI/UX,
         widgets, and state management solutions. Proven track record in delivering cutting-edge
         solutions, including API integration, third-party libraries, and performance optimization. Adept at
         debugging to ensure high-quality, responsive apps. An agile collaborator committed to staying current with industry trends.

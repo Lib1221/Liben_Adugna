@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  SiLaravel,
   SiFlutter,
   SiFirebase,
   SiTypescript,
@@ -19,6 +20,7 @@ import {
 import { motion } from "framer-motion";
 
 const skills = [
+  { icon: <SiLaravel />, label: "Laravel", color: "#FF2D20" },
   { icon: <SiFlutter />, label: "Flutter", color: "#02569B" },
   { icon: <SiGetx />, label: "GetX", color: "#6CC644" },
   { icon: <SiFirebase />, label: "Firebase", color: "#FFCA28" },

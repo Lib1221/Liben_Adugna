@@ -10,3 +10,17 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: white; /* or bg-white in JSX */
 }
+
+@layer components {
+  .glass {
+    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+  }
+  
+  .panel-bg {
+    @apply bg-[#111]/80;
+  }
+  
+  .shadow-soft {
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  }
+}
