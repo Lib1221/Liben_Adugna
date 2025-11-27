@@ -2,6 +2,7 @@ import React from "react";
 import SplashCursor from "./components/sections/splashmouse"; // 🟣 Fluid cursor effect
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
+import AIChatbot from "./components/AIChatbot"; // 🤖 AI Assistant
 import { Analytics } from "@vercel/analytics/react";
 
 function App() {
@@ -25,7 +26,10 @@ function App() {
         </div>
       </div>
 
-      <Analytics /> 
+      {/* 🤖 AI Assistant - Floating Chatbot */}
+      <AIChatbot />
+
+      <Analytics />
     </div>
   );
 }
