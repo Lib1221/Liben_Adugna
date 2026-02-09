@@ -1,34 +1,68 @@
-import React from "react";
-import SplashCursor from "./components/sections/splashmouse"; // 🟣 Fluid cursor effect
+import React, { useEffect, useState } from "react";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
-import AIChatbot from "./components/AIChatbot"; // 🤖 AI Assistant
+import AIChatbot from "./components/AIChatbot";
+import Footer from "./components/Footer";
+import ScrollToTop from "./components/ScrollToTop";
 import { Analytics } from "@vercel/analytics/react";
+
+// Scroll Progress Component
+const ScrollProgress: React.FC = () => {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPosition = window.scrollY;
+      const scrollPercentage = totalHeight > 0 ? (scrollPosition / totalHeight) * 100 : 0;
+      setProgress(scrollPercentage);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div 
+      className="scroll-progress"
+      style={{ width: `${progress}%` }}
+    />
+  );
+};
 
 function App() {
   return (
-    <div className="relative min-h-screen w-full bg-gradient-to-br from-[#070707] to-[#0f0f0f] overflow-hidden">
-      {/* 🔮 Splash cursor layer */}
-      <SplashCursor />
+    <div className="min-h-screen w-full bg-dark-500">
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
 
-      {/* 🧱 Main layout */}
-      <div className="relative z-10 p-8 max-w-7xl mx-auto grid grid-cols-12 gap-8">
-        {/* Left sidebar - fixed but slightly inward */}
-        <div className="col-span-12 lg:col-span-3">
-          <div className="lg:fixed lg:top-30 lg:left-[20%] lg:h-screen lg:w-[20%] p-6">
-            <Sidebar />
+      {/* Main layout */}
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left sidebar */}
+          <div className="w-full lg:w-80 flex-shrink-0">
+            <div className="lg:sticky lg:top-8">
+              <Sidebar />
+            </div>
           </div>
-        </div>
 
-        {/* Right main content - more width & centered feel */}
-        <div className="col-span-12 lg:col-span-9 lg:ml-[23%]">
-          <Main />
+          {/* Right main content */}
+          <div className="flex-1 min-w-0">
+            <Main />
+          </div>
         </div>
       </div>
 
-      {/* 🤖 AI Assistant - Floating Chatbot */}
+      {/* Footer */}
+      <Footer />
+
+      {/* Scroll to Top */}
+      <ScrollToTop />
+
+      {/* AI Assistant */}
       <AIChatbot />
 
+      {/* Analytics */}
       <Analytics />
     </div>
   );

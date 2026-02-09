@@ -5,75 +5,112 @@ import {
   FolderKanban,
   BookOpen,
   Mail,
-} from "lucide-react"; // ✅ clean icon set
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 interface NavbarProps {
   selected: string;
   setSelected: (value: string) => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
-  const items = [
-    { label: "About", icon: <User size={20} /> },
-    { label: "Resume", icon: <FileText size={20} /> },
-    { label: "Portfolio", icon: <FolderKanban size={20} /> },
-    { label: "Blog", icon: <BookOpen size={20} /> },
-    { label: "Contact", icon: <Mail size={20} /> },
-  ];
+const items = [
+  { label: "About", icon: <User size={20} /> },
+  { label: "Resume", icon: <FileText size={20} /> },
+  { label: "Portfolio", icon: <FolderKanban size={20} /> },
+  { label: "Blog", icon: <BookOpen size={20} /> },
+  { label: "Contact", icon: <Mail size={20} /> },
+];
 
+const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
   return (
     <>
-      {/* Desktop/top navbar */}
-      <nav className="hidden md:flex justify-end mb-6">
-        <ul className="flex gap-2 lg:gap-4 items-center">
-          {items.map((item) => {
-            const isSelected = selected === item.label;
-            return (
-              <li
-                key={item.label}
-                onClick={() => setSelected(item.label)}
-                className={`cursor-pointer flex items-center justify-center px-3 py-2 rounded-full duration-300
-                ${
-                  isSelected
-                    ? "bg-yellow-400 text-black font-semibold"
-                    : "text-gray-300 hover:bg-yellow-400 hover:text-black"
-                }
-              `}
-              >
-                <span className="hidden sm:inline text-sm">{item.label}</span>
-              </li>
-            );
-          })}
-        </ul>
+      {/* Desktop navbar */}
+      <nav className="hidden md:block mb-6">
+        <div className="bg-dark-400 border border-gray-800 rounded-2xl p-2">
+          <ul className="flex gap-1">
+            {items.map((item) => {
+              const isSelected = selected === item.label;
+              return (
+                <li key={item.label} className="flex-1">
+                  <button
+                    onClick={() => setSelected(item.label)}
+                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200
+                    ${isSelected
+                      ? "bg-yellow-500 text-black"
+                      : "text-gray-400 hover:text-white hover:bg-dark-300"
+                    }`}
+                  >
+                    {item.icon}
+                    <span className="text-sm">{item.label}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </nav>
 
-      {/* Mobile/bottom navbar */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 z-50">
-        <div className="mx-auto max-w-xl">
-          <nav className="m-4 rounded-2xl bg-[#0b0b0b]/80 backdrop-blur border border-[#1f1f1f] shadow-lg">
-            <ul className="flex justify-around items-center py-3 text-gray-300">
-              {items.map((item) => {
-                const isSelected = selected === item.label;
-                return (
-                  <li key={item.label}>
-                    <button
-                      type="button"
-                      aria-label={item.label}
-                      onClick={() => setSelected(item.label)}
-                      className={`p-2 rounded-full transition ${
-                        isSelected
-                          ? "bg-yellow-400 text-black"
-                          : "hover:bg-[#1a1a1a] hover:text-yellow-400"
+      {/* Mobile Bottom Navigation - Modern Floating Design */}
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 pb-4 px-4">
+        {/* Gradient blur background */}
+        <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-dark-500 via-dark-500/80 to-transparent pointer-events-none" />
+        
+        <nav className="relative bg-dark-400/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl shadow-2xl shadow-black/50 overflow-hidden">
+          {/* Top accent line */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 bg-yellow-500 rounded-b-full" />
+          
+          <ul className="flex justify-around items-center py-2 px-1">
+            {items.map((item) => {
+              const isSelected = selected === item.label;
+              return (
+                <li key={item.label} className="flex-1">
+                  <button
+                    onClick={() => setSelected(item.label)}
+                    className="w-full flex flex-col items-center py-2 relative group"
+                  >
+                    {/* Active indicator */}
+                    {isSelected && (
+                      <motion.div
+                        layoutId="mobile-nav-indicator"
+                        className="absolute -top-2 left-1/2 -translate-x-1/2 w-8 h-1 bg-yellow-500 rounded-full"
+                        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                      />
+                    )}
+                    
+                    {/* Icon container */}
+                    <motion.div
+                      animate={{
+                        scale: isSelected ? 1.1 : 1,
+                        y: isSelected ? -2 : 0,
+                      }}
+                      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                      className={`p-2 rounded-xl transition-colors duration-200 ${
+                        isSelected 
+                          ? "bg-yellow-500 text-black shadow-lg shadow-yellow-500/30" 
+                          : "text-gray-500 group-hover:text-gray-300"
                       }`}
                     >
                       {item.icon}
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </div>
+                    </motion.div>
+                    
+                    {/* Label */}
+                    <motion.span
+                      animate={{
+                        opacity: isSelected ? 1 : 0.5,
+                        y: isSelected ? 0 : 2,
+                      }}
+                      className={`text-[10px] mt-1 font-medium transition-colors ${
+                        isSelected ? "text-yellow-500" : "text-gray-500"
+                      }`}
+                    >
+                      {item.label}
+                    </motion.span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
       </div>
     </>
   );

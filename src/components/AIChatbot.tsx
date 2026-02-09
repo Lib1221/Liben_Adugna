@@ -1,282 +1,327 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { MessageCircle, X, Send, Sparkles, Loader2 } from 'lucide-react';
+import { motion, AnimatePresence, useDragControls } from 'framer-motion';
+import { X, Send, Sparkles, Loader2, GripVertical, Minimize2, Maximize2 } from 'lucide-react';
 import geminiService from '../services/geminiService';
 
 interface Message {
-    id: string;
-    text: string;
-    sender: 'user' | 'ai';
-    timestamp: Date;
+  id: string;
+  text: string;
+  sender: 'user' | 'ai';
+  timestamp: Date;
 }
 
-const AIChatbot: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [messages, setMessages] = useState<Message[]>([]);
-    const [inputValue, setInputValue] = useState('');
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    // Auto-scroll to bottom when new messages arrive
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    };
-
-    useEffect(() => {
-        scrollToBottom();
-    }, [messages]);
-
-    // Focus input when chat opens
-    useEffect(() => {
-        if (isOpen && inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, [isOpen]);
-
-    // Initialize chat with welcome message
-    useEffect(() => {
-        if (isOpen && messages.length === 0) {
-            const welcomeMessage: Message = {
-                id: 'welcome',
-                text: "👋 Hi! I'm Liben Adugna's AI Assistant. I can answer questions about his projects, skills, and experience. What would you like to know?",
-                sender: 'ai',
-                timestamp: new Date(),
-            };
-            setMessages([welcomeMessage]);
-        }
-    }, [isOpen]);
-
-    const handleSendMessage = async () => {
-        if (!inputValue.trim() || isLoading) return;
-
-        const userMessage: Message = {
-            id: Date.now().toString(),
-            text: inputValue.trim(),
-            sender: 'user',
-            timestamp: new Date(),
-        };
-
-        setMessages(prev => [...prev, userMessage]);
-        setInputValue('');
-        setIsLoading(true);
-        setError(null);
-
-        try {
-            if (!geminiService.isReady()) {
-                throw new Error('AI service is not ready. Please check your API key configuration.');
-            }
-
-            const response = await geminiService.sendMessage(userMessage.text);
-
-            const aiMessage: Message = {
-                id: (Date.now() + 1).toString(),
-                text: response,
-                sender: 'ai',
-                timestamp: new Date(),
-            };
-
-            setMessages(prev => [...prev, aiMessage]);
-        } catch (err: any) {
-            setError(err.message || 'Failed to get response. Please try again.');
-
-            const errorMessage: Message = {
-                id: (Date.now() + 1).toString(),
-                text: err.message || 'Sorry, I encountered an error. Please try again.',
-                sender: 'ai',
-                timestamp: new Date(),
-            };
-
-            setMessages(prev => [...prev, errorMessage]);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
-    const handleKeyPress = (e: React.KeyboardEvent) => {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault();
-            handleSendMessage();
-        }
-    };
-
-    const handleClose = () => {
-        setIsOpen(false);
-        // Reset chat after closing
-        setTimeout(() => {
-            setMessages([]);
-            geminiService.resetChat();
-        }, 300);
-    };
-
-    // Suggested questions
-    const suggestedQuestions = [
-        "What projects has Liben built?",
-        "What technologies does Liben know?",
-        "Tell me about the Smart Gebere project",
-        "What's Liben's expertise?"
-    ];
-
-    return (
-        <>
-            {/* Floating Chat Button */}
-            <motion.button
-                onClick={() => setIsOpen(true)}
-                className="fixed bottom-6 right-6 z-50 bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 p-4 rounded-full shadow-2xl hover:shadow-yellow-400/50 transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                animate={{
-                    boxShadow: [
-                        '0 0 20px rgba(250, 204, 21, 0.4)',
-                        '0 0 30px rgba(250, 204, 21, 0.6)',
-                        '0 0 20px rgba(250, 204, 21, 0.4)',
-                    ],
-                }}
-                transition={{
-                    boxShadow: {
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: 'easeInOut',
-                    },
-                }}
-                style={{ display: isOpen ? 'none' : 'block' }}
-            >
-                <Sparkles className="w-6 h-6" />
-            </motion.button>
-
-            {/* Chat Window */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 100, scale: 0.8 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 100, scale: 0.8 }}
-                        transition={{ duration: 0.3, ease: 'easeOut' }}
-                        className="fixed bottom-6 right-6 z-50 w-[400px] h-[600px] max-w-[calc(100vw-3rem)] max-h-[calc(100vh-3rem)] flex flex-col"
-                    >
-                        {/* Glassmorphic Container */}
-                        <div className="flex flex-col h-full backdrop-blur-xl bg-gray-900/90 border border-gray-700/50 rounded-2xl shadow-2xl overflow-hidden">
-                            {/* Header */}
-                            <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 p-4 flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                    <div className="bg-white/20 p-2 rounded-lg">
-                                        <Sparkles className="w-5 h-5 text-gray-900" />
-                                    </div>
-                                    <div>
-                                        <h3 className="font-bold text-gray-900 text-sm">Liben Adugna AI Assistant</h3>
-                                        <p className="text-xs text-gray-800">Ask me anything about Liben!</p>
-                                    </div>
-                                </div>
-                                <button
-                                    onClick={handleClose}
-                                    className="text-gray-900 hover:bg-white/20 p-2 rounded-lg transition-colors"
-                                >
-                                    <X className="w-5 h-5" />
-                                </button>
-                            </div>
-
-                            {/* Messages Area */}
-                            <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
-                                {messages.map((message) => (
-                                    <motion.div
-                                        key={message.id}
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                                    >
-                                        <div
-                                            className={`max-w-[80%] p-3 rounded-2xl ${message.sender === 'user'
-                                                    ? 'bg-yellow-400 text-gray-900 rounded-br-sm'
-                                                    : 'bg-gray-800 text-gray-200 rounded-bl-sm border border-gray-700'
-                                                }`}
-                                        >
-                                            <p className="text-sm whitespace-pre-wrap break-words">{message.text}</p>
-                                            <p className={`text-xs mt-1 ${message.sender === 'user' ? 'text-gray-700' : 'text-gray-500'}`}>
-                                                {message.timestamp.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
-                                            </p>
-                                        </div>
-                                    </motion.div>
-                                ))}
-
-                                {/* Loading Indicator */}
-                                {isLoading && (
-                                    <motion.div
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        className="flex justify-start"
-                                    >
-                                        <div className="bg-gray-800 text-gray-200 p-3 rounded-2xl rounded-bl-sm border border-gray-700">
-                                            <div className="flex items-center gap-2">
-                                                <Loader2 className="w-4 h-4 animate-spin text-yellow-400" />
-                                                <span className="text-sm">Thinking...</span>
-                                            </div>
-                                        </div>
-                                    </motion.div>
-                                )}
-
-                                {/* Suggested Questions (only show at start) */}
-                                {messages.length === 1 && !isLoading && (
-                                    <div className="space-y-2">
-                                        <p className="text-xs text-gray-500 text-center">💡 Try asking:</p>
-                                        <div className="flex flex-wrap gap-2">
-                                            {suggestedQuestions.map((question, idx) => (
-                                                <button
-                                                    key={idx}
-                                                    onClick={() => setInputValue(question)}
-                                                    className="text-xs bg-gray-800/50 hover:bg-gray-700 text-yellow-400 px-3 py-2 rounded-full border border-gray-700 transition-colors"
-                                                >
-                                                    {question}
-                                                </button>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div ref={messagesEndRef} />
-                            </div>
-
-                            {/* Error Display */}
-                            {error && (
-                                <div className="px-4 py-2 bg-red-500/10 border-t border-red-500/20">
-                                    <p className="text-xs text-red-400">⚠️ {error}</p>
-                                </div>
-                            )}
-
-                            {/* Input Area */}
-                            <div className="p-4 bg-gray-800/50 border-t border-gray-700/50">
-                                <div className="flex items-center gap-2">
-                                    <input
-                                        ref={inputRef}
-                                        type="text"
-                                        value={inputValue}
-                                        onChange={(e) => setInputValue(e.target.value)}
-                                        onKeyPress={handleKeyPress}
-                                        placeholder="Ask about Liben's work..."
-                                        className="flex-1 bg-gray-900 text-gray-200 placeholder-gray-500 px-4 py-3 rounded-xl border border-gray-700 focus:outline-none focus:border-yellow-400 transition-colors text-sm"
-                                        disabled={isLoading}
-                                    />
-                                    <motion.button
-                                        onClick={handleSendMessage}
-                                        disabled={!inputValue.trim() || isLoading}
-                                        className="bg-yellow-400 text-gray-900 p-3 rounded-xl hover:bg-yellow-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
-                                    >
-                                        <Send className="w-5 h-5" />
-                                    </motion.button>
-                                </div>
-                                <p className="text-xs text-gray-500 mt-2 text-center">
-                                    Powered by Gemini AI • Portfolio Assistant
-                                </p>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </>
+// Simple markdown parser for chatbot responses
+const parseMarkdown = (text: string) => {
+  // Split into lines
+  const lines = text.split('\n');
+  const elements: React.ReactNode[] = [];
+  
+  lines.forEach((line, index) => {
+    let content: React.ReactNode = line;
+    
+    // Bold **text**
+    content = line.split(/\*\*(.*?)\*\*/g).map((part, i) => 
+      i % 2 === 1 ? <strong key={i} className="font-semibold text-yellow-400">{part}</strong> : part
     );
+    
+    // Bullet points
+    if (line.trim().startsWith('- ') || line.trim().startsWith('• ')) {
+      content = (
+        <div key={index} className="flex gap-2 ml-2">
+          <span className="text-yellow-500">•</span>
+          <span>{line.trim().substring(2)}</span>
+        </div>
+      );
+    }
+    // Numbered lists
+    else if (/^\d+\.\s/.test(line.trim())) {
+      const num = line.trim().match(/^(\d+)\./)?.[1];
+      content = (
+        <div key={index} className="flex gap-2 ml-2">
+          <span className="text-yellow-500 font-medium">{num}.</span>
+          <span>{line.trim().replace(/^\d+\.\s/, '')}</span>
+        </div>
+      );
+    }
+    // Headers
+    else if (line.trim().startsWith('### ')) {
+      content = <div key={index} className="font-semibold text-white mt-2">{line.replace('### ', '')}</div>;
+    }
+    else if (line.trim().startsWith('## ')) {
+      content = <div key={index} className="font-bold text-white mt-2">{line.replace('## ', '')}</div>;
+    }
+    // Code inline `code`
+    else if (line.includes('`')) {
+      content = line.split(/`(.*?)`/g).map((part, i) => 
+        i % 2 === 1 ? <code key={i} className="px-1 py-0.5 bg-dark-200 rounded text-yellow-400 text-xs">{part}</code> : part
+      );
+    }
+    
+    if (typeof content === 'string' || Array.isArray(content)) {
+      elements.push(<div key={index}>{content}</div>);
+    } else {
+      elements.push(content);
+    }
+  });
+  
+  return elements;
+};
+
+const AIChatbot: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dragControls = useDragControls();
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    if (isOpen && inputRef.current && !isMinimized) {
+      inputRef.current.focus();
+    }
+  }, [isOpen, isMinimized]);
+
+  useEffect(() => {
+    if (isOpen && messages.length === 0) {
+      const welcomeMessage: Message = {
+        id: 'welcome',
+        text: "Hi! I'm Liben's AI Assistant. I can answer questions about his **projects**, **skills**, and **experience**. What would you like to know?",
+        sender: 'ai',
+        timestamp: new Date(),
+      };
+      setMessages([welcomeMessage]);
+    }
+  }, [isOpen]);
+
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
+
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      text: inputValue.trim(),
+      sender: 'user',
+      timestamp: new Date(),
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    const messageToSend = inputValue.trim();
+    setInputValue('');
+    setIsLoading(true);
+
+    try {
+      if (!geminiService.isReady()) {
+        throw new Error('Service not initialized');
+      }
+
+      const response = await geminiService.sendMessage(messageToSend);
+      
+      const aiMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: response,
+        sender: 'ai',
+        timestamp: new Date(),
+      };
+      
+      setMessages(prev => [...prev, aiMessage]);
+    } catch (error: any) {
+      console.error('Chatbot error:', error);
+      
+      let errorText = "I'm having trouble connecting. Please try again later.";
+      
+      if (error?.message?.includes('API key')) {
+        errorText = "API configuration issue. Please contact Liben directly.";
+      } else if (error?.message?.includes('quota')) {
+        errorText = "API limit reached. Please try again in a few minutes.";
+      } else if (error?.message?.includes('not initialized')) {
+        errorText = "The AI service is initializing. Please try again in a moment.";
+      }
+      
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: errorText,
+        sender: 'ai',
+        timestamp: new Date(),
+      };
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  const suggestedQuestions = [
+    "What projects has Liben worked on?",
+    "What are his main skills?",
+    "Tell me about his experience",
+  ];
+
+  return (
+    <>
+      {/* Floating Button */}
+      <motion.button
+        onClick={() => setIsOpen(!isOpen)}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 hover:bg-yellow-400 transition-colors"
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        style={{ display: isOpen ? 'none' : 'flex' }}
+        aria-label="Open AI Assistant"
+      >
+        <Sparkles className="w-6 h-6 text-black" />
+      </motion.button>
+
+      {/* Chat Window - Draggable */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            drag
+            dragControls={dragControls}
+            dragMomentum={false}
+            dragElastic={0}
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            className={`fixed z-50 ${isMinimized ? 'w-[280px]' : 'w-[380px] h-[520px]'} flex flex-col bg-dark-500 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden`}
+            style={{ 
+              right: 24, 
+              bottom: 24,
+              cursor: 'default'
+            }}
+          >
+            {/* Header - Draggable Handle */}
+            <motion.div 
+              className="p-3 bg-yellow-500 flex items-center justify-between cursor-grab active:cursor-grabbing"
+              onPointerDown={(e) => dragControls.start(e)}
+            >
+              <div className="flex items-center gap-2">
+                <GripVertical className="w-4 h-4 text-black/50" />
+                <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-yellow-500" />
+                </div>
+                <div>
+                  <h3 className="text-black font-semibold text-sm">AI Assistant</h3>
+                  {!isMinimized && <p className="text-black/60 text-xs">Ask about Liben</p>}
+                </div>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setIsMinimized(!isMinimized)}
+                  className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
+                  aria-label={isMinimized ? "Maximize chat" : "Minimize chat"}
+                >
+                  {isMinimized ? <Maximize2 className="w-4 h-4 text-black" /> : <Minimize2 className="w-4 h-4 text-black" />}
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
+                  aria-label="Close chat"
+                >
+                  <X className="w-4 h-4 text-black" />
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Messages - Hidden when minimized */}
+            {!isMinimized && (
+              <>
+                <div className="flex-1 overflow-y-auto p-4 space-y-3">
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[85%] p-3 rounded-2xl ${
+                          message.sender === 'user'
+                            ? 'bg-yellow-500 text-black rounded-br-sm'
+                            : 'bg-dark-300 text-gray-200 border border-gray-700 rounded-bl-sm'
+                        }`}
+                      >
+                        <div className="text-sm leading-relaxed">
+                          {message.sender === 'ai' ? parseMarkdown(message.text) : message.text}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  {isLoading && (
+                    <div className="flex justify-start">
+                      <div className="p-3 bg-dark-300 border border-gray-700 rounded-2xl rounded-bl-sm">
+                        <div className="flex items-center gap-2">
+                          <Loader2 className="w-4 h-4 text-yellow-500 animate-spin" />
+                          <span className="text-xs text-gray-400">Thinking...</span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Suggested Questions */}
+                  {messages.length === 1 && (
+                    <div className="space-y-2 pt-2">
+                      <p className="text-xs text-gray-500">Quick questions:</p>
+                      {suggestedQuestions.map((q, i) => (
+                        <button
+                          key={i}
+                          onClick={() => {
+                            setInputValue(q);
+                            inputRef.current?.focus();
+                          }}
+                          className="block w-full text-left p-2.5 bg-dark-400 border border-gray-700 rounded-xl text-sm text-gray-400 hover:border-yellow-500/50 hover:text-white transition-all"
+                        >
+                          {q}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Input */}
+                <div className="p-3 border-t border-gray-800 bg-dark-400">
+                  <div className="flex gap-2">
+                    <input
+                      ref={inputRef}
+                      type="text"
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      placeholder="Ask something..."
+                      className="flex-1 px-4 py-2.5 bg-dark-300 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500 transition-colors text-sm"
+                    />
+                    <button
+                      onClick={handleSendMessage}
+                      disabled={!inputValue.trim() || isLoading}
+                      className="p-2.5 bg-yellow-500 rounded-xl text-black disabled:opacity-50 disabled:cursor-not-allowed hover:bg-yellow-400 transition-colors"
+                      aria-label="Send message"
+                    >
+                      <Send className="w-5 h-5" />
+                    </button>
+                  </div>
+                </div>
+              </>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 };
 
 export default AIChatbot;

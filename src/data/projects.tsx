@@ -1,7 +1,7 @@
-import { SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiDjango, SiPostgresql, SiDocker, SiMongodb, SiLaravel } from "react-icons/si";
+import { SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiDjango, SiPostgresql, SiDocker, SiMongodb, SiLaravel, SiPython, SiTensorflow, SiScikitlearn, SiNextdotjs } from "react-icons/si";
 import { JSX } from "react";
 
-export interface Project {
+export type Project = {
     title: string;
     description: string;
     technologies: string[];
@@ -12,15 +12,160 @@ export interface Project {
     repoLink?: string;
     liveDemo?: string;
     youtubeLink?: string;
-    category: "Mobile" | "Web";
-}
+    category: "Mobile" | "Web" | "AI/ML" | "Data Science";
+    isPrivate?: boolean;
+};
 
 export const projects: Project[] = [
-    // 🛒 Full Stack eCommerce App
+    // ============ AI/ML PROJECTS (NEW - Private) ============
+    
+    // 1. AI-Powered Personal Finance Behavior Analyzer
+    {
+        title: "AI-Powered Personal Finance Behavior Analyzer",
+        description:
+            "An intelligent finance app that predicts user spending behavior using ML, not just tracking expenses. Detects unhealthy financial patterns and provides behavioral recommendations rather than rigid rules.",
+        technologies: ["Flutter", "Next.js", "Python", "TensorFlow", "Firebase"],
+        role: "Full Stack ML Engineer",
+        duration: "2025",
+        features: [
+            "Behavioral spending prediction using ML models",
+            "Pattern detection for unhealthy financial habits",
+            "Personalized AI-driven recommendations",
+            "Real-time sync between mobile and web dashboards",
+            "Secure financial data handling with encryption",
+        ],
+        image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // 2. Offline-First Smart Field Data Collection App
+    {
+        title: "Offline-First Smart Field Data Collection App",
+        description:
+            "A Flutter app designed for rural/low-connectivity environments. Works fully offline with intelligent sync and uses ML to detect anomalous or fake data entries in real-time.",
+        technologies: ["Flutter", "TensorFlow Lite", "SQLite", "Firebase"],
+        role: "Mobile ML Developer",
+        duration: "2025",
+        features: [
+            "Full offline functionality with local ML models",
+            "Intelligent data sync when connectivity returns",
+            "Anomaly detection for fake/inconsistent entries",
+            "GPS-based location verification",
+            "Edge computing for real-time predictions",
+        ],
+        image: "https://images.unsplash.com/photo-1586771107445-d3ca888129ce?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // 3. AI Resume & Portfolio Scoring Engine
+    {
+        title: "AI Resume & Portfolio Scoring Engine",
+        description:
+            "An NLP-powered web application that scores resumes against job descriptions, highlights missing skills using semantic similarity, and predicts ATS pass probability.",
+        technologies: ["Next.js", "Python", "Scikit-learn", "Hugging Face", "PostgreSQL"],
+        role: "NLP Engineer",
+        duration: "2025",
+        features: [
+            "Resume parsing with NLP extraction",
+            "Job description semantic matching",
+            "ATS compatibility prediction",
+            "Skill gap analysis and recommendations",
+            "Portfolio project relevance scoring",
+        ],
+        image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // 4. Real-Time Skill Gap Analyzer for Developers
+    {
+        title: "Real-Time Skill Gap Analyzer for Developers",
+        description:
+            "A unique tool that connects to GitHub profiles, analyzes repos/commits/tech stacks using ML, and recommends personalized learning paths based on market demand.",
+        technologies: ["React", "Python", "TensorFlow", "GitHub API", "MongoDB"],
+        role: "ML Engineer",
+        duration: "2025",
+        features: [
+            "GitHub profile and repository analysis",
+            "Tech stack detection from code patterns",
+            "Market demand correlation analysis",
+            "Personalized learning path generation",
+            "Progress tracking and skill growth metrics",
+        ],
+        image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // 5. Intelligent News Credibility & Bias Detector
+    {
+        title: "Intelligent News Credibility & Bias Detector",
+        description:
+            "Advanced NLP application that detects bias levels and emotional manipulation in news articles. Scores credibility using linguistic features and works across web and mobile platforms.",
+        technologies: ["Next.js", "Flutter", "Python", "Transformers", "NLP"],
+        role: "NLP & Deep Learning Engineer",
+        duration: "2025",
+        features: [
+            "Real-time bias detection and scoring",
+            "Emotional manipulation analysis",
+            "Source credibility verification",
+            "Cross-reference with fact-checking databases",
+            "Browser extension and mobile reader",
+        ],
+        image: "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // 6. Smart Health Symptom Progression Predictor
+    {
+        title: "Smart Health Symptom Progression Predictor",
+        description:
+            "A responsible AI mobile app that tracks symptom trends over time and predicts risk escalation using time-series modeling. Focuses on data trends, not medical diagnosis.",
+        technologies: ["Flutter", "Python", "TensorFlow", "Firebase", "Time Series ML"],
+        role: "ML Mobile Developer",
+        duration: "2025",
+        features: [
+            "Symptom tracking with trend visualization",
+            "Time-series risk escalation prediction",
+            "Non-diagnostic health insights",
+            "Privacy-first local data processing",
+            "Integration with health tracking devices",
+        ],
+        image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // 7. AI-Driven UI Personalization Engine
+    {
+        title: "AI-Driven UI Personalization Engine",
+        description:
+            "An innovative Flutter app where the UI dynamically adapts based on user behavior. Layout, colors, and navigation flow change using reinforcement learning-style optimization.",
+        technologies: ["Flutter", "Python", "Reinforcement Learning", "Firebase ML"],
+        role: "ML Mobile Developer",
+        duration: "2025",
+        features: [
+            "Dynamic UI adaptation based on usage patterns",
+            "Reinforcement learning for layout optimization",
+            "A/B testing automation with ML",
+            "User preference learning over time",
+            "Accessibility-aware personalization",
+        ],
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // ============ EXISTING PROJECTS ============
+
+    // Private Enterprise System
     {
         title: "Private Enterprise System",
         description:
-            "A large-scale enterprise application built with Laravel and Vue.js. Features complex role-based access control, real-time reporting, and integration with multiple third-party services. (Private Project)",
+            "A large-scale enterprise application built with Laravel and Vue.js. Features complex role-based access control, real-time reporting, and integration with multiple third-party services.",
         technologies: ["Laravel", "Vue.js", "MySQL", "Redis"],
         role: "Full Stack Developer",
         duration: "2025",
@@ -30,11 +175,12 @@ export const projects: Project[] = [
             "Automated reporting system",
             "Secure API integration",
         ],
-        image: "https://via.placeholder.com/600x400?text=Private+Project", // Placeholder image
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
         category: "Web",
+        isPrivate: true,
     },
 
-    // 💰 Mela Loan Comparison App
+    // Mela Loan Comparison App
     {
         title: "Mela Loan App",
         description:
@@ -54,12 +200,12 @@ export const projects: Project[] = [
         category: "Mobile",
     },
 
-    // 🌾 Smart Gebere
+    // Smart Gebere
     {
         title: "Smart Gebere",
         description:
             "A smarter way for farmers to cultivate success! With AI-powered crop recommendations, disease detection, and weather forecasting, this app helps farmers grow better crops and plan their days efficiently.",
-        technologies: ["Flutter", "Firebase"],
+        technologies: ["Flutter", "Firebase", "TensorFlow Lite", "Python"],
         role: "Mobile App Developer",
         duration: "2025",
         features: [
@@ -71,8 +217,10 @@ export const projects: Project[] = [
         image: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_2_xmic9m.png",
         repoLink: "https://github.com/lib1221/Smart_Gebere",
         youtubeLink: "https://youtu.be/C8Kw2S8Khf0",
-        category: "Mobile",
+        category: "AI/ML",
     },
+
+    // Gosho Dating App
     {
         title: "Gosho Dating App",
         description:
@@ -102,6 +250,7 @@ export const projects: Project[] = [
         category: "Mobile",
     },
 
+    // Crazy Game
     {
         title: "Crazy Game",
         description:
@@ -121,6 +270,7 @@ export const projects: Project[] = [
         category: "Mobile",
     },
 
+    // Advanced Java Shopping
     {
         title: "Advanced Java Shopping Web Application",
         description:
@@ -140,6 +290,7 @@ export const projects: Project[] = [
         category: "Web",
     },
 
+    // Flutter Exam App
     {
         title: "Flutter Exam App",
         description:
@@ -168,7 +319,7 @@ export const projects: Project[] = [
         category: "Mobile",
     },
 
-    // 🍔 Flutter Food Delivery
+    // Flutter Food Delivery
     {
         title: "Flutter Food Delivery",
         description:
@@ -196,6 +347,7 @@ export const projects: Project[] = [
         category: "Mobile",
     },
 
+    // eCommerce App
     {
         title: "eCommerce App",
         description:
@@ -223,7 +375,7 @@ export const projects: Project[] = [
         category: "Mobile",
     },
 
-    // 💼 Portfolio Website
+    // Portfolio Website
     {
         title: "Portfolio Website",
         description:
@@ -246,15 +398,19 @@ export const projects: Project[] = [
 
 export const techIcons: Record<string, JSX.Element> = {
     Flutter: <SiFlutter className="text-blue-400 w-4 h-4" />,
-  Dart: <SiDart className="text-blue-600 w-4 h-4" />,
-  Firebase: <SiFirebase className="text-yellow-400 w-4 h-4" />,
-  React: <SiReact className="text-cyan-400 w-4 h-4" />,
-  "TypeScript": <SiTypescript className="text-blue-500 w-4 h-4" />,
-  "Tailwind CSS": <SiTailwindcss className="text-teal-400 w-4 h-4" />,
-  "Framer Motion": <SiFramer className="text-purple-400 w-4 h-4" />,
-  Django: <SiDjango className="text-green-700 w-4 h-4" />,
-  PostgreSQL: <SiPostgresql className="text-blue-700 w-4 h-4" />,
-  Docker: <SiDocker className="text-blue-500 w-4 h-4" />,
-  MongoDB: <SiMongodb className="text-green-600 w-4 h-4" />,
-  Laravel: <SiLaravel className="text-red-600 w-4 h-4" />,
+    Dart: <SiDart className="text-blue-600 w-4 h-4" />,
+    Firebase: <SiFirebase className="text-yellow-400 w-4 h-4" />,
+    React: <SiReact className="text-cyan-400 w-4 h-4" />,
+    "TypeScript": <SiTypescript className="text-blue-500 w-4 h-4" />,
+    "Tailwind CSS": <SiTailwindcss className="text-teal-400 w-4 h-4" />,
+    "Framer Motion": <SiFramer className="text-purple-400 w-4 h-4" />,
+    Django: <SiDjango className="text-green-700 w-4 h-4" />,
+    PostgreSQL: <SiPostgresql className="text-blue-700 w-4 h-4" />,
+    Docker: <SiDocker className="text-blue-500 w-4 h-4" />,
+    MongoDB: <SiMongodb className="text-green-600 w-4 h-4" />,
+    Laravel: <SiLaravel className="text-red-600 w-4 h-4" />,
+    Python: <SiPython className="text-yellow-500 w-4 h-4" />,
+    TensorFlow: <SiTensorflow className="text-orange-500 w-4 h-4" />,
+    "Scikit-learn": <SiScikitlearn className="text-orange-400 w-4 h-4" />,
+    "Next.js": <SiNextdotjs className="text-white w-4 h-4" />,
 };

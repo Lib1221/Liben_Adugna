@@ -1,26 +1,95 @@
 /* index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* optional global custom styles */
+/* Global Styles */
+* {
+  scroll-behavior: smooth;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-  background-color: white; /* or bg-white in JSX */
+  background-color: #0A0A0A;
+  color: #FFFFFF;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer components {
-  .glass {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20;
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #FFEB3B;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #FDD835;
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 235, 59, 0.3);
+  color: #FFFFFF;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #FFEB3B;
+  outline-offset: 2px;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #FFEB3B;
+  z-index: 9999;
+  transition: width 0.1s ease;
+}
+
+/* Shimmer effect */
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255, 235, 59, 0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Glow effect */
+.glow-yellow {
+  box-shadow: 0 0 20px rgba(255, 235, 59, 0.3);
+}
+
+/* Private badge */
+.badge-private {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
   }
-  
-  .panel-bg {
-    @apply bg-[#111]/80;
-  }
-  
-  .shadow-soft {
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  50% {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
   }
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   SiLaravel,
   SiFlutter,
@@ -16,68 +16,137 @@ import {
   SiStripe,
   SiNodedotjs,
   SiGetx,
+  SiTensorflow,
+  SiPytorch,
+  SiScikitlearn,
+  SiPandas,
+  SiNumpy,
+  SiJupyter,
+  SiOpencv,
+  SiDocker,
+  SiNextdotjs,
+  SiMongodb,
 } from "react-icons/si";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
-const skills = [
-  { icon: <SiLaravel />, label: "Laravel", color: "#FF2D20" },
-  { icon: <SiFlutter />, label: "Flutter", color: "#02569B" },
-  { icon: <SiGetx />, label: "GetX", color: "#6CC644" },
-  { icon: <SiFirebase />, label: "Firebase", color: "#FFCA28" },
-  { icon: <SiReact />, label: "React", color: "#61DAFB" },
-  { icon: <SiTypescript />, label: "TypeScript", color: "#3178C6" },
-  { icon: <SiTailwindcss />, label: "Tailwind CSS", color: "#38BDF8" },
-  { icon: <SiDjango />, label: "Django", color: "#092E20" },
-  { icon: <SiPython />, label: "Python", color: "#3776AB" },
-  { icon: <SiPostgresql />, label: "PostgreSQL", color: "#336791" },
-  { icon: <SiStripe />, label: "Stripe", color: "#635BFF" },
-  { icon: <SiNodedotjs />, label: "Node.js", color: "#68A063" },
-  { icon: <SiPostman />, label: "Postman", color: "#FF6C37" },
-  { icon: <SiFramer />, label: "Framer Motion", color: "#0055FF" },
-  { icon: <SiGit />, label: "Git", color: "#F05032" },
-  { icon: <SiGithub />, label: "GitHub", color: "#FFFFFF" },
+interface Skill {
+  icon: React.ReactNode;
+  label: string;
+  category: "mobile" | "frontend" | "backend" | "ml" | "tools";
+}
+
+const skills: Skill[] = [
+  // Mobile
+  { icon: <SiFlutter size={24} />, label: "Flutter", category: "mobile" },
+  { icon: <SiGetx size={24} />, label: "GetX", category: "mobile" },
+  { icon: <SiFirebase size={24} />, label: "Firebase", category: "mobile" },
+  
+  // Frontend
+  { icon: <SiReact size={24} />, label: "React", category: "frontend" },
+  { icon: <SiNextdotjs size={24} />, label: "Next.js", category: "frontend" },
+  { icon: <SiTypescript size={24} />, label: "TypeScript", category: "frontend" },
+  { icon: <SiTailwindcss size={24} />, label: "Tailwind", category: "frontend" },
+  { icon: <SiFramer size={24} />, label: "Framer", category: "frontend" },
+  
+  // Backend
+  { icon: <SiDjango size={24} />, label: "Django", category: "backend" },
+  { icon: <SiLaravel size={24} />, label: "Laravel", category: "backend" },
+  { icon: <SiNodedotjs size={24} />, label: "Node.js", category: "backend" },
+  { icon: <SiPostgresql size={24} />, label: "PostgreSQL", category: "backend" },
+  { icon: <SiMongodb size={24} />, label: "MongoDB", category: "backend" },
+  { icon: <SiStripe size={24} />, label: "Stripe", category: "backend" },
+  
+  // ML/Data Science
+  { icon: <SiPython size={24} />, label: "Python", category: "ml" },
+  { icon: <SiTensorflow size={24} />, label: "TensorFlow", category: "ml" },
+  { icon: <SiPytorch size={24} />, label: "PyTorch", category: "ml" },
+  { icon: <SiScikitlearn size={24} />, label: "Scikit-learn", category: "ml" },
+  { icon: <SiPandas size={24} />, label: "Pandas", category: "ml" },
+  { icon: <SiNumpy size={24} />, label: "NumPy", category: "ml" },
+  { icon: <SiJupyter size={24} />, label: "Jupyter", category: "ml" },
+  { icon: <SiOpencv size={24} />, label: "OpenCV", category: "ml" },
+  
+  // Tools
+  { icon: <SiGit size={24} />, label: "Git", category: "tools" },
+  { icon: <SiGithub size={24} />, label: "GitHub", category: "tools" },
+  { icon: <SiDocker size={24} />, label: "Docker", category: "tools" },
+  { icon: <SiPostman size={24} />, label: "Postman", category: "tools" },
 ];
 
-// Duplicate the array for an infinite loop
-const repeatedSkills = [...skills, ...skills];
+const categories = [
+  { id: "all", label: "All" },
+  { id: "mobile", label: "Mobile" },
+  { id: "frontend", label: "Frontend" },
+  { id: "backend", label: "Backend" },
+  { id: "ml", label: "ML / AI" },
+  { id: "tools", label: "Tools" },
+];
 
 const SkillsSection: React.FC = () => {
-  return (
-    <section className="mt-12 overflow-hidden">
-      <h4 className="text-2xl md:text-3xl font-bold text-yellow-400 mb-6 text-center">
-        Skills
-      </h4>
+  const [activeCategory, setActiveCategory] = useState("all");
 
-      {/* Infinite scrolling container */}
-      <div className="relative w-full overflow-hidden">
-        <motion.div
-          className="flex gap-8"
-          animate={{
-            x: ["0%", "-50%"], // move half the length (since we duplicated)
-          }}
-          transition={{
-            x: {
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 10, // slow smooth scroll
-              ease: "linear",
-            },
-          }}
-        >
-          {repeatedSkills.map((s, idx) => (
-            <div
-              key={`${s.label}-${idx}`}
-              className="w-28 h-28 rounded-xl flex flex-col items-center justify-center 
-                         shadow-lg hover:scale-110 hover:shadow-xl transition-transform duration-300"
-            >
-              <div className="text-4xl" style={{ color: s.color }}>
-                {s.icon}
-              </div>
-              <div className="text-sm text-gray-300 mt-2">{s.label}</div>
-            </div>
-          ))}
-        </motion.div>
+  const filteredSkills = activeCategory === "all" 
+    ? skills 
+    : skills.filter(s => s.category === activeCategory);
+
+  return (
+    <section>
+      {/* Header */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="mb-6"
+      >
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+          My <span className="text-yellow-500">Skills</span>
+        </h2>
+        <div className="w-16 h-1 bg-yellow-500 rounded" />
+      </motion.div>
+
+      {/* Category Filter */}
+      <div className="flex flex-wrap gap-2 mb-8">
+        {categories.map((cat) => (
+          <button
+            key={cat.id}
+            onClick={() => setActiveCategory(cat.id)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
+              ${activeCategory === cat.id
+                ? "bg-yellow-500 text-black"
+                : "bg-dark-300 text-gray-400 hover:text-white hover:bg-dark-200 border border-gray-800"
+              }`}
+          >
+            {cat.label}
+          </button>
+        ))}
       </div>
+
+      {/* Skills Grid */}
+      <motion.div 
+        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3"
+        layout
+      >
+        <AnimatePresence mode="popLayout">
+          {filteredSkills.map((skill) => (
+            <motion.div
+              key={skill.label}
+              layout
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.2 }}
+              className="flex flex-col items-center gap-2 p-4 bg-dark-300 border border-gray-800 rounded-xl hover:border-yellow-500/50 hover:bg-dark-200 transition-all duration-200 group"
+            >
+              <div className="text-gray-400 group-hover:text-yellow-500 transition-colors">
+                {skill.icon}
+              </div>
+              <span className="text-xs text-gray-500 group-hover:text-white transition-colors text-center">
+                {skill.label}
+              </span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
     </section>
   );
 };
