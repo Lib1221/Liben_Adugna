@@ -9,10 +9,10 @@ interface HeroSectionProps {
 
 const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
   const roles = [
-    "Flutter Developer",
-    "Full Stack Engineer",
     "ML Engineer",
-    "React Developer",
+    "AI Systems Reviewer",
+    "Full Stack Developer",
+    "Code Evaluator",
     "Data Scientist",
   ];
 
@@ -66,9 +66,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
         transition={{ delay: 0.4 }}
         className="text-gray-400 text-base leading-relaxed max-w-2xl mb-8"
       >
-        Multi-disciplinary engineer combining Flutter, modern web technologies, and machine learning 
-        to build intelligent, real-world products. I specialize in building scalable, production-ready 
-        systems from intuitive UI/UX design to robust backend logic.
+        Software Engineer with expertise in machine learning systems, code evaluation, and full-stack 
+        development. Experienced in validating AI-generated outputs, reviewing system implementations, 
+        and building scalable web and mobile applications. Strong in debugging, performance optimization, 
+        and designing reliable, maintainable software systems.
       </motion.p>
 
       {/* Buttons */}

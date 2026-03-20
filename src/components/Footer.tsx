@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
     { icon: <FaGithub size={18} />, url: "https://github.com/lib1221", label: "GitHub" },
     { icon: <FaLinkedin size={18} />, url: "https://www.linkedin.com/in/liben-adugna-6b192a2b9/", label: "LinkedIn" },
     { icon: <FaTelegram size={18} />, url: "https://t.me/liben12", label: "Telegram" },
-    { icon: <FaEnvelope size={18} />, url: "mailto:adugnaliben65@gmail.com", label: "Email" },
+    { icon: <FaEnvelope size={18} />, url: "mailto:libenadugna285@gmail.com", label: "Email" },
   ];
 
   return (
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
               Liben <span className="text-yellow-500">Adugna</span>
             </h3>
             <p className="text-gray-500 text-sm">
-              Multi-Disciplinary Software Engineer
+              Software Engineer | Machine Learning | AI Systems
             </p>
           </div>
 

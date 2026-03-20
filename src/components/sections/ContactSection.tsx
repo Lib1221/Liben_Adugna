@@ -45,8 +45,8 @@ const ContactSection: React.FC = () => {
     {
       icon: <FaEnvelope size={18} />,
       label: "Email",
-      value: "adugnaliben65@gmail.com",
-      href: "mailto:adugnaliben65@gmail.com",
+      value: "libenadugna285@gmail.com",
+      href: "mailto:libenadugna285@gmail.com",
     },
     {
       icon: <FaPhoneAlt size={18} />,

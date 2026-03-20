@@ -7,18 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Clean Black & Yellow palette
+        // Elegant Gold & Black palette
         yellow: {
-          50: '#FFFEF5',
-          100: '#FFFDE8',
-          200: '#FFF9C4',
-          300: '#FFF59D',
-          400: '#FFEE58',
-          500: '#FFEB3B',
-          600: '#FDD835',
-          700: '#FBC02D',
-          800: '#F9A825',
-          900: '#F57F17',
+          50: '#FFF9E6',
+          100: '#FFF0C2',
+          200: '#FFE699',
+          300: '#FFD966',
+          400: '#FFCC33',
+          500: '#F5B800',  // Main gold - elegant with black
+          600: '#D4A000',
+          700: '#B38600',
+          800: '#8C6900',
+          900: '#664D00',
         },
         dark: {
           50: '#2A2A2A',
@@ -53,13 +53,14 @@ export default {
           '100%': { 'background-position': '200% 0' }
         },
         'glow': {
-          '0%, 100%': { boxShadow: '0 0 20px rgba(255, 235, 59, 0.3)' },
-          '50%': { boxShadow: '0 0 40px rgba(255, 235, 59, 0.5)' }
+          '0%, 100%': { boxShadow: '0 0 20px rgba(245, 184, 0, 0.3)' },
+          '50%': { boxShadow: '0 0 40px rgba(245, 184, 0, 0.5)' }
         },
       },
       boxShadow: {
-        'yellow': '0 0 20px rgba(255, 235, 59, 0.2)',
-        'yellow-lg': '0 0 40px rgba(255, 235, 59, 0.3)',
+        'yellow': '0 0 20px rgba(245, 184, 0, 0.2)',
+        'yellow-lg': '0 0 40px rgba(245, 184, 0, 0.3)',
+        'gold': '0 0 25px rgba(245, 184, 0, 0.25)',
         'card': '0 4px 20px rgba(0, 0, 0, 0.5)',
       },
     },

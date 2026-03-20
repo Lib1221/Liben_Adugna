@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  SiLaravel,
   SiFlutter,
   SiFirebase,
   SiTypescript,
@@ -8,77 +7,73 @@ import {
   SiDjango,
   SiPython,
   SiPostman,
-  SiTailwindcss,
   SiPostgresql,
   SiGit,
   SiGithub,
-  SiFramer,
-  SiStripe,
   SiNodedotjs,
-  SiGetx,
   SiTensorflow,
-  SiPytorch,
   SiScikitlearn,
   SiPandas,
   SiNumpy,
   SiJupyter,
-  SiOpencv,
   SiDocker,
-  SiNextdotjs,
-  SiMongodb,
 } from "react-icons/si";
+import { FaJava, FaDatabase, FaLinux, FaBrain, FaChartLine, FaRobot, FaCogs } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Skill {
   icon: React.ReactNode;
   label: string;
-  category: "mobile" | "frontend" | "backend" | "ml" | "tools";
+  category: "programming" | "ml" | "mlops" | "datascience" | "tools";
 }
 
 const skills: Skill[] = [
-  // Mobile
-  { icon: <SiFlutter size={24} />, label: "Flutter", category: "mobile" },
-  { icon: <SiGetx size={24} />, label: "GetX", category: "mobile" },
-  { icon: <SiFirebase size={24} />, label: "Firebase", category: "mobile" },
+  // Programming & Software Engineering
+  { icon: <SiPython size={24} />, label: "Python", category: "programming" },
+  { icon: <FaJava size={24} />, label: "Java", category: "programming" },
+  { icon: <SiTypescript size={24} />, label: "TypeScript", category: "programming" },
+  { icon: <SiReact size={24} />, label: "React", category: "programming" },
+  { icon: <SiNodedotjs size={24} />, label: "Node.js", category: "programming" },
+  { icon: <SiFlutter size={24} />, label: "Flutter", category: "programming" },
+  { icon: <FaCogs size={24} />, label: "DSA", category: "programming" },
   
-  // Frontend
-  { icon: <SiReact size={24} />, label: "React", category: "frontend" },
-  { icon: <SiNextdotjs size={24} />, label: "Next.js", category: "frontend" },
-  { icon: <SiTypescript size={24} />, label: "TypeScript", category: "frontend" },
-  { icon: <SiTailwindcss size={24} />, label: "Tailwind", category: "frontend" },
-  { icon: <SiFramer size={24} />, label: "Framer", category: "frontend" },
-  
-  // Backend
-  { icon: <SiDjango size={24} />, label: "Django", category: "backend" },
-  { icon: <SiLaravel size={24} />, label: "Laravel", category: "backend" },
-  { icon: <SiNodedotjs size={24} />, label: "Node.js", category: "backend" },
-  { icon: <SiPostgresql size={24} />, label: "PostgreSQL", category: "backend" },
-  { icon: <SiMongodb size={24} />, label: "MongoDB", category: "backend" },
-  { icon: <SiStripe size={24} />, label: "Stripe", category: "backend" },
-  
-  // ML/Data Science
-  { icon: <SiPython size={24} />, label: "Python", category: "ml" },
-  { icon: <SiTensorflow size={24} />, label: "TensorFlow", category: "ml" },
-  { icon: <SiPytorch size={24} />, label: "PyTorch", category: "ml" },
+  // Machine Learning & AI
   { icon: <SiScikitlearn size={24} />, label: "Scikit-learn", category: "ml" },
-  { icon: <SiPandas size={24} />, label: "Pandas", category: "ml" },
-  { icon: <SiNumpy size={24} />, label: "NumPy", category: "ml" },
-  { icon: <SiJupyter size={24} />, label: "Jupyter", category: "ml" },
-  { icon: <SiOpencv size={24} />, label: "OpenCV", category: "ml" },
+  { icon: <SiTensorflow size={24} />, label: "TensorFlow", category: "ml" },
+  { icon: <FaBrain size={24} />, label: "Ensemble Models", category: "ml" },
+  { icon: <FaRobot size={24} />, label: "Anomaly Detection", category: "ml" },
+  { icon: <FaBrain size={24} />, label: "NLP", category: "ml" },
+  { icon: <FaCogs size={24} />, label: "Feature Engineering", category: "ml" },
+  { icon: <FaChartLine size={24} />, label: "Model Evaluation", category: "ml" },
   
-  // Tools
+  // MLOps & Automation
+  { icon: <SiDocker size={24} />, label: "Docker", category: "mlops" },
+  { icon: <SiDjango size={24} />, label: "Django REST", category: "mlops" },
+  { icon: <FaCogs size={24} />, label: "ML Pipelines", category: "mlops" },
+  { icon: <FaCogs size={24} />, label: "Automation", category: "mlops" },
+  
+  // Data Science & Analytics
+  { icon: <SiPandas size={24} />, label: "Pandas", category: "datascience" },
+  { icon: <SiNumpy size={24} />, label: "NumPy", category: "datascience" },
+  { icon: <SiJupyter size={24} />, label: "Jupyter", category: "datascience" },
+  { icon: <FaChartLine size={24} />, label: "Visualization", category: "datascience" },
+  { icon: <FaChartLine size={24} />, label: "Statistics", category: "datascience" },
+  
+  // Tools & Platforms
   { icon: <SiGit size={24} />, label: "Git", category: "tools" },
   { icon: <SiGithub size={24} />, label: "GitHub", category: "tools" },
-  { icon: <SiDocker size={24} />, label: "Docker", category: "tools" },
+  { icon: <FaDatabase size={24} />, label: "SQL", category: "tools" },
+  { icon: <FaLinux size={24} />, label: "Linux", category: "tools" },
   { icon: <SiPostman size={24} />, label: "Postman", category: "tools" },
+  { icon: <SiFirebase size={24} />, label: "Firebase", category: "tools" },
 ];
 
 const categories = [
   { id: "all", label: "All" },
-  { id: "mobile", label: "Mobile" },
-  { id: "frontend", label: "Frontend" },
-  { id: "backend", label: "Backend" },
+  { id: "programming", label: "Programming" },
   { id: "ml", label: "ML / AI" },
+  { id: "mlops", label: "MLOps" },
+  { id: "datascience", label: "Data Science" },
   { id: "tools", label: "Tools" },
 ];
 
@@ -99,7 +94,7 @@ const SkillsSection: React.FC = () => {
         className="mb-6"
       >
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-          My <span className="text-yellow-500">Skills</span>
+          Technical <span className="text-yellow-500">Skills</span>
         </h2>
         <div className="w-16 h-1 bg-yellow-500 rounded" />
       </motion.div>

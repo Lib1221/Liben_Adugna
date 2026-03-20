@@ -8,24 +8,17 @@ import {
   FaTelegram,
   FaInstagram,
   FaDownload,
+  FaCode,
+  FaBrain,
 } from "react-icons/fa";
 import { SiLeetcode, SiCodeforces } from "react-icons/si";
 import { motion } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
 
 const Sidebar: React.FC = () => {
   const avatar =
     "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759949739/liben_fupt3c.jpg";
 
   const [loading, setLoading] = useState(true);
-
-  const roles = [
-    "Flutter Developer",
-    "ML Engineer",
-    "Full Stack Developer",
-    "React Developer",
-    "Data Scientist",
-  ];
 
   return (
     <motion.aside
@@ -59,49 +52,55 @@ const Sidebar: React.FC = () => {
           </div>
 
           {/* Name */}
-          <h2 className="text-xl font-bold text-center text-white mb-2">
+          <h2 className="text-xl font-bold text-center text-white mb-3">
             Liben Adugna
           </h2>
 
-          {/* Role Typewriter */}
+          {/* Professional Title Badge */}
           <div className="text-center mb-4">
-            <span className="inline-block px-4 py-1.5 bg-dark-300 rounded-full text-sm">
-              <span className="text-yellow-500">
-                <Typewriter
-                  words={roles}
-                  loop={true}
-                  cursor
-                  cursorStyle="|"
-                  typeSpeed={60}
-                  deleteSpeed={40}
-                  delaySpeed={2000}
-                />
-              </span>
-            </span>
-          </div>
-
-          {/* Available for Hire Badge */}
-          <div className="flex justify-center mb-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-500/10 border border-green-500/30 rounded-full">
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-              </span>
-              <span className="text-xs font-medium text-green-400">Available for Hire</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-500/20 via-yellow-500/10 to-yellow-500/20 border border-yellow-500/30 rounded-xl">
+              <FaBrain className="text-yellow-500 text-sm" />
+              <span className="text-sm font-medium text-yellow-500">Software Engineer</span>
             </div>
           </div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap justify-center gap-2 mb-6">
-            <span className="text-xs px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/30">
-              Mobile
-            </span>
-            <span className="text-xs px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/30">
-              Web
-            </span>
-            <span className="text-xs px-3 py-1 rounded-full bg-yellow-500/10 text-yellow-500 border border-yellow-500/30">
-              ML/AI
-            </span>
+          {/* Role Pills */}
+          <div className="flex flex-wrap justify-center gap-1.5 mb-4">
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
+            >
+              ML Engineer
+            </motion.span>
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
+            >
+              AI Reviewer
+            </motion.span>
+            <motion.span 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
+            >
+              Full Stack
+            </motion.span>
+          </div>
+
+          {/* Available for Hire Badge */}
+          <div className="flex justify-center mb-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              <span className="text-[11px] font-medium text-emerald-400">Available for Hire</span>
+            </div>
           </div>
 
           {/* Divider */}
@@ -112,7 +111,7 @@ const Sidebar: React.FC = () => {
             <ContactItem 
               icon={<FaEnvelope />} 
               label="Email" 
-              value="adugnaliben65@gmail.com" 
+              value="libenadugna285@gmail.com" 
             />
             <ContactItem 
               icon={<FaPhoneAlt />} 

@@ -7,44 +7,65 @@ const ResumeSection: React.FC = () => {
 
   const education = [
     {
+      title: "Algorithms & Data Structures Training Program",
+      degree: "Africa to Silicon Valley (A2SV)",
+      period: "Jun 2024 — Jun 2025",
+      details: "Solved 400+ problems (DP, graphs, optimization)",
+      links: [
+        { label: "LeetCode", url: "https://leetcode.com/libenadugna" },
+        { label: "Codeforces", url: "https://codeforces.com/profile/Hehehc" },
+      ],
+    },
+    {
       title: "Adama Science and Technology University",
-      degree: "Bachelor's degree, Computer Software Engineering",
-      period: "2023 — 2027",
+      degree: "B.Sc. in Software Engineering",
+      period: "Sep 2018 — Jun 2022",
+      details: "Comprehensive program covering software development, data structures, algorithms, system design, and database systems.",
     },
   ];
 
   const experience = [
     {
-      role: "Member",
-      company: "CSEC-ASTU",
-      period: "Feb, 2025 — Present",
-      location: "Adama, Ethiopia",
+      role: "Freelance Machine Learning Engineer",
+      company: "Remote",
+      period: "Jul 2022 — Present",
+      location: "Remote",
       points: [
-        "Actively participated in community-based technical discussions and events.",
-        "Collaborated with peers to organize workshops and tech awareness programs.",
-        "Contributed to the software and research club initiatives within the university.",
+        "Built NLP and analytics models (TF-IDF, clustering, ensemble) on 50,000+ records, improving prediction accuracy by ~18%.",
+        "Developed Django REST APIs serving 5,000+ requests/month for scalable ML integration in web and mobile apps.",
+        "Deployed full-stack web applications, reducing client data-processing time by ~40% through automation and optimized workflows.",
       ],
     },
     {
-      role: "Intern",
+      role: "AI Systems Evaluator & Data Architecture Contributor",
+      company: "Revelo",
+      period: "Mar 2025 — Mar 2026",
+      location: "Adama, Ethiopia",
+      points: [
+        "Evaluated AI outputs on 8 ML models for correctness, consistency, and reliability using structured validation metrics.",
+        "Designed behavioral data schemas supporting training and evaluation of 4 AI systems.",
+        "Reviewed pull requests and refined evaluation guidelines, improving system code quality and reproducibility.",
+      ],
+    },
+    {
+      role: "Full-Stack Software Engineer",
       company: "Faris Technology Private Limited",
-      period: "Jun, 2025 — Sep, 2025",
+      period: "Aug 2023 — Feb 2025",
       location: "Addis Ababa, Ethiopia",
       points: [
-        "Worked on software development tasks using Flutter and Firebase.",
-        "Contributed to UI/UX improvements and code refactoring for mobile app modules.",
-        "Collaborated with senior developers to implement REST APIs.",
+        "Developed full-stack web and Flutter mobile apps for 5+ clients, delivering real-time data updates and responsive interfaces.",
+        "Designed and implemented REST APIs for user authentication, database integration, and dynamic workflows.",
+        "Conducted debugging, code reviews, and edge-case testing, reducing platform errors by ~25% and improving reliability.",
       ],
     },
     {
-      role: "Student Member",
-      company: "A2SV | Africa to Silicon Valley",
-      period: "Jan, 2025 — Aug, 2025",
+      role: "Senior Technical Mentor – Machine Learning",
+      company: "CSEC-ASTU",
+      period: "Sep 2022 — Jun 2023",
       location: "Adama, Ethiopia",
       points: [
-        "Engaged in advanced problem-solving and algorithmic training sessions.",
-        "Developed teamwork and leadership skills through collaborative projects.",
-        "Enhanced coding proficiency in data structures and algorithms.",
+        "Mentored 40+ students in ML system design, evaluation, and deployment.",
+        "Supervised 8+ ML projects covering NLP and anomaly detection.",
       ],
     },
   ];
@@ -53,7 +74,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Programming Fundamentals",
       issuer: "Udacity",
-      date: "Jan 2023",
       description: "Learned core programming concepts, including variables, control structures, data structures, and problem-solving techniques.",
       skills: ["Programming Logic", "Python", "Algorithms"],
       link: "https://www.udacity.com/"
@@ -61,7 +81,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Data Analysis Fundamentals",
       issuer: "Udacity",
-      date: "Mar 2023",
       description: "Acquired skills in collecting, cleaning, and analyzing data using Python, NumPy, and pandas to extract insights.",
       skills: ["Data Analysis", "Python", "NumPy", "pandas"],
       link: "https://www.udacity.com/certificate/e/1f7abfaa-309d-11f0-a6fd-832dd500790a"
@@ -69,7 +88,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Android Developer Fundamentals",
       issuer: "Udacity",
-      date: "May 2023",
       description: "Developed Android applications using Java and Android Studio, focusing on layouts, activities, and UI navigation.",
       skills: ["Android", "Java", "Mobile Development"],
       link: "https://www.udacity.com/"
@@ -77,7 +95,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Artificial Intelligence Fundamentals",
       issuer: "Udacity",
-      date: "Jul 2023",
       description: "Explored core AI principles such as search algorithms, machine learning, and neural networks with hands-on examples.",
       skills: ["Artificial Intelligence", "Machine Learning", "Python"],
       link: "https://www.udacity.com/"
@@ -85,7 +102,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "AI and Career Empowerment",
       issuer: "University of Maryland – Robert H. Smith School of Business",
-      date: "Sep 2023",
       description: "Developed AI literacy and professional growth strategies to navigate AI-driven career transformation and innovation.",
       skills: ["AI Literacy", "Career Development", "Leadership"],
       link: ""
@@ -93,7 +109,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Communication Skills: Acquire Effective Communication",
       issuer: "Udemy",
-      date: "Nov 2023",
       description: "Improved verbal, written, and interpersonal communication skills for professional and team collaboration.",
       skills: ["Communication", "Interpersonal Skills", "Public Speaking"],
       link: "https://www.udemy.com/"
@@ -101,7 +116,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Professional Diploma in Leadership",
       issuer: "Udemy",
-      date: "Jan 2024",
       description: "Enhanced leadership capabilities, emotional intelligence, and team motivation for organizational success.",
       skills: ["Leadership", "Team Management", "Decision Making"],
       link: "https://www.udemy.com/"
@@ -109,7 +123,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Strategic Thinking for Leaders and Managers",
       issuer: "Udemy",
-      date: "Mar 2024",
       description: "Learned strategic planning, problem-solving, and organizational analysis to lead teams effectively.",
       skills: ["Strategic Thinking", "Leadership", "Planning"],
       link: "https://www.udemy.com/"
@@ -117,7 +130,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Lean Problem Solving: Creative Solutions for Teams and Leaders",
       issuer: "Udemy",
-      date: "May 2024",
       description: "Mastered lean problem-solving tools and creative thinking techniques to enhance team performance and innovation.",
       skills: ["Problem Solving", "Lean Thinking", "Creativity"],
       link: "https://www.udemy.com/"
@@ -125,7 +137,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "Dart & Flutter: The Ultimate Mobile App Development Course",
       issuer: "Udemy",
-      date: "Oct 2025",
       description: "Learned Flutter app development, Dart programming, state management, and responsive UI design.",
       skills: ["Flutter", "Dart", "UI Design", "Mobile Apps"],
       link: "https://www.udemy.com/"
@@ -133,7 +144,6 @@ const ResumeSection: React.FC = () => {
     {
       title: "ALX AI Career Essentials",
       issuer: "ALX",
-      date: "Dec 2024",
       description: "Gained foundational understanding of AI tools, prompt engineering, and career readiness for AI-driven industries.",
       skills: ["AI Tools", "Prompt Engineering", "Career Skills"],
       link: "https://intranet.alxswe.com/certificates/nryHeJML8T"
@@ -178,14 +188,33 @@ const ResumeSection: React.FC = () => {
           <h3 className="text-xl font-semibold text-white">Education</h3>
         </div>
         
-        {education.map((edu, index) => (
+        {education.map((edu: any, index) => (
           <div
             key={index}
-            className="p-5 bg-dark-300 border border-gray-800 rounded-xl"
+            className="p-5 bg-dark-300 border border-gray-800 rounded-xl mb-4"
           >
             <h4 className="text-lg font-semibold text-white">{edu.title}</h4>
             <p className="text-yellow-500 text-sm mt-1">{edu.degree}</p>
             <p className="text-gray-500 text-sm mt-1">{edu.period}</p>
+            {edu.details && (
+              <p className="text-gray-400 text-sm mt-2">{edu.details}</p>
+            )}
+            {edu.links && (
+              <div className="flex gap-3 mt-2">
+                {edu.links.map((link: any) => (
+                  <a
+                    key={link.label}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-yellow-500 hover:text-yellow-400 transition-colors"
+                  >
+                    <ExternalLink size={12} />
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         ))}
       </motion.div>
@@ -265,12 +294,9 @@ const ResumeSection: React.FC = () => {
               key={index}
               className="p-5 bg-dark-300 border border-gray-800 rounded-xl hover:border-yellow-500/50 transition-colors group"
             >
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <h4 className="font-semibold text-white group-hover:text-yellow-500 transition-colors">{cert.title}</h4>
-                  <p className="text-yellow-500 text-sm">{cert.issuer}</p>
-                </div>
-                <span className="text-gray-500 text-xs">{cert.date}</span>
+              <div className="mb-2">
+                <h4 className="font-semibold text-white group-hover:text-yellow-500 transition-colors">{cert.title}</h4>
+                <p className="text-yellow-500 text-sm">{cert.issuer}</p>
               </div>
               <p className="text-gray-400 text-sm mb-3">{cert.description}</p>
               <div className="flex flex-wrap gap-1 mb-3">

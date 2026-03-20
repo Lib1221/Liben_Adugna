@@ -12,14 +12,97 @@ export type Project = {
     repoLink?: string;
     liveDemo?: string;
     youtubeLink?: string;
-    category: "Mobile" | "Web" | "AI/ML" | "Data Science";
+    category: "Mobile" | "Web" | "AI/ML" | "Data Science" | "MLOps";
     isPrivate?: boolean;
 };
 
 export const projects: Project[] = [
-    // ============ AI/ML PROJECTS (NEW - Private) ============
+    // ============ TOP PROJECTS FROM RESUME ============
     
-    // 1. AI-Powered Personal Finance Behavior Analyzer
+    // 1. Behavioral User Segmentation System
+    {
+        title: "Behavioral User Segmentation System",
+        description:
+            "A machine learning system that processes ~450k user interaction records to extract behavioral features and segment users using clustering techniques. Engineered session-based and frequency-based features from raw logs.",
+        technologies: ["Python", "Pandas", "Scikit-learn", "K-Means", "PCA"],
+        role: "ML Engineer",
+        duration: "2025",
+        features: [
+            "Processed ~450k user interaction records for behavioral analysis",
+            "Engineered session-based and frequency-based features from raw logs",
+            "Applied K-Means clustering with PCA for stable segmentation",
+            "Evaluated cluster quality using silhouette score",
+            "Interpretability checks for business insights",
+        ],
+        image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
+        category: "Data Science",
+        isPrivate: true,
+    },
+
+    // 2. Transaction Anomaly Detection Pipeline
+    {
+        title: "Transaction Anomaly Detection Pipeline",
+        description:
+            "Built anomaly detection models on ~110k transactional records using Isolation Forest and Random Forest-based classification approaches. Addressed class imbalance and improved precision through threshold tuning.",
+        technologies: ["Python", "Scikit-learn", "Isolation Forest", "Random Forest", "Statistical Modeling"],
+        role: "ML Engineer",
+        duration: "2025",
+        features: [
+            "Built anomaly detection on ~110k transactional records",
+            "Implemented Isolation Forest and Random Forest classification",
+            "Addressed class imbalance using resampling techniques",
+            "Improved precision by tuning decision thresholds",
+            "Feature refinement for better model accuracy",
+        ],
+        image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop",
+        category: "Data Science",
+        isPrivate: true,
+    },
+
+    // 3. NLP-Based Resume–Job Matching Engine
+    {
+        title: "NLP-Based Resume–Job Matching Engine",
+        description:
+            "Designed a text preprocessing and TF-IDF vectorization pipeline for semantic matching between resumes and job descriptions. Automated candidate scoring and ranking logic with precision@k evaluation.",
+        technologies: ["Python", "NLP", "Scikit-learn", "TF-IDF", "Cosine Similarity"],
+        role: "NLP Engineer",
+        duration: "2025",
+        features: [
+            "Text preprocessing and TF-IDF vectorization pipeline",
+            "Computed semantic similarity using cosine similarity ranking",
+            "Automated candidate scoring and ranking logic",
+            "Evaluated ranking quality using precision@k metrics",
+            "Scalable design for large resume databases",
+        ],
+        image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=400&fit=crop",
+        category: "AI/ML",
+        isPrivate: true,
+    },
+
+    // 4. Smart Gebere – AI-Powered Agricultural Assistant
+    {
+        title: "Smart Gebere – AI Agricultural Assistant",
+        description:
+            "A cross-platform mobile application to assist farmers with AI-driven insights and decision support. Integrated ML models for crop recommendations, disease detection, and advisory services with offline optimization.",
+        technologies: ["Flutter", "Firebase", "Machine Learning APIs", "TensorFlow Lite", "Cloud Integration"],
+        role: "Full Stack ML Developer",
+        duration: "2025",
+        features: [
+            "AI-driven crop recommendations and disease detection",
+            "Scalable backend using Firebase for real-time sync",
+            "User-friendly UI/UX for low-resource environments",
+            "Optimized for offline/low-connectivity scenarios",
+            "Translates agricultural challenges into data-driven solutions",
+        ],
+        image: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_2_xmic9m.png",
+        repoLink: "https://github.com/lib1221/Smart_Gebere",
+        youtubeLink: "https://youtu.be/C8Kw2S8Khf0",
+        category: "AI/ML",
+    },
+
+    // ============ OTHER AI/ML PROJECTS ============
+
+    // AI-Powered Personal Finance Behavior Analyzer
     {
         title: "AI-Powered Personal Finance Behavior Analyzer",
         description:
@@ -39,7 +122,7 @@ export const projects: Project[] = [
         isPrivate: true,
     },
 
-    // 2. Offline-First Smart Field Data Collection App
+    // Offline-First Smart Field Data Collection App
     {
         title: "Offline-First Smart Field Data Collection App",
         description:
@@ -59,27 +142,7 @@ export const projects: Project[] = [
         isPrivate: true,
     },
 
-    // 3. AI Resume & Portfolio Scoring Engine
-    {
-        title: "AI Resume & Portfolio Scoring Engine",
-        description:
-            "An NLP-powered web application that scores resumes against job descriptions, highlights missing skills using semantic similarity, and predicts ATS pass probability.",
-        technologies: ["Next.js", "Python", "Scikit-learn", "Hugging Face", "PostgreSQL"],
-        role: "NLP Engineer",
-        duration: "2025",
-        features: [
-            "Resume parsing with NLP extraction",
-            "Job description semantic matching",
-            "ATS compatibility prediction",
-            "Skill gap analysis and recommendations",
-            "Portfolio project relevance scoring",
-        ],
-        image: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&h=400&fit=crop",
-        category: "AI/ML",
-        isPrivate: true,
-    },
-
-    // 4. Real-Time Skill Gap Analyzer for Developers
+    // Real-Time Skill Gap Analyzer for Developers
     {
         title: "Real-Time Skill Gap Analyzer for Developers",
         description:
@@ -99,7 +162,7 @@ export const projects: Project[] = [
         isPrivate: true,
     },
 
-    // 5. Intelligent News Credibility & Bias Detector
+    // Intelligent News Credibility & Bias Detector
     {
         title: "Intelligent News Credibility & Bias Detector",
         description:
@@ -119,7 +182,7 @@ export const projects: Project[] = [
         isPrivate: true,
     },
 
-    // 6. Smart Health Symptom Progression Predictor
+    // Smart Health Symptom Progression Predictor
     {
         title: "Smart Health Symptom Progression Predictor",
         description:
@@ -139,7 +202,7 @@ export const projects: Project[] = [
         isPrivate: true,
     },
 
-    // 7. AI-Driven UI Personalization Engine
+    // AI-Driven UI Personalization Engine
     {
         title: "AI-Driven UI Personalization Engine",
         description:
@@ -159,26 +222,7 @@ export const projects: Project[] = [
         isPrivate: true,
     },
 
-    // ============ EXISTING PROJECTS ============
-
-    // Private Enterprise System
-    {
-        title: "Private Enterprise System",
-        description:
-            "A large-scale enterprise application built with Laravel and Vue.js. Features complex role-based access control, real-time reporting, and integration with multiple third-party services.",
-        technologies: ["Laravel", "Vue.js", "MySQL", "Redis"],
-        role: "Full Stack Developer",
-        duration: "2025",
-        features: [
-            "Role-Based Access Control (RBAC)",
-            "Real-time data visualization",
-            "Automated reporting system",
-            "Secure API integration",
-        ],
-        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
-        category: "Web",
-        isPrivate: true,
-    },
+    // ============ MOBILE PROJECTS ============
 
     // Mela Loan Comparison App
     {
@@ -198,26 +242,6 @@ export const projects: Project[] = [
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_wpj5hv.png",
         repoLink: "https://github.com/wako-coder/mela-App",
         category: "Mobile",
-    },
-
-    // Smart Gebere
-    {
-        title: "Smart Gebere",
-        description:
-            "A smarter way for farmers to cultivate success! With AI-powered crop recommendations, disease detection, and weather forecasting, this app helps farmers grow better crops and plan their days efficiently.",
-        technologies: ["Flutter", "Firebase", "TensorFlow Lite", "Python"],
-        role: "Mobile App Developer",
-        duration: "2025",
-        features: [
-            "AI-driven crop recommendations using GPS and manual inputs",
-            "Disease detection via image recognition with treatment advice",
-            "Real-time weather forecasts for efficient planning",
-            "Farmer-friendly, intuitive UI design",
-        ],
-        image: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_2_xmic9m.png",
-        repoLink: "https://github.com/lib1221/Smart_Gebere",
-        youtubeLink: "https://youtu.be/C8Kw2S8Khf0",
-        category: "AI/ML",
     },
 
     // Gosho Dating App
@@ -268,26 +292,6 @@ export const projects: Project[] = [
         image: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_3_q0ftqx.png",
         repoLink: "https://github.com/Lib1221/Crazy-Game",
         category: "Mobile",
-    },
-
-    // Advanced Java Shopping
-    {
-        title: "Advanced Java Shopping Web Application",
-        description:
-            "A full-featured e-commerce web application built using Java Servlets and JSP, featuring product search, cart management, and an admin panel.",
-        technologies: ["Java", "Servlet", "JSP", "MySQL", "Tomcat"],
-        role: "Full Stack Java Developer",
-        duration: "2025",
-        features: [
-            "User and admin authentication system",
-            "Product listing, search, and details pages",
-            "Shopping cart functionality with order management",
-            "Admin dashboard for user and product management",
-        ],
-        image: "https://img.youtube.com/vi/qLFG0Y1u77g/0.jpg",
-        repoLink: "https://github.com/your-username/Advanced_java_shopping",
-        youtubeLink: "https://www.youtube.com/watch?v=qLFG0Y1u77g",
-        category: "Web",
     },
 
     // Flutter Exam App
@@ -347,9 +351,50 @@ export const projects: Project[] = [
         category: "Mobile",
     },
 
+    // ============ WEB PROJECTS ============
+
+    // Private Enterprise System
+    {
+        title: "Private Enterprise System",
+        description:
+            "A large-scale enterprise application built with Laravel and Vue.js. Features complex role-based access control, real-time reporting, and integration with multiple third-party services.",
+        technologies: ["Laravel", "Vue.js", "MySQL", "Redis"],
+        role: "Full Stack Developer",
+        duration: "2025",
+        features: [
+            "Role-Based Access Control (RBAC)",
+            "Real-time data visualization",
+            "Automated reporting system",
+            "Secure API integration",
+        ],
+        image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+        category: "Web",
+        isPrivate: true,
+    },
+
+    // Advanced Java Shopping
+    {
+        title: "Advanced Java Shopping Web Application",
+        description:
+            "A full-featured e-commerce web application built using Java Servlets and JSP, featuring product search, cart management, and an admin panel.",
+        technologies: ["Java", "Servlet", "JSP", "MySQL", "Tomcat"],
+        role: "Full Stack Java Developer",
+        duration: "2025",
+        features: [
+            "User and admin authentication system",
+            "Product listing, search, and details pages",
+            "Shopping cart functionality with order management",
+            "Admin dashboard for user and product management",
+        ],
+        image: "https://img.youtube.com/vi/qLFG0Y1u77g/0.jpg",
+        repoLink: "https://github.com/lib1221/Advanced_java_shopping",
+        youtubeLink: "https://www.youtube.com/watch?v=qLFG0Y1u77g",
+        category: "Web",
+    },
+
     // eCommerce App
     {
-        title: "eCommerce App",
+        title: "Full Stack eCommerce Platform",
         description:
             "A full-featured mobile-first eCommerce platform built with Django and Flutter. Includes secure authentication, Stripe payments, and a powerful admin panel.",
         technologies: [
@@ -358,7 +403,6 @@ export const projects: Project[] = [
             "Flutter",
             "Stripe API",
             "PostgreSQL",
-            "GetX",
         ],
         role: "Full Stack Developer",
         duration: "2025",
@@ -372,26 +416,26 @@ export const projects: Project[] = [
         image:
             "https://cdn.dribbble.com/userupload/12505408/file/original-4a4cb74637e6d92fcd0379878678de06.png?resize=1200x900",
         repoLink: "https://github.com/lib1221/ecommerce-full-stack-mobile",
-        category: "Mobile",
+        category: "Web",
     },
 
     // Portfolio Website
     {
         title: "Portfolio Website",
         description:
-            "A personal portfolio built with React, TypeScript, and Tailwind CSS — showcasing projects, skills, and resume downloads.",
-        technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion"],
+            "A personal portfolio built with React, TypeScript, and Tailwind CSS — showcasing projects, skills, and resume downloads with AI chatbot integration.",
+        technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Gemini AI"],
         role: "Frontend Developer",
         duration: "2025",
         features: [
             "Responsive, mobile-first design",
-            "Dark/light mode toggle",
+            "AI-powered chatbot for visitor interactions",
             "Integrated resume download and GitHub links",
         ],
         image:
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760339187/Contact_j5lvc6.png",
-        repoLink: "https://github.com/libenadugna/portfolio",
-        liveDemo: "https://libenadugna.vercel.app",
+        repoLink: "https://github.com/lib1221/portfolio",
+        liveDemo: "https://www.liben.dev",
         category: "Web",
     },
 ];

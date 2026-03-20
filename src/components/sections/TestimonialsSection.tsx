@@ -1,44 +1,35 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaQuoteLeft, FaChevronLeft, FaChevronRight, FaStar } from "react-icons/fa";
+import { FaQuoteLeft, FaChevronLeft, FaChevronRight, FaStar, FaLinkedin } from "react-icons/fa";
 
 interface Testimonial {
   id: number;
   name: string;
   role: string;
   company: string;
-  image: string;
   content: string;
   rating: number;
+  linkedin?: string;
 }
 
 const testimonials: Testimonial[] = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    role: "Product Manager",
-    company: "TechStart Inc.",
-    image: "https://randomuser.me/api/portraits/women/32.jpg",
-    content: "Liben delivered an exceptional mobile app that exceeded our expectations. His attention to detail and understanding of user experience made our product stand out in the market.",
+    name: "Elias Yirdaw",
+    role: "CEO",
+    company: "Faris Technology Private Limited",
+    content: "Liben demonstrated exceptional skills during his time at Faris Technology. His work on full-stack development, REST APIs, and mobile applications significantly improved our delivery for clients. He brings a strong foundation in both engineering and problem-solving.",
     rating: 5,
+    linkedin: "https://et.linkedin.com/in/elias-yirdaw-54318217b",
   },
   {
     id: 2,
-    name: "Michael Chen",
-    role: "CTO",
-    company: "DataFlow Systems",
-    image: "https://randomuser.me/api/portraits/men/45.jpg",
-    content: "Working with Liben on our ML pipeline was a great experience. He brought innovative solutions and delivered on time. His expertise in both development and data science is rare.",
+    name: "Frederic Monnier",
+    role: "AI Systems Lead",
+    company: "Revelo",
+    content: "Working with Liben on AI systems evaluation was a pleasure. His attention to detail in reviewing code and evaluating AI outputs for correctness and consistency greatly contributed to our quality standards. He brings both technical depth and clear communication.",
     rating: 5,
-  },
-  {
-    id: 3,
-    name: "Emily Roberts",
-    role: "Founder",
-    company: "GreenTech Solutions",
-    image: "https://randomuser.me/api/portraits/women/68.jpg",
-    content: "Liben transformed our outdated web platform into a modern, responsive application. His full-stack skills and communication throughout the project were outstanding.",
-    rating: 5,
+    linkedin: "https://www.linkedin.com/in/fredericmonnier34090/",
   },
 ];
 
@@ -57,7 +48,7 @@ const TestimonialsSection: React.FC = () => {
     <section className="py-10">
       <div className="flex items-center justify-between mb-8">
         <h2 className="text-2xl font-bold text-white">
-          Client <span className="text-yellow-500">Testimonials</span>
+          Professional <span className="text-yellow-500">References</span>
         </h2>
         <div className="flex gap-2">
           <button
@@ -108,16 +99,28 @@ const TestimonialsSection: React.FC = () => {
 
             {/* Author */}
             <div className="flex items-center gap-4">
-              <img
-                src={testimonials[currentIndex].image}
-                alt={testimonials[currentIndex].name}
-                loading="lazy"
-                className="w-12 h-12 rounded-full object-cover border-2 border-yellow-500"
-              />
-              <div>
-                <h4 className="font-semibold text-white">
-                  {testimonials[currentIndex].name}
-                </h4>
+              <div className="w-12 h-12 rounded-full bg-yellow-500/10 border-2 border-yellow-500 flex items-center justify-center flex-shrink-0">
+                <span className="text-yellow-500 font-bold text-lg">
+                  {testimonials[currentIndex].name.charAt(0)}
+                </span>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h4 className="font-semibold text-white">
+                    {testimonials[currentIndex].name}
+                  </h4>
+                  {testimonials[currentIndex].linkedin && (
+                    <a
+                      href={testimonials[currentIndex].linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-400 hover:text-blue-300 transition-colors"
+                      aria-label="LinkedIn Profile"
+                    >
+                      <FaLinkedin size={16} />
+                    </a>
+                  )}
+                </div>
                 <p className="text-sm text-gray-500">
                   {testimonials[currentIndex].role} at {testimonials[currentIndex].company}
                 </p>

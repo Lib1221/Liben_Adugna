@@ -45,7 +45,7 @@ class GeminiService {
 
         try {
             const model = this.genAI.getGenerativeModel({
-                model: 'gemini-2.5-flash',
+                model: 'gemini-2.0-flash',
             });
 
             this.chatSession = model.startChat({

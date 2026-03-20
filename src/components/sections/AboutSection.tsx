@@ -25,20 +25,21 @@ const AboutSection: React.FC = () => {
         className="space-y-4"
       >
         <p className="text-gray-400 leading-relaxed">
-          I am a <span className="text-yellow-500 font-medium">versatile software engineer</span> providing 
-          end-to-end digital solutions, with a strong focus on mobile application development (primarily Flutter), 
-          modern web development (React & Next.js), and data science & machine learning.
+          I am a <span className="text-yellow-500 font-medium">Software Engineer</span> with expertise in 
+          machine learning systems, code evaluation, and full-stack development. Experienced in validating 
+          AI-generated outputs, reviewing system implementations, and building scalable web and mobile applications.
         </p>
 
         <p className="text-gray-400 leading-relaxed">
-          I specialize in building <span className="text-white font-medium">scalable, production-ready systems</span> — 
-          from intuitive UI/UX design to robust backend logic and intelligent data-driven features. My experience 
-          spans classical machine learning models, deep learning architectures, and real-world problem solving.
+          My work spans <span className="text-white font-medium">ML model development</span>, data preprocessing 
+          pipelines, and NLP applications. I've processed datasets with 450k+ records for behavioral segmentation, 
+          built anomaly detection systems, and designed semantic matching engines.
         </p>
 
         <p className="text-gray-400 leading-relaxed">
-          I bring a strong foundation in algorithms, system thinking, and problem-solving, enabling me to design 
-          solutions that are not only functional but efficient, maintainable, and impactful.
+          Strong in <span className="text-white font-medium">debugging, performance optimization</span>, and 
+          designing reliable, maintainable software systems. I bring a solid foundation in data structures, 
+          algorithms, and system thinking from solving 400+ competitive programming problems.
         </p>
       </motion.div>
 
@@ -50,8 +51,8 @@ const AboutSection: React.FC = () => {
         className="mt-6 p-4 bg-dark-300 border-l-4 border-yellow-500 rounded-r-xl"
       >
         <p className="text-gray-300 italic">
-          "Multi-disciplinary engineer combining Flutter, modern web technologies, and machine learning 
-          to build intelligent, real-world products."
+          "Software Engineer specializing in ML systems, code evaluation, and AI-powered solutions 
+          — building reliable, scalable systems that solve real-world problems."
         </p>
       </motion.div>
     </section>
