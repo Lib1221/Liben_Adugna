@@ -19,10 +19,10 @@ class GeminiService {
      * Initialize Gemini AI with API key from environment variables
      */
     private initialize() {
-        const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+        const apiKey = import.meta.env.GEMINI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY;
 
         if (!apiKey) {
-            console.error('❌ Gemini API key not found. Please add VITE_GEMINI_API_KEY to your .env.local file');
+            console.error('❌ Gemini API key not found. Please add GEMINI_API_KEY to your .env.local file');
             return;
         }
 

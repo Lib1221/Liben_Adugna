@@ -177,7 +177,7 @@ const AIChatbot: React.FC = () => {
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 hover:bg-yellow-400 transition-colors"
+        className="fixed bottom-24 right-5 md:bottom-6 md:right-6 z-50 w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 hover:bg-yellow-400 transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         style={{ display: isOpen ? 'none' : 'flex' }}
@@ -197,10 +197,10 @@ const AIChatbot: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className={`fixed z-50 ${isMinimized ? 'w-[280px]' : 'w-[380px] h-[520px]'} flex flex-col bg-dark-500 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden`}
-            style={{ 
-              right: 24, 
-              bottom: 24,
+            className={`fixed z-50 ${isMinimized ? 'w-[280px]' : 'w-[calc(100vw-32px)] sm:w-[380px]'} ${isMinimized ? '' : 'h-[520px]'} flex flex-col bg-dark-500 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden`}
+            style={{
+              right: 16,
+              bottom: typeof window !== 'undefined' && window.innerWidth < 768 ? 104 : 24,
               cursor: 'default'
             }}
           >

@@ -4,7 +4,7 @@ import { FaGithub, FaYoutube, FaExternalLinkAlt, FaLock } from "react-icons/fa";
 import { projects, techIcons } from "../../data/projects";
 import type { Project } from "../../data/projects";
 
-const categories = ["All", "Mobile", "Web", "AI/ML", "Data Science"];
+const categories = ["All", "AI/ML", "Data Science", "Mobile", "Web", "MLOps"];
 
 const ProfileSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -86,7 +86,12 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ delay: index * 0.05 }}
-      className="bg-dark-300 border border-gray-800 rounded-xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 group"
+      whileHover={!project.isPrivate ? { y: -4, transition: { duration: 0.2 } } : undefined}
+      className={`bg-dark-300 border rounded-xl overflow-hidden transition-all duration-300 group
+        ${project.isPrivate
+          ? "border-gray-800 opacity-80"
+          : "border-gray-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-500/10"
+        }`}
     >
       {/* Image */}
       <div className="relative h-48 overflow-hidden">
@@ -121,7 +126,7 @@ const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, i
 
       {/* Content */}
       <div className="p-5">
-        <h3 className="text-lg font-semibold text-white mb-1 group-hover:text-yellow-500 transition-colors">
+        <h3 className={`text-lg font-semibold text-white mb-1 transition-colors ${!project.isPrivate ? "group-hover:text-yellow-500" : ""}`}>
           {project.title}
         </h3>
         <p className="text-sm text-yellow-500/70 mb-3">{project.role}</p>

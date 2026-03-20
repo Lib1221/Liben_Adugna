@@ -3,42 +3,53 @@ import { FaMobileAlt, FaLaptopCode, FaBrain, FaServer, FaRobot, FaCogs } from "r
 import { motion } from "framer-motion";
 
 const services = [
-  { 
-    icon: <FaMobileAlt size={24} />, 
-    title: "Mobile App Development", 
-    text: "Production-grade cross-platform apps with Flutter & React Native. Clean architecture and state management.", 
+  {
+    icon: FaMobileAlt,
+    title: "Mobile App Development",
+    text: "Production-grade cross-platform apps with Flutter. Clean architecture, state management, and offline-first design.",
+    color: "#02569B",
+    gradient: "from-blue-500/10 to-blue-600/5",
   },
-  { 
-    icon: <FaLaptopCode size={24} />, 
-    title: "Web Development", 
-    text: "React & Next.js with SSR, SEO optimization. Dashboards, admin panels, and data-driven UIs.", 
+  {
+    icon: FaLaptopCode,
+    title: "Web Development",
+    text: "React & Node.js with modern tooling. Dashboards, admin panels, and data-driven UIs with SSR and SEO optimization.",
+    color: "#61DAFB",
+    gradient: "from-cyan-400/10 to-cyan-500/5",
   },
-  { 
-    icon: <FaServer size={24} />, 
-    title: "Backend Development", 
-    text: "High-performance backend services with Django, Laravel, and Node.js. RESTful APIs and microservices.", 
+  {
+    icon: FaServer,
+    title: "Backend Development",
+    text: "High-performance backend services with Django and Node.js. RESTful APIs serving 5,000+ requests/month.",
+    color: "#44B78B",
+    gradient: "from-emerald-500/10 to-emerald-600/5",
   },
-  { 
-    icon: <FaBrain size={24} />, 
-    title: "Data Science & ML", 
-    text: "Classical ML, Deep Learning, NLP, computer vision, and predictive systems.", 
+  {
+    icon: FaBrain,
+    title: "Data Science & ML",
+    text: "Classical ML, NLP, anomaly detection, and clustering. Processed 450k+ records with measurable accuracy improvements.",
+    color: "#F7931E",
+    gradient: "from-orange-400/10 to-orange-500/5",
   },
-  { 
-    icon: <FaRobot size={24} />, 
-    title: "AI Integration", 
-    text: "Integrate intelligent features into products. Model deployment and AI-powered automation.", 
+  {
+    icon: FaRobot,
+    title: "AI Systems Evaluation",
+    text: "Validate AI outputs for correctness, consistency, and reliability. Structured evaluation frameworks for 8+ ML models.",
+    color: "#8B5CF6",
+    gradient: "from-violet-500/10 to-violet-600/5",
   },
-  { 
-    icon: <FaCogs size={24} />, 
-    title: "Automation", 
-    text: "Workflow automation, data pipelines, CI/CD setup, and custom scripts.", 
+  {
+    icon: FaCogs,
+    title: "MLOps & Automation",
+    text: "Automated ML pipelines, workflow automation, data preprocessing, and CI/CD setup for scalable ML deployments.",
+    color: "#22C55E",
+    gradient: "from-green-500/10 to-green-600/5",
   },
 ];
 
 const ServicesSection: React.FC = () => {
   return (
     <section>
-      {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -51,33 +62,65 @@ const ServicesSection: React.FC = () => {
         <div className="w-16 h-1 bg-yellow-500 rounded" />
       </motion.div>
 
-      {/* Services Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {services.map((service, idx) => (
-          <motion.div
-            key={service.title}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
-            className="p-5 bg-dark-300 border border-gray-800 rounded-xl hover:border-yellow-500/50 transition-all duration-300 group"
-          >
-            <div className="flex items-start gap-4">
-              {/* Icon */}
-              <div className="p-3 bg-yellow-500/10 rounded-lg text-yellow-500 group-hover:bg-yellow-500 group-hover:text-black transition-all duration-300">
-                {service.icon}
+        {services.map((service, idx) => {
+          const Icon = service.icon;
+          return (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.08 }}
+              whileHover={{ y: -4, transition: { duration: 0.2 } }}
+              className={`relative p-5 bg-dark-300 border border-gray-800 rounded-xl overflow-hidden
+                hover:border-transparent transition-all duration-300 group cursor-default`}
+              style={{ "--hover-color": service.color } as React.CSSProperties}
+            >
+              {/* Gradient bg on hover */}
+              <div
+                className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}
+              />
+              {/* Glowing border */}
+              <div
+                className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ boxShadow: `inset 0 0 0 1px ${service.color}60` }}
+              />
+
+              <div className="relative flex items-start gap-4">
+                <motion.div
+                  whileHover={{ rotate: [0, -10, 10, 0] }}
+                  transition={{ duration: 0.4 }}
+                  className="p-3 rounded-lg transition-all duration-300"
+                  style={{ backgroundColor: service.color + "20" }}
+                >
+                  <Icon
+                    size={22}
+                    style={{ color: service.color }}
+                    className="transition-colors duration-300"
+                  />
+                </motion.div>
+
+                <div className="flex-1">
+                  <h3
+                    className="text-white font-semibold mb-2 transition-colors duration-200 group-hover:text-white"
+                    style={{}}
+                  >
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed group-hover:text-gray-400 transition-colors duration-200">
+                    {service.text}
+                  </p>
+                </div>
               </div>
-              
-              <div className="flex-1">
-                <h3 className="text-white font-semibold mb-2 group-hover:text-yellow-500 transition-colors">
-                  {service.title}
-                </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  {service.text}
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        ))}
+
+              {/* Bottom accent line */}
+              <div
+                className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-500 rounded-b-xl"
+                style={{ backgroundColor: service.color }}
+              />
+            </motion.div>
+          );
+        })}
       </div>
     </section>
   );

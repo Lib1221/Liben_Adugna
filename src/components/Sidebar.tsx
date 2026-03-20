@@ -66,30 +66,23 @@ const Sidebar: React.FC = () => {
 
           {/* Role Pills */}
           <div className="flex flex-wrap justify-center gap-1.5 mb-4">
-            <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
-            >
-              ML Engineer
-            </motion.span>
-            <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
-            >
-              AI Reviewer
-            </motion.span>
-            <motion.span 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
-            >
-              Full Stack
-            </motion.span>
+            {[
+              { label: "ML Engineer",      delay: 0.1 },
+              { label: "AI Reviewer",      delay: 0.2 },
+              { label: "Full Stack",       delay: 0.3 },
+              { label: "Code Evaluator",   delay: 0.4 },
+            ].map(({ label, delay }) => (
+              <motion.span
+                key={label}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay }}
+                whileHover={{ scale: 1.05, borderColor: "#F59E0B", color: "#F59E0B" }}
+                className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50 transition-colors duration-200 cursor-default"
+              >
+                {label}
+              </motion.span>
+            ))}
           </div>
 
           {/* Available for Hire Badge */}
