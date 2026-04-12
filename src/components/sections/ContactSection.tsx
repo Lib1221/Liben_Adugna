@@ -48,18 +48,6 @@ const ContactSection: React.FC = () => {
       value: "libenadugna285@gmail.com",
       href: "mailto:libenadugna285@gmail.com",
     },
-    {
-      icon: <FaPhoneAlt size={18} />,
-      label: "Phone",
-      value: "+251 906169046",
-      href: "tel:+251906169046",
-    },
-    {
-      icon: <FaMapMarkerAlt size={18} />,
-      label: "Location",
-      value: "Adama, Ethiopia",
-      href: null,
-    },
   ];
 
   return (
@@ -105,18 +93,6 @@ const ContactSection: React.FC = () => {
             </div>
           ))}
 
-          {/* Map */}
-          <div className="rounded-xl overflow-hidden border border-gray-800">
-            <iframe
-              title="Location"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126115.65567394784!2d38.99138715820312!3d8.547159100000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b1f3e12c0a0c1%3A0x49e0e4a5a9c5e0f9!2sAdama%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1680000000000!5m2!1sen!2sus"
-              width="100%"
-              height="200"
-              style={{ border: 0, filter: "grayscale(1) invert(1)" }}
-              allowFullScreen
-              loading="lazy"
-            />
-          </div>
         </motion.div>
 
         {/* Contact Form */}
