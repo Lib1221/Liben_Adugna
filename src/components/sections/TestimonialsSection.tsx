@@ -24,12 +24,12 @@ const testimonials: Testimonial[] = [
   },
   {
     id: 2,
-    name: "Frederic Monnier",
+    name: "Abel Bela",
     role: "AI Systems Lead",
-    company: "Revelo",
+    company: "",
     content: "Working with Liben on AI systems evaluation was a pleasure. His attention to detail in reviewing code and evaluating AI outputs for correctness and consistency greatly contributed to our quality standards. He brings both technical depth and clear communication.",
     rating: 5,
-    linkedin: "https://www.linkedin.com/in/fredericmonnier34090/",
+    linkedin: "",
   },
 ];
 
