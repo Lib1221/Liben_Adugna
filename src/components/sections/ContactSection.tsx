@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaEnvelope, FaPhoneAlt, FaMapMarkerAlt, FaPaperPlane, FaCheck } from "react-icons/fa";
+import { FaEnvelope, FaPaperPlane, FaCheck } from "react-icons/fa";
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -81,18 +81,18 @@ const ContactSection: React.FC = () => {
                 {info.icon}
               </div>
               <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">{info.label}</p>
-                {info.href ? (
-                  <a href={info.href} className="text-white hover:text-yellow-500 transition-colors">
-                    {info.value}
-                  </a>
-                ) : (
-                  <p className="text-white">{info.value}</p>
-                )}
+                <p className="text-xs text-gray-500 uppercase tracking-wider">
+                  {info.label}
+                </p>
+                <a
+                  href={info.href}
+                  className="text-white hover:text-yellow-500 transition-colors"
+                >
+                  {info.value}
+                </a>
               </div>
             </div>
           ))}
-
         </motion.div>
 
         {/* Contact Form */}
@@ -120,48 +120,42 @@ const ContactSection: React.FC = () => {
 
           {/* Name */}
           <div>
-            <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">
-              Your Name
-            </label>
+            <label className="block text-xs text-gray-500 mb-2">Your Name</label>
             <input
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition-colors"
+              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-500"
               placeholder="John Doe"
             />
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">
-              Your Email
-            </label>
+            <label className="block text-xs text-gray-500 mb-2">Your Email</label>
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition-colors"
+              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-500"
               placeholder="john@example.com"
             />
           </div>
 
           {/* Message */}
           <div>
-            <label className="block text-xs text-gray-500 uppercase tracking-wider mb-2">
-              Message
-            </label>
+            <label className="block text-xs text-gray-500 mb-2">Message</label>
             <textarea
               name="message"
               value={formData.message}
               onChange={handleChange}
               required
               rows={4}
-              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white placeholder-gray-600 focus:outline-none focus:border-yellow-500 transition-colors resize-none"
+              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-500 resize-none"
               placeholder="Your message..."
             />
           </div>
@@ -170,7 +164,7 @@ const ContactSection: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full flex items-center justify-center gap-2 py-4 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full flex items-center justify-center gap-2 py-4 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 disabled:opacity-50"
           >
             {isSubmitting ? (
               <>
