@@ -106,17 +106,6 @@ const Sidebar: React.FC = () => {
               label="Email" 
               value="libenadugna285@gmail.com" 
             />
-            <ContactItem 
-              icon={<FaPhoneAlt />} 
-              label="Phone" 
-              value="+251 906169046" 
-            />
-            <ContactItem 
-              icon={<FaMapMarkerAlt />} 
-              label="Location" 
-              value="Adama, Ethiopia" 
-            />
-          </div>
 
           {/* Divider */}
           <div className="h-px bg-gray-800 mb-6" />
