@@ -19,7 +19,7 @@ const ResumeSection: React.FC = () => {
     {
       title: "Adama Science and Technology University",
       degree: "B.Sc. in Software Engineering",
-      period: "Sep 2018 — Jun 2022",
+      period: "",
       details: "Comprehensive program covering software development, data structures, algorithms, system design, and database systems.",
     },
   ];
