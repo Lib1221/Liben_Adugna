@@ -26,17 +26,24 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
     <>
       {/* Desktop navbar */}
       <nav className="hidden md:block mb-6">
-        <div className="bg-dark-400 border border-gray-800 rounded-2xl p-2">
+        <div className="modern-card border border-gray-800 rounded-2xl p-2">
           <ul className="flex gap-1">
             {items.map((item) => {
               const isSelected = selected === item.label;
               return (
-                <li key={item.label} className="flex-1">
+                <li key={item.label} className="flex-1 relative">
+                  {isSelected && (
+                    <motion.div
+                      layoutId="desktop-nav-indicator"
+                      className="absolute inset-0 bg-yellow-500 rounded-xl"
+                      transition={{ type: "spring", stiffness: 420, damping: 32 }}
+                    />
+                  )}
                   <button
                     onClick={() => setSelected(item.label)}
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200
+                    className={`relative z-10 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200
                     ${isSelected
-                      ? "bg-yellow-500 text-black"
+                      ? "text-black"
                       : "text-gray-400 hover:text-white hover:bg-dark-300"
                     }`}
                   >
@@ -51,7 +58,7 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
       </nav>
 
       {/* Mobile Bottom Navigation - Modern Floating Design */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 pb-4 px-4">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 px-4 safe-bottom-pad">
         {/* Gradient blur background */}
         <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-dark-500 via-dark-500/80 to-transparent pointer-events-none" />
         

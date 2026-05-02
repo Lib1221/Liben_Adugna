@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaEnvelope, FaPaperPlane, FaCheck } from "react-icons/fa";
+import { FaEnvelope, FaPaperPlane, FaCheck, FaExclamationTriangle } from "react-icons/fa";
+import { CalendarDays } from "lucide-react";
+import SectionHeader from "../ui/SectionHeader";
+import { contactConversion } from "../../data/siteContent";
+import { trackEvent } from "../../utils/analytics";
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +14,8 @@ const ContactSection: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const web3FormsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,24 +24,35 @@ const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage("");
+
+    if (!web3FormsAccessKey) {
+      setErrorMessage("Contact form is not configured yet. Please email directly.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          access_key: "b27b65dd-5c8b-414e-acfe-1d32aa1f1b48",
+          access_key: web3FormsAccessKey,
           ...formData,
         }),
       });
 
       if (response.ok) {
+        trackEvent("contact_submit_success");
         setSubmitted(true);
         setFormData({ name: "", email: "", message: "" });
         setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        setErrorMessage("Failed to send message. Please try again or email directly.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
+      setErrorMessage("Something went wrong while sending. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
@@ -52,16 +69,40 @@ const ContactSection: React.FC = () => {
 
   return (
     <section>
-      {/* Header */}
+      <SectionHeader
+        title="Get in"
+        accent="Touch"
+        subtitle="Open to ML/AI, full-stack, and product engineering collaborations."
+      />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="modern-card border border-gray-800 p-5 mb-8"
       >
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-          Get in <span className="text-yellow-500">Touch</span>
-        </h2>
-        <div className="w-16 h-1 bg-yellow-500 rounded" />
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div>
+            <p className="text-sm text-white font-semibold">Project Collaboration</p>
+            <p className="text-xs text-gray-400 mt-1">{contactConversion.responseTime}</p>
+            <div className="flex flex-wrap gap-2 mt-3">
+              {contactConversion.acceptedProjects.map((projectType) => (
+                <span key={projectType} className="px-2.5 py-1 text-xs rounded-full bg-dark-300 border border-gray-700 text-gray-300">
+                  {projectType}
+                </span>
+              ))}
+            </div>
+          </div>
+          <a
+            href={contactConversion.bookingUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => trackEvent("contact_book_call_click")}
+            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 transition-colors"
+          >
+            <CalendarDays size={16} />
+            Book a Call
+          </a>
+        </div>
       </motion.div>
 
       <div className="grid md:grid-cols-2 gap-8">
@@ -86,6 +127,7 @@ const ContactSection: React.FC = () => {
                 </p>
                 <a
                   href={info.href}
+                  onClick={() => trackEvent("contact_email_click")}
                   className="text-white hover:text-yellow-500 transition-colors"
                 >
                   {info.value}
@@ -114,6 +156,19 @@ const ContactSection: React.FC = () => {
               >
                 <FaCheck />
                 Message sent successfully!
+              </motion.div>
+            )}
+          </AnimatePresence>
+          <AnimatePresence>
+            {errorMessage && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex items-center gap-2 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400"
+              >
+                <FaExclamationTriangle />
+                {errorMessage}
               </motion.div>
             )}
           </AnimatePresence>
@@ -164,6 +219,7 @@ const ContactSection: React.FC = () => {
           <button
             type="submit"
             disabled={isSubmitting}
+            onClick={() => trackEvent("contact_submit_attempt")}
             className="w-full flex items-center justify-center gap-2 py-4 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 disabled:opacity-50"
           >
             {isSubmitting ? (

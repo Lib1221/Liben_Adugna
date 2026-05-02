@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { BookOpen, Briefcase, Award, Download, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeader from "../ui/SectionHeader";
+import { trackEvent } from "../../utils/analytics";
 
 const ResumeSection: React.FC = () => {
   const [expandedExp, setExpandedExp] = useState<number | null>(null);
@@ -150,28 +152,42 @@ const ResumeSection: React.FC = () => {
     },
   ];
 
+  const timelineSummary = [
+    { year: "2022", title: "Started ML Engineering Journey" },
+    { year: "2023", title: "Full-Stack Delivery for Client Projects" },
+    { year: "2025", title: "AI Systems Evaluation + Data Architecture" },
+    { year: "2026", title: "Scaling Freelance ML Products" },
+  ];
+
   return (
     <section>
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8"
-      >
-        <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-            My <span className="text-yellow-500">Resume</span>
-          </h2>
-          <div className="w-16 h-1 bg-yellow-500 rounded" />
-        </div>
+      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
+        <SectionHeader title="My" accent="Resume" subtitle="Experience, education, and credentials with measurable outcomes." />
         <a
           href="/resume.pdf"
           download
+          onClick={() => trackEvent("resume_download")}
           className="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 transition-colors"
         >
           <Download size={18} />
           Download CV
         </a>
+      </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="modern-card border border-gray-800 p-4 mb-8"
+      >
+        <p className="text-xs uppercase tracking-wider text-gray-500 mb-4">Career Timeline</p>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {timelineSummary.map((step) => (
+            <div key={step.year} className="p-3 rounded-xl bg-dark-300 border border-gray-700">
+              <p className="text-sm font-bold text-yellow-500">{step.year}</p>
+              <p className="text-xs text-gray-300 mt-1">{step.title}</p>
+            </div>
+          ))}
+        </div>
       </motion.div>
 
       {/* Education */}

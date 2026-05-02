@@ -33,7 +33,8 @@ const ScrollToTop: React.FC = () => {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
           onClick={scrollToTop}
-          className="fixed bottom-24 md:bottom-6 left-6 z-40 p-3 bg-dark-300 border border-gray-700 rounded-xl text-gray-400 hover:text-yellow-500 hover:border-yellow-500 transition-all duration-200 shadow-lg"
+          className="fixed left-6 z-40 p-3 modern-card border border-gray-700 rounded-xl text-gray-400 hover:text-yellow-500 hover:border-yellow-500 transition-all duration-200 shadow-lg"
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 24px)" }}
           aria-label="Scroll to top"
         >
           <FaArrowUp size={18} />

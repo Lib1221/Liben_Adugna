@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useDragControls } from 'framer-motion';
-import { X, Send, Sparkles, Loader2, GripVertical, Minimize2, Maximize2 } from 'lucide-react';
+import { motion, AnimatePresence, useDragControls, useReducedMotion } from 'framer-motion';
+import { X, Send, Sparkles, Loader2, GripVertical, Minimize2, Maximize2, Copy, Check } from 'lucide-react';
 import geminiService from '../services/geminiService';
+import { trackEvent } from '../utils/analytics';
 
 interface Message {
   id: string;
@@ -74,9 +75,11 @@ const AIChatbot: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [copiedMessageId, setCopiedMessageId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const dragControls = useDragControls();
+  const shouldReduceMotion = useReducedMotion();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -104,6 +107,21 @@ const AIChatbot: React.FC = () => {
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (isOpen) {
+      trackEvent("ai_chat_open");
+    }
+  }, [isOpen]);
+
+  const getContextLinks = (message: string) => {
+    const text = message.toLowerCase();
+    const links = [];
+    if (text.includes("project")) links.push({ label: "Portfolio", href: "#" });
+    if (text.includes("skill")) links.push({ label: "Skills", href: "#" });
+    if (text.includes("experience")) links.push({ label: "Resume", href: "#" });
+    return links;
+  };
+
   const handleSendMessage = async () => {
     if (!inputValue.trim() || isLoading) return;
 
@@ -118,6 +136,7 @@ const AIChatbot: React.FC = () => {
     const messageToSend = inputValue.trim();
     setInputValue('');
     setIsLoading(true);
+    trackEvent("ai_chat_send");
 
     try {
       if (!geminiService.isReady()) {
@@ -171,16 +190,26 @@ const AIChatbot: React.FC = () => {
     "What are his main skills?",
     "Tell me about his experience",
   ];
+  const quickActions = [
+    "Summarize key ML projects",
+    "What are Liben's strongest skills?",
+    "How can I contact Liben?",
+  ];
 
   return (
     <>
       {/* Floating Button */}
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 right-5 md:bottom-6 md:right-6 z-50 w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 hover:bg-yellow-400 transition-colors"
+        className="fixed right-5 md:right-6 z-50 w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 hover:bg-yellow-400 transition-colors"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        style={{ display: isOpen ? 'none' : 'flex' }}
+        style={{
+          display: isOpen ? "none" : "flex",
+          bottom: "calc(env(safe-area-inset-bottom, 0px) + 24px)",
+        }}
+        animate={shouldReduceMotion ? undefined : { y: [0, -4, 0] }}
+        transition={shouldReduceMotion ? undefined : { duration: 3.2, repeat: Infinity, repeatType: "loop" }}
         aria-label="Open AI Assistant"
       >
         <Sparkles className="w-6 h-6 text-black" />
@@ -200,7 +229,10 @@ const AIChatbot: React.FC = () => {
             className={`fixed z-50 ${isMinimized ? 'w-[280px]' : 'w-[calc(100vw-32px)] sm:w-[380px]'} ${isMinimized ? '' : 'h-[520px]'} flex flex-col bg-dark-500 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden`}
             style={{
               right: 16,
-              bottom: typeof window !== 'undefined' && window.innerWidth < 768 ? 104 : 24,
+              bottom:
+                typeof window !== "undefined" && window.innerWidth < 768
+                  ? "calc(env(safe-area-inset-bottom, 0px) + 96px)"
+                  : "calc(env(safe-area-inset-bottom, 0px) + 24px)",
               cursor: 'default'
             }}
           >
@@ -256,6 +288,28 @@ const AIChatbot: React.FC = () => {
                         <div className="text-sm leading-relaxed">
                           {message.sender === 'ai' ? parseMarkdown(message.text) : message.text}
                         </div>
+                        {message.sender === 'ai' && (
+                          <div className="mt-2 pt-2 border-t border-gray-700/70 flex items-center justify-between">
+                            <div className="flex gap-2">
+                              {getContextLinks(message.text).map((link) => (
+                                <a key={link.label} href={link.href} className="text-[11px] text-yellow-500 hover:text-yellow-400">
+                                  {link.label}
+                                </a>
+                              ))}
+                            </div>
+                            <button
+                              onClick={async () => {
+                                await navigator.clipboard.writeText(message.text);
+                                setCopiedMessageId(message.id);
+                                setTimeout(() => setCopiedMessageId(null), 1200);
+                              }}
+                              className="inline-flex items-center gap-1 text-[11px] text-gray-400 hover:text-white"
+                            >
+                              {copiedMessageId === message.id ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                              {copiedMessageId === message.id ? "Copied" : "Copy"}
+                            </button>
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}
@@ -287,6 +341,18 @@ const AIChatbot: React.FC = () => {
                           {q}
                         </button>
                       ))}
+                      <p className="text-xs text-gray-500 pt-2">Suggested actions:</p>
+                      <div className="flex flex-wrap gap-2">
+                        {quickActions.map((action) => (
+                          <button
+                            key={action}
+                            onClick={() => setInputValue(action)}
+                            className="px-2.5 py-1.5 rounded-lg text-xs bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 hover:bg-yellow-500/20 transition-all"
+                          >
+                            {action}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   )}
 

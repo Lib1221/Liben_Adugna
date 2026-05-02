@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { FaQuoteLeft, FaStar, FaLinkedin } from "react-icons/fa";
+import SectionHeader from "../ui/SectionHeader";
 
 interface Testimonial {
   id: number;
@@ -36,16 +37,7 @@ const testimonials: Testimonial[] = [
 const TestimonialsSection: React.FC = () => {
   return (
     <section className="py-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
-      >
-        <h2 className="text-2xl font-bold text-white">
-          Professional <span className="text-yellow-500">References</span>
-        </h2>
-        <div className="w-16 h-1 bg-yellow-500 rounded mt-2" />
-      </motion.div>
+      <SectionHeader title="Professional" accent="References" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {testimonials.map((t, idx) => (
@@ -55,7 +47,7 @@ const TestimonialsSection: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.12 }}
             whileHover={{ y: -4, transition: { duration: 0.2 } }}
-            className="relative bg-dark-300 border border-gray-800 rounded-2xl p-6 flex flex-col gap-4
+            className="relative modern-card border border-gray-800 rounded-2xl p-6 flex flex-col gap-4
               hover:border-yellow-500/40 hover:shadow-lg hover:shadow-yellow-500/10 transition-all duration-300"
           >
             {/* Subtle top gradient */}

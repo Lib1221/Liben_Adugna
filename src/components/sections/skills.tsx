@@ -20,6 +20,7 @@ import {
 } from "react-icons/si";
 import { FaJava, FaDatabase, FaLinux, FaBrain, FaChartLine, FaRobot, FaCogs } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeader from "../ui/SectionHeader";
 
 interface Skill {
   icon: React.ElementType;
@@ -91,17 +92,7 @@ const SkillsSection: React.FC = () => {
 
   return (
     <section>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-6"
-      >
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-          Technical <span className="text-yellow-500">Skills</span>
-        </h2>
-        <div className="w-16 h-1 bg-yellow-500 rounded" />
-      </motion.div>
+      <SectionHeader title="Technical" accent="Skills" />
 
       {/* Category Filter */}
       <div className="flex flex-wrap gap-2 mb-8">
@@ -141,7 +132,7 @@ const SkillsSection: React.FC = () => {
                 transition={{ duration: 0.2 }}
                 onMouseEnter={() => setHoveredSkill(skill.label)}
                 onMouseLeave={() => setHoveredSkill(null)}
-                className="relative flex flex-col items-center gap-2 p-4 bg-dark-300 border border-gray-800 rounded-xl transition-all duration-300 cursor-default group"
+                className="relative flex flex-col items-center gap-2 p-4 modern-card border border-gray-800 rounded-xl transition-all duration-300 cursor-default group"
                 style={{
                   borderColor: isHovered ? skill.color + "80" : undefined,
                   boxShadow: isHovered ? `0 0 18px ${skill.color}30` : undefined,

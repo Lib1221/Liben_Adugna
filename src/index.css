@@ -15,11 +15,23 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Inter', sans-serif;
-  background-color: #0A0A0A;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(245, 184, 0, 0.08), transparent 35%),
+    radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.08), transparent 30%),
+    #0A0A0A;
   color: #FFFFFF;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --surface-1: #111111;
+  --surface-2: #161616;
+  --surface-3: #1f1f1f;
+  --text-soft: #9ca3af;
+  --accent: #f5b800;
+  --accent-soft: rgba(245, 184, 0, 0.16);
 }
 
 /* Custom Scrollbar */
@@ -85,11 +97,45 @@ body {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
+.modern-card {
+  background: linear-gradient(140deg, rgba(26, 26, 26, 0.92), rgba(16, 16, 16, 0.92));
+  border-radius: 1rem;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+}
+
+.modern-card:hover {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
+}
+
+.text-gradient-accent {
+  background: linear-gradient(90deg, #f5b800 0%, #ffd965 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.safe-bottom-pad {
+  padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+}
+
+.safe-bottom-offset {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+}
+
 @keyframes pulse-glow {
   0%, 100% {
     box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
   }
   50% {
     box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }

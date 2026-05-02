@@ -1,6 +1,7 @@
 import React from "react";
 import { FaMobileAlt, FaLaptopCode, FaBrain, FaServer, FaRobot, FaCogs } from "react-icons/fa";
 import { motion } from "framer-motion";
+import SectionHeader from "../ui/SectionHeader";
 
 const services = [
   {
@@ -50,17 +51,7 @@ const services = [
 const ServicesSection: React.FC = () => {
   return (
     <section>
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-8"
-      >
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-          What I'm <span className="text-yellow-500">Doing</span>
-        </h2>
-        <div className="w-16 h-1 bg-yellow-500 rounded" />
-      </motion.div>
+      <SectionHeader title="What I'm" accent="Doing" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {services.map((service, idx) => {
@@ -72,7 +63,7 @@ const ServicesSection: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.08 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className={`relative p-5 bg-dark-300 border border-gray-800 rounded-xl overflow-hidden
+              className={`relative p-5 modern-card border border-gray-800 rounded-xl overflow-hidden
                 hover:border-transparent transition-all duration-300 group cursor-default`}
               style={{ "--hover-color": service.color } as React.CSSProperties}
             >

@@ -32,12 +32,15 @@ const ScrollProgress: React.FC = () => {
 
 function App() {
   return (
-    <div className="min-h-screen w-full bg-dark-500">
+    <div className="min-h-screen w-full bg-dark-500 relative">
+      <div className="pointer-events-none absolute inset-0 opacity-60">
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full bg-yellow-500/10 blur-3xl" />
+      </div>
       {/* Scroll Progress Bar */}
       <ScrollProgress />
 
       {/* Main layout */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 relative z-10">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Left sidebar */}
           <div className="w-full lg:w-80 flex-shrink-0">

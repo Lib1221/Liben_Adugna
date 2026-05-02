@@ -1,21 +1,11 @@
 import React from "react";
 import { motion } from "framer-motion";
+import SectionHeader from "../ui/SectionHeader";
 
 const AboutSection: React.FC = () => {
   return (
     <section>
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="mb-6"
-      >
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-          About <span className="text-yellow-500">Me</span>
-        </h2>
-        <div className="w-16 h-1 bg-yellow-500 rounded" />
-      </motion.div>
+      <SectionHeader title="About" accent="Me" />
 
       {/* Content */}
       <motion.div
@@ -48,7 +38,7 @@ const AboutSection: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="mt-6 p-4 bg-dark-300 border-l-4 border-yellow-500 rounded-r-xl"
+        className="mt-6 p-4 modern-card border-l-4 border-yellow-500 rounded-r-xl"
       >
         <p className="text-gray-300 italic">
           "Software Engineer specializing in ML systems, code evaluation, and AI-powered solutions 

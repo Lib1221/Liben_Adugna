@@ -8,6 +8,9 @@ export type Project = {
     role: string;
     duration: string;
     features?: string[];
+    challenges?: string[];
+    architecture?: string;
+    impactMetrics?: string[];
     image?: string;
     repoLink?: string;
     liveDemo?: string;
@@ -34,6 +37,12 @@ export const projects: Project[] = [
             "Evaluated cluster quality using silhouette score",
             "Interpretability checks for business insights",
         ],
+        challenges: [
+            "Large volume preprocessing and feature quality consistency",
+            "Maintaining cluster interpretability for business users",
+        ],
+        architecture: "Python data pipeline -> feature engineering -> PCA + clustering -> quality evaluation",
+        impactMetrics: ["450k+ records", "stable segments", "silhouette-driven validation"],
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop",
         category: "Data Science",
         isPrivate: true,
@@ -54,6 +63,12 @@ export const projects: Project[] = [
             "Improved precision by tuning decision thresholds",
             "Feature refinement for better model accuracy",
         ],
+        challenges: [
+            "High class imbalance and low anomaly frequency",
+            "Balancing recall and precision for production alerts",
+        ],
+        architecture: "Data preprocessing -> anomaly modeling -> threshold tuning -> validation pipeline",
+        impactMetrics: ["110k+ records", "precision improvements", "production-ready thresholds"],
         image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=600&h=400&fit=crop",
         category: "Data Science",
         isPrivate: true,

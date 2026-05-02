@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, X } from "lucide-react";
+import SectionHeader from "../ui/SectionHeader";
+import { rankSearchResults } from "../../utils/search";
 
 interface BlogPost {
   title: string;
@@ -45,21 +47,50 @@ const blogPosts: BlogPost[] = [
 const BlogSection: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
   const [loadedImages, setLoadedImages] = useState<{ [key: number]: boolean }>({});
+  const [searchTerm, setSearchTerm] = useState("");
+  const [activeTag, setActiveTag] = useState("All");
+
+  const allTags = ["All", ...Array.from(new Set(blogPosts.flatMap((post) => post.tags))).sort()];
+  const taggedPosts = blogPosts.filter((post) => activeTag === "All" || post.tags.includes(activeTag));
+  const filteredPosts = searchTerm.trim()
+    ? rankSearchResults(
+        taggedPosts.map((post) => ({
+          item: post,
+          text: `${post.title} ${post.summary} ${post.category}`,
+          keywords: post.tags,
+        })),
+        searchTerm,
+      ).map((result) => result.item)
+    : taggedPosts;
+
+  const relatedPosts = selectedPost
+    ? blogPosts
+        .filter((post) => post.title !== selectedPost.title)
+        .filter((post) => post.tags.some((tag) => selectedPost.tags.includes(tag)))
+        .slice(0, 2)
+    : [];
+
+  useEffect(() => {
+    if (!selectedPost) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedPost(null);
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [selectedPost]);
 
   return (
     <section>
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex items-end justify-between mb-8"
-      >
-        <div>
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
-            My <span className="text-yellow-500">Blog</span>
-          </h2>
-          <div className="w-16 h-1 bg-yellow-500 rounded" />
-        </div>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex items-end justify-between mb-6">
+        <SectionHeader title="My" accent="Blog" subtitle="Filter posts by tag or search topics quickly." />
         <a
           href="https://medium.com/@adugnaliben65"
           target="_blank"
@@ -74,17 +105,42 @@ const BlogSection: React.FC = () => {
         </a>
       </motion.div>
 
+      <div className="grid md:grid-cols-[1fr_auto] gap-4 mb-6">
+        <input
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          placeholder="Search by title, summary, or tag..."
+          className="w-full px-4 py-2.5 bg-dark-300 border border-gray-700 rounded-xl text-sm text-white placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+        />
+        <div className="flex flex-wrap gap-2">
+          {allTags.map((tag) => (
+            <button
+              key={tag}
+              onClick={() => setActiveTag(tag)}
+              className={`px-3 py-2 rounded-lg text-xs border transition-all ${
+                activeTag === tag
+                  ? "bg-yellow-500 text-black border-yellow-500"
+                  : "bg-dark-300 text-gray-400 border-gray-800 hover:text-white"
+              }`}
+            >
+              {tag}
+            </button>
+          ))}
+        </div>
+      </div>
+
       {/* Blog Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {blogPosts.map((post, index) => (
-          <motion.article
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.1 }}
-            onClick={() => setSelectedPost(post)}
-            className="bg-dark-300 border border-gray-800 rounded-xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 cursor-pointer group"
-          >
+      {filteredPosts.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredPosts.map((post, index) => (
+            <motion.article
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
+              onClick={() => setSelectedPost(post)}
+              className="bg-dark-300 border border-gray-800 rounded-xl overflow-hidden hover:border-yellow-500/50 transition-all duration-300 cursor-pointer group"
+            >
             {/* Image */}
             <div className="relative h-40 overflow-hidden">
               {!loadedImages[index] && (
@@ -116,9 +172,15 @@ const BlogSection: React.FC = () => {
                 {post.summary}
               </p>
             </div>
-          </motion.article>
-        ))}
-      </div>
+            </motion.article>
+          ))}
+        </div>
+      ) : (
+        <div className="modern-card border border-gray-800 p-8 text-center">
+          <p className="text-white font-medium mb-2">No blog posts found.</p>
+          <p className="text-sm text-gray-500">Adjust your tag or search query to discover posts.</p>
+        </div>
+      )}
 
       {/* Modal */}
       <AnimatePresence>
@@ -170,6 +232,23 @@ const BlogSection: React.FC = () => {
                     </span>
                   ))}
                 </div>
+
+                {relatedPosts.length > 0 && (
+                  <div className="mb-5">
+                    <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">Related Posts</p>
+                    <div className="flex flex-wrap gap-2">
+                      {relatedPosts.map((post) => (
+                        <button
+                          key={post.title}
+                          onClick={() => setSelectedPost(post)}
+                          className="text-xs px-2.5 py-1.5 rounded-lg bg-dark-200 border border-gray-700 text-gray-300 hover:text-white hover:border-yellow-500/60 transition-all"
+                        >
+                          {post.title}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
                 
                 <div className="flex gap-3">
                   <a
