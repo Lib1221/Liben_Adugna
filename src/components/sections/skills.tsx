@@ -7,7 +7,6 @@ import {
   SiDjango,
   SiPython,
   SiPostman,
-  SiPostgresql,
   SiGit,
   SiGithub,
   SiNodedotjs,

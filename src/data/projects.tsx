@@ -1,5 +1,5 @@
 import { SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiDjango, SiPostgresql, SiDocker, SiMongodb, SiLaravel, SiPython, SiTensorflow, SiScikitlearn, SiNextdotjs } from "react-icons/si";
-import { JSX } from "react";
+import type { JSX } from "react";
 
 export type Project = {
     title: string;

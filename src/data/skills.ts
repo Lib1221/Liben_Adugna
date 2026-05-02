@@ -6,8 +6,6 @@ import {
     SiDjango,
     SiPython,
     SiPostman,
-    SiTailwindcss,
-    SiPostgresql,
     SiGit,
     SiGithub,
     SiNodedotjs,
@@ -17,7 +15,6 @@ import {
     SiNumpy,
     SiJupyter,
     SiDocker,
-    SiNextdotjs,
 } from "react-icons/si";
 import { FaJava, FaDatabase, FaLinux, FaBrain, FaChartLine, FaRobot, FaCogs } from "react-icons/fa";
 

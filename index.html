@@ -20,9 +20,13 @@
 
     <!-- ✅ Author -->
     <meta name="author" content="Liben Adugna" />
+    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
 
     <!-- ✅ Canonical URL -->
     <link rel="canonical" href="https://www.liben.dev" />
+    <link rel="alternate" href="https://www.liben.dev" hreflang="en" />
+    <link rel="alternate" href="https://www.liben.dev" hreflang="x-default" />
 
     <!-- ✅ Open Graph (Facebook, LinkedIn, etc.) -->
     <meta property="og:title" content="Liben Adugna — Software Engineer | Machine Learning | AI Systems" />
@@ -98,6 +102,12 @@
         "name": "Liben Adugna Portfolio",
         "url": "https://www.liben.dev",
         "description": "Portfolio of Liben Adugna, a software engineer specializing in machine learning and full-stack development.",
+        "inLanguage": "en",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.liben.dev/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        },
         "publisher": {
           "@type": "Person",
           "name": "Liben Adugna"
@@ -116,6 +126,79 @@
         "url": "https://www.liben.dev",
         "genre": ["Software Engineering", "Machine Learning", "Web Development", "Mobile Development"],
         "inLanguage": "en"
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Liben Adugna Portfolio Projects",
+        "url": "https://www.liben.dev",
+        "about": ["Machine Learning", "Software Engineering", "Mobile Development", "Web Development"],
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "item": {
+                "@type": "CreativeWork",
+                "name": "Behavioral User Segmentation System",
+                "description": "Machine learning system processing 450k+ user interaction records for behavioral segmentation."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "item": {
+                "@type": "CreativeWork",
+                "name": "Transaction Anomaly Detection Pipeline",
+                "description": "Anomaly detection workflow over 110k+ transactional records."
+              }
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "item": {
+                "@type": "CreativeWork",
+                "name": "Smart Gebere – AI Agricultural Assistant",
+                "description": "Cross-platform AI-powered mobile assistant for farmers."
+              }
+            }
+          ]
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What services does Liben Adugna offer?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Liben provides machine learning engineering, AI systems evaluation, and full-stack web/mobile development services."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which technologies does Liben specialize in?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Key technologies include Python, TensorFlow, Scikit-learn, Django, React, Flutter, and modern data pipelines."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How can I contact Liben for collaboration?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use the contact section on liben.dev or email libenadugna285@gmail.com for project discussions."
+            }
+          }
+        ]
       }
     </script>
 
