@@ -59,6 +59,17 @@ Foundation in data structures and algorithms with 400+ competitive programming p
             ],
         },
         {
+            role: "AI Model Evaluator & Training Specialist",
+            company: "Afriwork (Turing)",
+            period: "Mar 2024 – May 2025",
+            highlights: [
+                "Evaluated model performance on MacroBenchmark tasks for correctness, reasoning quality, and reliability",
+                "Supported models in solving Kaggle-style machine learning problems and validating solution quality",
+                "Configured Databricks workflows for agent-based model training, including dataset preparation and experiment setup",
+                "Monitored agent training runs and scored outputs using structured rubric-based evaluations",
+            ],
+        },
+        {
             role: "Full-Stack Software Engineer",
             company: "Faris Technology Private Limited",
             period: "Aug 2023 – Feb 2025",

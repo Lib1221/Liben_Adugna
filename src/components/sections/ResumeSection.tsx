@@ -50,6 +50,18 @@ const ResumeSection: React.FC = () => {
       ],
     },
     {
+      role: "AI Model Evaluator & Training Specialist",
+      company: "Afriwork (Turing)",
+      period: "Mar 2024 — May 2025",
+      location: "Remote",
+      points: [
+        "Evaluated model performance on MacroBenchmark tasks for correctness, reasoning quality, and reliability.",
+        "Supported models in solving Kaggle-style machine learning problems, guiding approach quality and solution validity.",
+        "Configured Databricks workflows for agent-based model training, including dataset preparation and experiment setup.",
+        "Monitored agent training runs end-to-end and scored outputs using structured rubric-based evaluations.",
+      ],
+    },
+    {
       role: "Full-Stack Software Engineer",
       company: "Faris Technology Private Limited",
       period: "Aug 2023 — Feb 2025",
