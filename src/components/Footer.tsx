@@ -1,5 +1,5 @@
 import React from "react";
-import { FaGithub, FaLinkedin, FaTelegram, FaEnvelope, FaHeart } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaTelegram, FaEnvelope } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
               Liben <span className="text-yellow-500">Adugna</span>
             </h3>
             <p className="text-gray-500 text-sm">
-              Software Engineer | Machine Learning | AI Systems
+              Machine Learning Engineer · AI Systems Evaluator · Full-Stack Developer
             </p>
           </div>
 
@@ -50,8 +50,8 @@ const Footer: React.FC = () => {
           <p>
             © {currentYear} Liben Adugna. All rights reserved.
           </p>
-          <p className="flex items-center gap-1">
-            Made with <FaHeart className="text-red-500" size={12} /> in Ethiopia
+          <p>
+            Available for remote roles and project collaborations.
           </p>
         </div>
       </div>
