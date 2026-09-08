@@ -19,6 +19,7 @@ export const skills: SkillEntry[] = [
     { label: "NLP", color: "#8B5CF6", category: "ml" },
     { label: "Feature Engineering", color: "#F59E0B", category: "ml" },
     { label: "Model Evaluation", color: "#06B6D4", category: "ml" },
+    { label: "Benchmark Design (Terminal-Bench, SWE-bench)", color: "#F5B800", category: "ml" },
     
     // MLOps & Automation
     { label: "Docker", color: "#2496ED", category: "mlops" },
@@ -36,7 +37,8 @@ export const skills: SkillEntry[] = [
     // Tools & Platforms
     { label: "Git", color: "#F05032", category: "tools" },
     { label: "GitHub", color: "#FFFFFF", category: "tools" },
-    { label: "SQL Databases", color: "#336791", category: "tools" },
+    { label: "PostgreSQL", color: "#336791", category: "tools" },
+    { label: "MongoDB", color: "#47A248", category: "tools" },
     { label: "Linux", color: "#FCC624", category: "tools" },
     { label: "Postman", color: "#FF6C37", category: "tools" },
     { label: "Firebase", color: "#FFCA28", category: "tools" },

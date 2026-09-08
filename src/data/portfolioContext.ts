@@ -19,6 +19,8 @@ export const portfolioData = {
             "Data preprocessing and feature engineering",
             "Anomaly detection and classification",
             "Django REST API development",
+            "Terminal-Bench, SWE-bench and Harbor-format task authoring",
+            "MongoDB and PostgreSQL data modeling and evaluation",
             "Performance optimization and debugging",
         ],
         description: `Software Engineer with expertise in machine learning systems, code evaluation, and full-stack development. Experienced in validating AI-generated outputs, reviewing system implementations, and building scalable web and mobile applications.
@@ -46,6 +48,17 @@ Foundation in data structures and algorithms with 400+ competitive programming p
                 "Built NLP and analytics models (TF-IDF, clustering, ensemble) on 50,000+ records, improving prediction accuracy by ~18%",
                 "Developed Django REST APIs serving 5,000+ requests/month for scalable ML integration",
                 "Deployed full-stack web applications, reducing client data-processing time by ~40%",
+            ],
+        },
+        {
+            role: "AI Benchmark Task Author (Terminal-Bench, SWE-bench)",
+            company: "Revelo, AfterQuery, Turing",
+            period: "2024 – Present",
+            highlights: [
+                "Terminal-Bench 2.0 and 3.0 task authoring at Revelo; Terminal-Bench 2 (Project Claw) at AfterQuery: Docker environments, hidden tests, golden solutions, stress-testing against frontier models",
+                "SWE-bench style repository tasks, HumanEval/MBPP style problems and WebArena/BrowserGym tasks on the Turing platform",
+                "Evaluation tasks over MongoDB and PostgreSQL backed systems: schema design, query correctness, data-integrity checks",
+                "Reviews other authors' tasks for ambiguity, leakage and gameable tests; refines rubrics",
             ],
         },
         {

@@ -21,7 +21,7 @@ const services = [
   {
     icon: FaServer,
     title: "Backend Development",
-    text: "High-performance backend services with Django and Node.js. RESTful APIs serving 5,000+ requests/month.",
+    text: "Django and Node.js services on PostgreSQL or MongoDB. REST APIs serving 5,000+ requests/month.",
     color: "#44B78B",
     gradient: "from-emerald-500/10 to-emerald-600/5",
   },

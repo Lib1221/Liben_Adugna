@@ -113,6 +113,31 @@ export const projects: Project[] = [
         category: "AI/ML",
     },
 
+    // 5. Benchmark and evaluation design (Terminal-Bench, SWE-bench). No client names, no task contents.
+    {
+        title: "Benchmark & Evaluation Design for AI Coding Agents",
+        description:
+            "Author and review the software-engineering tasks used to measure frontier AI coding agents: Terminal-Bench 2.0 and 3.0 at Revelo, Terminal-Bench 2 (Project Claw) at AfterQuery, and SWE-bench style tasks on Turing. Each task ships as a Docker environment, a hidden test suite and a golden solution, then gets stress-tested against current models.",
+        technologies: ["Docker", "Python", "Bash", "pytest", "Harbor", "MongoDB", "PostgreSQL"],
+        role: "Benchmark Task Author & Reviewer",
+        duration: "2024 — Present",
+        features: [
+            "Task design that cannot be gamed: unambiguous instructions, hidden tests, no solution leakage in the environment",
+            "Reproducible Docker environments with seeded data, including MongoDB and PostgreSQL backed tasks",
+            "Golden solutions plus full local validation loops before submission",
+            "Stress-testing against frontier models to calibrate difficulty",
+            "Review of other authors' tasks for ambiguity, flaky tests and rubric gaps",
+        ],
+        challenges: [
+            "Writing tests that fail for the right reason and pass only for a correct fix",
+            "Keeping tasks hard for strong models without making them artificial",
+        ],
+        architecture: "task.toml + instruction.md -> environment/Dockerfile -> tests/test.sh -> solution/solve.sh -> agent runs",
+        impactMetrics: ["Terminal-Bench 2.0 / 3.0", "SWE-bench style", "MongoDB + PostgreSQL tasks"],
+        image: "/covers/benchmark.svg",
+        category: "AI/ML",
+    },
+
     // ============ OTHER AI/ML PROJECTS ============
 
     // AI-Powered Personal Finance Behavior Analyzer

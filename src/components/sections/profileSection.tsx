@@ -12,7 +12,7 @@ import { trackEvent } from "../../utils/analytics";
 import { rankSearchResults } from "../../utils/search";
 
 const categories = ["All", "AI/ML", "Data Science", "Mobile", "Web", "MLOps"];
-const privacyOptions = ["All", "Public", "Private"];
+const privacyOptions = ["All", "Open source", "Client work"];
 const sortOptions = ["Newest", "Most Complex", "Name"];
 
 const ProfileSection: React.FC = () => {
@@ -35,8 +35,8 @@ const ProfileSection: React.FC = () => {
   const baseFilteredProjects = projects
     .filter((p) => (activeCategory === "All" ? true : p.category === activeCategory))
     .filter((p) => {
-      if (privacyFilter === "Public") return !p.isPrivate;
-      if (privacyFilter === "Private") return Boolean(p.isPrivate);
+      if (privacyFilter === "Open source") return !p.isPrivate;
+      if (privacyFilter === "Client work") return Boolean(p.isPrivate);
       return true;
     })
     .filter((p) => (selectedStack === "All" ? true : p.technologies.includes(selectedStack)))
@@ -222,7 +222,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
       whileHover={!project.isPrivate ? { y: -4, transition: { duration: 0.2 } } : undefined}
       className={`modern-card border rounded-xl overflow-hidden transition-all duration-300 group
         ${project.isPrivate
-          ? "border-gray-800 opacity-80"
+          ? "border-gray-800 hover:border-gray-600"
           : "border-gray-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-500/10"
         }`}
     >
@@ -243,9 +243,12 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
         
         {/* Private Badge */}
         {project.isPrivate && (
-          <div className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-red-500/20 border border-red-500/40 rounded-full">
-            <FaLock size={10} className="text-red-400" />
-            <span className="text-xs font-medium text-red-400">Private</span>
+          <div
+            className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-black/60 border border-gray-600 rounded-full"
+            title="Client work: code is not public, but the approach and stack are described in the case study."
+          >
+            <FaLock size={10} className="text-gray-300" aria-hidden="true" />
+            <span className="text-xs font-medium text-gray-300">Client work</span>
           </div>
         )}
         

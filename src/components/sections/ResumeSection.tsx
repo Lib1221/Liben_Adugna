@@ -37,6 +37,18 @@ const ResumeSection: React.FC = () => {
       ],
     },
     {
+      role: "AI Benchmark Task Author (Terminal-Bench, SWE-bench)",
+      company: "Revelo · AfterQuery · Turing",
+      period: "2024 — Present",
+      location: "Remote",
+      points: [
+        "Author Terminal-Bench 2.0 and 3.0 tasks at Revelo and Terminal-Bench 2 tasks (Project Claw) at AfterQuery: Docker environments, hidden test suites, golden solutions, and stress-testing against frontier models.",
+        "Design SWE-bench style repository tasks, function-level problems (HumanEval/MBPP style) and WebArena/BrowserGym browser tasks on the Turing platform.",
+        "Build and review evaluation tasks over database-backed systems, including MongoDB and PostgreSQL: schema design, query correctness and data-integrity checks verified against seeded data.",
+        "Review other authors' tasks for ambiguity, solution leakage and gameable tests; refine rubrics and grading guidelines.",
+      ],
+    },
+    {
       role: "AI Systems Evaluator & Data Architecture Contributor",
       company: "Revelo",
       period: "Mar 2025 — Mar 2026",
@@ -131,8 +143,8 @@ const ResumeSection: React.FC = () => {
   const timelineSummary = [
     { year: "2022", title: "B.Sc. Software Engineering (ASTU). Started freelance ML work and mentoring at CSEC-ASTU." },
     { year: "2023", title: "Full-stack engineer at Faris Technology: Django APIs and Flutter apps for 5+ clients." },
-    { year: "2024", title: "A2SV algorithms program. AI model evaluation and Databricks training at Afriwork (Turing)." },
-    { year: "2025", title: "AI systems evaluation and data architecture at Revelo. Smart Gebere released." },
+    { year: "2024", title: "A2SV algorithms program. Benchmark and evaluation work begins at Afriwork (Turing)." },
+    { year: "2025", title: "Terminal-Bench 2.0/3.0 task authoring at Revelo and AfterQuery. Smart Gebere released." },
   ];
 
   return (

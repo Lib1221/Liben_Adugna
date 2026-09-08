@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Navbar from "./Navbar";
 import HeroSection from "./sections/HeroSection";
 import AboutSection from "./sections/AboutSection";
+import SelectedWork from "./sections/SelectedWork";
 import ServicesSection from "./sections/ServicesSection";
 import SkillsSection from "./sections/skills";
 import TestimonialsSection from "./sections/TestimonialsSection";
@@ -135,6 +136,8 @@ const Main: React.FC = () => {
               transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             >
               <HeroSection setSelected={setSelected} />
+              <div className="h-px bg-gray-800 my-10" />
+              <SelectedWork setSelected={setSelected} />
               <div className="h-px bg-gray-800 my-10" />
               <AboutSection />
               <div className="h-px bg-gray-800 my-10" />
