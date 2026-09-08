@@ -1,5 +1,3 @@
-import { SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiDjango, SiPostgresql, SiDocker, SiMongodb, SiLaravel, SiPython, SiTensorflow, SiScikitlearn, SiNextdotjs } from "react-icons/si";
-import type { JSX } from "react";
 
 export type Project = {
     title: string;
@@ -110,7 +108,7 @@ export const projects: Project[] = [
             "Translates agricultural challenges into data-driven solutions",
         ],
         image: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_2_xmic9m.png",
-        repoLink: "https://github.com/lib1221/Smart_Gebere",
+        repoLink: "https://github.com/Lib1221/Smart_Gebere",
         youtubeLink: "https://youtu.be/C8Kw2S8Khf0",
         category: "AI/ML",
     },
@@ -255,7 +253,6 @@ export const projects: Project[] = [
         ],
         image:
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_wpj5hv.png",
-        repoLink: "https://github.com/wako-coder/mela-App",
         category: "Mobile",
     },
 
@@ -285,7 +282,6 @@ export const projects: Project[] = [
         ],
         image:
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_1_xqfntf.png",
-        repoLink: "https://github.com/lib1221/gosho-dating-app",
         category: "Mobile",
     },
 
@@ -334,7 +330,7 @@ export const projects: Project[] = [
         ],
         image:
             "https://cdn.dribbble.com/userupload/14399174/file/original-7e7f9a4a0de5ad54b3c3bb6d9159e47a.png?resize=1200x900",
-        repoLink: "https://github.com/lib1221/flutter-exam",
+        repoLink: "https://github.com/Lib1221/flutter-exam",
         category: "Mobile",
     },
 
@@ -402,7 +398,6 @@ export const projects: Project[] = [
             "Admin dashboard for user and product management",
         ],
         image: "https://img.youtube.com/vi/qLFG0Y1u77g/0.jpg",
-        repoLink: "https://github.com/lib1221/Advanced_java_shopping",
         youtubeLink: "https://www.youtube.com/watch?v=qLFG0Y1u77g",
         category: "Web",
     },
@@ -428,9 +423,8 @@ export const projects: Project[] = [
             "Stripe PaymentSheet integration",
             "Django Admin for user and product management",
         ],
-        image:
-            "https://cdn.dribbble.com/userupload/12505408/file/original-4a4cb74637e6d92fcd0379878678de06.png?resize=1200x900",
-        repoLink: "https://github.com/lib1221/ecommerce-full-stack-mobile",
+        image: "/covers/ecommerce.svg",
+        repoLink: "https://github.com/Lib1221/ecommerce-full-stack-mobile",
         category: "Web",
     },
 
@@ -439,37 +433,18 @@ export const projects: Project[] = [
         title: "Portfolio Website",
         description:
             "A personal portfolio built with React, TypeScript, and Tailwind CSS — showcasing projects, skills, and resume downloads with AI chatbot integration.",
-        technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Gemini AI"],
+        technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel Functions", "Gemini AI"],
         role: "Frontend Developer",
         duration: "2025",
         features: [
-            "Responsive, mobile-first design",
-            "AI-powered chatbot for visitor interactions",
-            "Integrated resume download and GitHub links",
+            "Responsive, mobile-first design with hash-routed sections",
+            "Gemini assistant behind a serverless endpoint (API key never ships to the browser)",
+            "Static crawlable content for search engines and link previews",
         ],
         image:
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760339187/Contact_j5lvc6.png",
-        repoLink: "https://github.com/lib1221/portfolio",
+        repoLink: "https://github.com/Lib1221/Liben_Adugna",
         liveDemo: "https://www.liben.dev",
         category: "Web",
     },
 ];
-
-export const techIcons: Record<string, JSX.Element> = {
-    Flutter: <SiFlutter className="text-blue-400 w-4 h-4" />,
-    Dart: <SiDart className="text-blue-600 w-4 h-4" />,
-    Firebase: <SiFirebase className="text-yellow-400 w-4 h-4" />,
-    React: <SiReact className="text-cyan-400 w-4 h-4" />,
-    "TypeScript": <SiTypescript className="text-blue-500 w-4 h-4" />,
-    "Tailwind CSS": <SiTailwindcss className="text-teal-400 w-4 h-4" />,
-    "Framer Motion": <SiFramer className="text-purple-400 w-4 h-4" />,
-    Django: <SiDjango className="text-green-700 w-4 h-4" />,
-    PostgreSQL: <SiPostgresql className="text-blue-700 w-4 h-4" />,
-    Docker: <SiDocker className="text-blue-500 w-4 h-4" />,
-    MongoDB: <SiMongodb className="text-green-600 w-4 h-4" />,
-    Laravel: <SiLaravel className="text-red-600 w-4 h-4" />,
-    Python: <SiPython className="text-yellow-500 w-4 h-4" />,
-    TensorFlow: <SiTensorflow className="text-orange-500 w-4 h-4" />,
-    "Scikit-learn": <SiScikitlearn className="text-orange-400 w-4 h-4" />,
-    "Next.js": <SiNextdotjs className="text-white w-4 h-4" />,
-};

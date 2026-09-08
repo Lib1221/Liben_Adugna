@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: <FaGithub size={18} />, url: "https://github.com/lib1221", label: "GitHub" },
+    { icon: <FaGithub size={18} />, url: "https://github.com/Lib1221", label: "GitHub" },
     { icon: <FaLinkedin size={18} />, url: "https://www.linkedin.com/in/liben-adugna-6b192a2b9/", label: "LinkedIn" },
     { icon: <FaTelegram size={18} />, url: "https://t.me/liben12", label: "Telegram" },
     { icon: <FaEnvelope size={18} />, url: "mailto:libenadugna285@gmail.com", label: "Email" },
@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
               Liben <span className="text-yellow-500">Adugna</span>
             </h3>
             <p className="text-gray-500 text-sm">
-              Machine Learning Engineer · AI Systems Evaluator · Full-Stack Developer
+              Software engineer · ML systems · AI benchmark design
             </p>
           </div>
 
@@ -51,7 +51,7 @@ const Footer: React.FC = () => {
             © {currentYear} Liben Adugna. All rights reserved.
           </p>
           <p>
-            Available for remote roles and project collaborations.
+            Adama, Ethiopia (UTC+3) · Open to remote roles and EU relocation · Updated Sep 2026
           </p>
         </div>
       </div>

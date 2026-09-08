@@ -1,13 +1,17 @@
-import React, { useState } from "react";
-import { BookOpen, Briefcase, Award, Download, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import React from "react";
+import { BookOpen, Briefcase, Award, Download, ExternalLink } from "lucide-react";
+import { motion } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 import { trackEvent } from "../../utils/analytics";
 
 const ResumeSection: React.FC = () => {
-  const [expandedExp, setExpandedExp] = useState<number | null>(null);
-
   const education = [
+    {
+      title: "Adama Science and Technology University",
+      degree: "B.Sc. in Software Engineering",
+      period: "Graduated 2022",
+      details: "Software development, data structures and algorithms, system design, and database systems.",
+    },
     {
       title: "Algorithms & Data Structures Training Program",
       degree: "Africa to Silicon Valley (A2SV)",
@@ -17,12 +21,6 @@ const ResumeSection: React.FC = () => {
         { label: "LeetCode", url: "https://leetcode.com/libenadugna" },
         { label: "Codeforces", url: "https://codeforces.com/profile/Hehehc" },
       ],
-    },
-    {
-      title: "Adama Science and Technology University",
-      degree: "B.Sc. in Software Engineering",
-      period: "",
-      details: "Comprehensive program covering software development, data structures, algorithms, system design, and database systems.",
     },
   ];
 
@@ -84,91 +82,57 @@ const ResumeSection: React.FC = () => {
     },
   ];
 
+  // Only entries with a verifiable link get a "View Certificate" button.
   const certifications = [
-    {
-      title: "Programming Fundamentals",
-      issuer: "Udacity",
-      description: "Learned core programming concepts, including variables, control structures, data structures, and problem-solving techniques.",
-      skills: ["Programming Logic", "Python", "Algorithms"],
-      link: "https://www.udacity.com/"
-    },
     {
       title: "Data Analysis Fundamentals",
       issuer: "Udacity",
-      description: "Acquired skills in collecting, cleaning, and analyzing data using Python, NumPy, and pandas to extract insights.",
+      description: "Collecting, cleaning, and analyzing data with Python, NumPy, and pandas.",
       skills: ["Data Analysis", "Python", "NumPy", "pandas"],
-      link: "https://www.udacity.com/certificate/e/1f7abfaa-309d-11f0-a6fd-832dd500790a"
-    },
-    {
-      title: "Android Developer Fundamentals",
-      issuer: "Udacity",
-      description: "Developed Android applications using Java and Android Studio, focusing on layouts, activities, and UI navigation.",
-      skills: ["Android", "Java", "Mobile Development"],
-      link: "https://www.udacity.com/"
-    },
-    {
-      title: "Artificial Intelligence Fundamentals",
-      issuer: "Udacity",
-      description: "Explored core AI principles such as search algorithms, machine learning, and neural networks with hands-on examples.",
-      skills: ["Artificial Intelligence", "Machine Learning", "Python"],
-      link: "https://www.udacity.com/"
-    },
-    {
-      title: "AI and Career Empowerment",
-      issuer: "University of Maryland – Robert H. Smith School of Business",
-      description: "Developed AI literacy and professional growth strategies to navigate AI-driven career transformation and innovation.",
-      skills: ["AI Literacy", "Career Development", "Leadership"],
-      link: ""
-    },
-    {
-      title: "Communication Skills: Acquire Effective Communication",
-      issuer: "Udemy",
-      description: "Improved verbal, written, and interpersonal communication skills for professional and team collaboration.",
-      skills: ["Communication", "Interpersonal Skills", "Public Speaking"],
-      link: "https://www.udemy.com/"
-    },
-    {
-      title: "Professional Diploma in Leadership",
-      issuer: "Udemy",
-      description: "Enhanced leadership capabilities, emotional intelligence, and team motivation for organizational success.",
-      skills: ["Leadership", "Team Management", "Decision Making"],
-      link: "https://www.udemy.com/"
-    },
-    {
-      title: "Strategic Thinking for Leaders and Managers",
-      issuer: "Udemy",
-      description: "Learned strategic planning, problem-solving, and organizational analysis to lead teams effectively.",
-      skills: ["Strategic Thinking", "Leadership", "Planning"],
-      link: "https://www.udemy.com/"
-    },
-    {
-      title: "Lean Problem Solving: Creative Solutions for Teams and Leaders",
-      issuer: "Udemy",
-      description: "Mastered lean problem-solving tools and creative thinking techniques to enhance team performance and innovation.",
-      skills: ["Problem Solving", "Lean Thinking", "Creativity"],
-      link: "https://www.udemy.com/"
-    },
-    {
-      title: "Dart & Flutter: The Ultimate Mobile App Development Course",
-      issuer: "Udemy",
-      description: "Learned Flutter app development, Dart programming, state management, and responsive UI design.",
-      skills: ["Flutter", "Dart", "UI Design", "Mobile Apps"],
-      link: "https://www.udemy.com/"
+      link: "https://www.udacity.com/certificate/e/1f7abfaa-309d-11f0-a6fd-832dd500790a",
     },
     {
       title: "ALX AI Career Essentials",
       issuer: "ALX",
-      description: "Gained foundational understanding of AI tools, prompt engineering, and career readiness for AI-driven industries.",
-      skills: ["AI Tools", "Prompt Engineering", "Career Skills"],
-      link: "https://intranet.alxswe.com/certificates/nryHeJML8T"
+      description: "AI tooling, prompt engineering, and applied workflows.",
+      skills: ["AI Tools", "Prompt Engineering"],
+      link: "https://intranet.alxswe.com/certificates/nryHeJML8T",
+    },
+    {
+      title: "Artificial Intelligence Fundamentals",
+      issuer: "Udacity",
+      description: "Search algorithms, machine learning, and neural networks with hands-on examples.",
+      skills: ["Artificial Intelligence", "Machine Learning", "Python"],
+      link: "",
+    },
+    {
+      title: "Android Developer Fundamentals",
+      issuer: "Udacity",
+      description: "Android applications with Java and Android Studio: layouts, activities, and navigation.",
+      skills: ["Android", "Java", "Mobile Development"],
+      link: "",
+    },
+    {
+      title: "Programming Fundamentals",
+      issuer: "Udacity",
+      description: "Core programming concepts, data structures, and problem-solving techniques.",
+      skills: ["Programming Logic", "Python", "Algorithms"],
+      link: "",
+    },
+    {
+      title: "Dart & Flutter: The Ultimate Mobile App Development Course",
+      issuer: "Udemy",
+      description: "Flutter app development, Dart, state management, and responsive UI design.",
+      skills: ["Flutter", "Dart", "UI Design", "Mobile Apps"],
+      link: "",
     },
   ];
 
   const timelineSummary = [
-    { year: "2022", title: "Started ML Engineering Journey" },
-    { year: "2023", title: "Full-Stack Delivery for Client Projects" },
-    { year: "2025", title: "AI Systems Evaluation + Data Architecture" },
-    { year: "2026", title: "Scaling Freelance ML Products" },
+    { year: "2022", title: "B.Sc. Software Engineering (ASTU). Started freelance ML work and mentoring at CSEC-ASTU." },
+    { year: "2023", title: "Full-stack engineer at Faris Technology: Django APIs and Flutter apps for 5+ clients." },
+    { year: "2024", title: "A2SV algorithms program. AI model evaluation and Databricks training at Afriwork (Turing)." },
+    { year: "2025", title: "AI systems evaluation and data architecture at Revelo. Smart Gebere released." },
   ];
 
   return (
@@ -216,7 +180,7 @@ const ResumeSection: React.FC = () => {
           <h3 className="text-xl font-semibold text-white">Education</h3>
         </div>
         
-        {education.map((edu: any, index) => (
+        {education.map((edu, index) => (
           <div
             key={index}
             className="p-5 bg-dark-300 border border-gray-800 rounded-xl mb-4"
@@ -227,9 +191,9 @@ const ResumeSection: React.FC = () => {
             {edu.details && (
               <p className="text-gray-400 text-sm mt-2">{edu.details}</p>
             )}
-            {edu.links && (
+            {"links" in edu && edu.links && (
               <div className="flex gap-3 mt-2">
-                {edu.links.map((link: any) => (
+                {edu.links.map((link) => (
                   <a
                     key={link.label}
                     href={link.url}
@@ -267,37 +231,17 @@ const ResumeSection: React.FC = () => {
               key={index}
               className="p-5 bg-dark-300 border border-gray-800 rounded-xl"
             >
-              <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="text-lg font-semibold text-white">{exp.role}</h4>
-                  <p className="text-yellow-500 text-sm">{exp.company}</p>
-                  <p className="text-gray-500 text-xs mt-1">{exp.period} • {exp.location}</p>
-                </div>
-                <button
-                  onClick={() => setExpandedExp(expandedExp === index ? null : index)}
-                  className="p-2 text-gray-500 hover:text-yellow-500 transition-colors"
-                >
-                  {expandedExp === index ? <ChevronUp size={18} /> : <ChevronDown size={18} />}
-                </button>
-              </div>
-              
-              <AnimatePresence>
-                {expandedExp === index && (
-                  <motion.ul
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    className="mt-4 space-y-2 overflow-hidden"
-                  >
-                    {exp.points.map((point, i) => (
-                      <li key={i} className="flex items-start gap-2 text-gray-400 text-sm">
-                        <span className="w-1.5 h-1.5 mt-1.5 bg-yellow-500 rounded-full flex-shrink-0" />
-                        {point}
-                      </li>
-                    ))}
-                  </motion.ul>
-                )}
-              </AnimatePresence>
+              <h4 className="text-lg font-semibold text-white">{exp.role}</h4>
+              <p className="text-yellow-500 text-sm">{exp.company}</p>
+              <p className="text-gray-500 text-xs mt-1">{exp.period} • {exp.location}</p>
+              <ul className="mt-4 space-y-2">
+                {exp.points.map((point, i) => (
+                  <li key={i} className="flex items-start gap-2 text-gray-400 text-sm">
+                    <span className="w-1.5 h-1.5 mt-1.5 bg-yellow-500 rounded-full flex-shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>

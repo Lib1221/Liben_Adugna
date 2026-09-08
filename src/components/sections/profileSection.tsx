@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaYoutube, FaExternalLinkAlt, FaLock } from "react-icons/fa";
 import { Search } from "lucide-react";
-import { projects, techIcons } from "../../data/projects";
+import { projects } from "../../data/projects";
+import { techIcons } from "../../data/techIcons";
 import type { Project } from "../../data/projects";
 import FeaturedProject from "../ui/FeaturedProject";
 import ProjectCaseStudyModal from "../ui/ProjectCaseStudyModal";
@@ -14,11 +15,7 @@ const categories = ["All", "AI/ML", "Data Science", "Mobile", "Web", "MLOps"];
 const privacyOptions = ["All", "Public", "Private"];
 const sortOptions = ["Newest", "Most Complex", "Name"];
 
-interface ProfileSectionProps {
-  visitorMode?: "recruiter" | "client" | "engineer";
-}
-
-const ProfileSection: React.FC<ProfileSectionProps> = ({ visitorMode = "recruiter" }) => {
+const ProfileSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [privacyFilter, setPrivacyFilter] = useState("All");
   const [selectedStack, setSelectedStack] = useState("All");
@@ -31,12 +28,9 @@ const ProfileSection: React.FC<ProfileSectionProps> = ({ visitorMode = "recruite
     ...Array.from(new Set(projects.flatMap((project) => project.technologies))).sort(),
   ];
 
+  // Flagship: the public project with code, a demo video and real users.
   const featuredProject =
-    visitorMode === "client"
-      ? projects.find((project) => !project.isPrivate && (project.liveDemo || project.youtubeLink)) || projects[0]
-      : visitorMode === "engineer"
-        ? [...projects].sort((a, b) => (b.features?.length || 0) - (a.features?.length || 0))[0]
-        : projects.find((project) => project.category === "AI/ML" || project.category === "Data Science") || projects[0];
+    projects.find((project) => project.title.startsWith("Smart Gebere")) ?? projects[0];
 
   const baseFilteredProjects = projects
     .filter((p) => (activeCategory === "All" ? true : p.category === activeCategory))

@@ -25,7 +25,7 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
   return (
     <>
       {/* Desktop navbar */}
-      <nav className="hidden md:block mb-6">
+      <nav className="hidden md:block mb-6" aria-label="Sections">
         <div className="modern-card border border-gray-800 rounded-2xl p-2">
           <ul className="flex gap-1">
             {items.map((item) => {
@@ -41,6 +41,7 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
                   )}
                   <button
                     onClick={() => setSelected(item.label)}
+                    aria-current={isSelected ? "page" : undefined}
                     className={`relative z-10 w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-all duration-200
                     ${isSelected
                       ? "text-black"
@@ -73,6 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({ selected, setSelected }) => {
                 <li key={item.label} className="flex-1">
                   <button
                     onClick={() => setSelected(item.label)}
+                    aria-current={isSelected ? "page" : undefined}
                     className="w-full flex flex-col items-center py-2 relative group"
                   >
                     {/* Active indicator */}

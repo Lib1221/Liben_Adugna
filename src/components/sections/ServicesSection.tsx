@@ -14,7 +14,7 @@ const services = [
   {
     icon: FaLaptopCode,
     title: "Web Development",
-    text: "React & Node.js with modern tooling. Dashboards, admin panels, and data-driven UIs with SSR and SEO optimization.",
+    text: "React and TypeScript front ends on Django or Node back ends. Dashboards, admin panels and data-heavy UIs.",
     color: "#61DAFB",
     gradient: "from-cyan-400/10 to-cyan-500/5",
   },
@@ -34,8 +34,8 @@ const services = [
   },
   {
     icon: FaRobot,
-    title: "AI Systems Evaluation",
-    text: "Validate AI outputs for correctness, consistency, and reliability. Structured evaluation frameworks for 8+ ML models.",
+    title: "AI Evaluation and Benchmark Design",
+    text: "Author software-engineering tasks, rubrics and test harnesses that measure AI coding agents. Tasks that cannot be gamed, tests that prove correctness.",
     color: "#8B5CF6",
     gradient: "from-violet-500/10 to-violet-600/5",
   },
@@ -51,7 +51,7 @@ const services = [
 const ServicesSection: React.FC = () => {
   return (
     <section>
-      <SectionHeader title="What I'm" accent="Doing" />
+      <SectionHeader title="What I" accent="Do" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {services.map((service, idx) => {

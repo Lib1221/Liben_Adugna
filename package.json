@@ -1,5 +1,5 @@
 {
-  "name": "my-app",
+  "name": "liben-dev",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,23 +7,18 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "typecheck:api": "tsc -p tsconfig.api.json",
+    "check": "npm run lint && npm run typecheck:api && npm run build"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@react-three/drei": "^10.7.6",
-    "@react-three/fiber": "^9.3.0",
-    "@shadcn/ui": "^0.0.4",
     "@vercel/analytics": "^1.5.0",
-    "aos": "^2.3.4",
     "framer-motion": "^12.23.22",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
-    "react-icons": "^5.5.0",
-    "react-simple-typewriter": "^5.0.1",
-    "react-tsparticles": "^2.12.2",
-    "tsparticles": "^3.9.1"
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",

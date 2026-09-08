@@ -9,8 +9,8 @@ import { skills } from './skills';
 export const portfolioData = {
     personalInfo: {
         name: "Liben Adugna",
-        role: "Software Engineer | Machine Learning | Code Evaluation & AI Systems Reviewer",
-        expertise: "Machine Learning Systems, Code Evaluation, Full-Stack Development, AI Systems Review",
+        role: "Software Engineer. Builds ML-backed products (Python, Django, Flutter) and authors evaluation benchmarks for AI coding agents.",
+        expertise: "ML systems, AI evaluation and benchmark design, full-stack web and mobile development",
         specialties: [
             "Machine Learning model development and evaluation",
             "Code evaluation and AI systems review",
@@ -26,10 +26,10 @@ export const portfolioData = {
 Strong in debugging, performance optimization, and designing reliable, maintainable software systems. Have processed datasets with 450k+ records for behavioral segmentation, built anomaly detection systems on 110k+ transactional records, and designed NLP-based semantic matching engines.
 
 Foundation in data structures and algorithms with 400+ competitive programming problems solved on LeetCode and Codeforces.`,
-        approach: "Software Engineer specializing in ML systems, code evaluation, and AI-powered solutions — building reliable, scalable systems that solve real-world problems.",
+        approach: "Based in Adama, Ethiopia (UTC+3). Open to remote roles and to relocating within the EU.",
         services: [
             "Machine Learning & AI Development",
-            "Code Evaluation & Review",
+            "AI Evaluation, Benchmark and Rubric Design",
             "Full-Stack Web Development",
             "Mobile App Development (Flutter)",
             "Data Science & Analytics",
@@ -87,14 +87,14 @@ Foundation in data structures and algorithms with 400+ competitive programming p
         },
     ],
 
-    skills: skills.map((skill: any) => skill.label),
+    skills: skills.map((skill) => skill.label),
 
     skillsByCategory: {
-        programming: skills.filter((s: any) => s.category === 'programming').map((s: any) => s.label),
-        ml: skills.filter((s: any) => s.category === 'ml').map((s: any) => s.label),
-        mlops: skills.filter((s: any) => s.category === 'mlops').map((s: any) => s.label),
-        datascience: skills.filter((s: any) => s.category === 'datascience').map((s: any) => s.label),
-        tools: skills.filter((s: any) => s.category === 'tools').map((s: any) => s.label),
+        programming: skills.filter((s) => s.category === 'programming').map((s) => s.label),
+        ml: skills.filter((s) => s.category === 'ml').map((s) => s.label),
+        mlops: skills.filter((s) => s.category === 'mlops').map((s) => s.label),
+        datascience: skills.filter((s) => s.category === 'datascience').map((s) => s.label),
+        tools: skills.filter((s) => s.category === 'tools').map((s) => s.label),
     },
 
     projects: projects.map(project => ({
@@ -113,7 +113,7 @@ Foundation in data structures and algorithms with 400+ competitive programming p
 
     contactInfo: {
         portfolio: "https://www.liben.dev",
-        github: "https://github.com/lib1221",
+        github: "https://github.com/Lib1221",
         linkedin: "https://www.linkedin.com/in/liben-adugna-6b192a2b9/",
         email: "libenadugna285@gmail.com",
         leetcode: "https://leetcode.com/libenadugna",
@@ -156,7 +156,7 @@ ${portfolioData.personalInfo.services.map(s => `- ${s}`).join('\n')}
 - Tools: ${portfolioData.skillsByCategory.tools.join(', ')}
 
 **Projects (${portfolioData.projects.length} total):**
-${portfolioData.projects.map((p: any, i: number) => `
+${portfolioData.projects.map((p, i) => `
 ${i + 1}. **${p.title}** (${p.category})${p.isPrivate ? ' [PRIVATE]' : ''}
    - Role: ${p.role}
    - Description: ${p.description}
@@ -180,7 +180,7 @@ ${i + 1}. **${p.title}** (${p.category})${p.isPrivate ? ' [PRIVATE]' : ''}
 6. For PRIVATE projects, explain they are proprietary work but describe the technologies and problem solved
 7. If asked about availability or hiring, direct them to the portfolio's contact section
 8. Never make up information - stick strictly to the knowledge base above
-9. Emphasize Liben's expertise in ML systems, code evaluation, and full-stack development
+9. Emphasize Liben's expertise in ML systems, AI evaluation and benchmark design, and full-stack development
 
 **Response Style:**
 - Be enthusiastic about Liben's work

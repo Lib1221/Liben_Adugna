@@ -104,7 +104,7 @@ const AIChatbot: React.FC = () => {
       };
       setMessages([welcomeMessage]);
     }
-  }, [isOpen]);
+  }, [isOpen, messages.length]);
 
   useEffect(() => {
     if (isOpen) {
@@ -152,17 +152,16 @@ const AIChatbot: React.FC = () => {
       };
       
       setMessages(prev => [...prev, aiMessage]);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Chatbot error:', error);
-      
+      const reason = error instanceof Error ? error.message : "";
+
       let errorText = "I'm having trouble connecting. Please try again later.";
-      
-      if (error?.message?.includes('API key')) {
-        errorText = "API configuration issue. Please contact Liben directly.";
-      } else if (error?.message?.includes('quota')) {
-        errorText = "API limit reached. Please try again in a few minutes.";
-      } else if (error?.message?.includes('not initialized')) {
-        errorText = "The AI service is initializing. Please try again in a moment.";
+
+      if (reason.includes('not configured')) {
+        errorText = "The assistant is not set up yet. Please email Liben directly.";
+      } else if (reason.includes('quota')) {
+        errorText = "The assistant is busy right now. Please try again in a minute.";
       }
       
       const errorMessage: Message = {

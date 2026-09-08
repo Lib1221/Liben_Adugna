@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Navbar from "./Navbar";
 import HeroSection from "./sections/HeroSection";
 import AboutSection from "./sections/AboutSection";
@@ -11,24 +11,23 @@ import BlogSection from "./sections/BlogSection";
 import ContactSection from "./sections/ContactSection";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Search } from "lucide-react";
-import { commandPaletteItems } from "../data/siteContent";
+import { commandPaletteItems, sections } from "../data/siteContent";
+import type { Section } from "../data/siteContent";
 import { rankSearchResults } from "../utils/search";
 
+const findSection = (hash: string): Section | undefined => {
+  const key = hash.replace(/^#\/?/, "").toLowerCase();
+  return sections.find((section) => section.toLowerCase() === key);
+};
+
+const sectionFromHash = (hash: string): Section => findSection(hash) ?? "About";
+
 const Main: React.FC = () => {
-  const [selected, setSelected] = useState(() => {
-    if (typeof window === "undefined") return "About";
-    const stored = localStorage.getItem("selected-section");
-    const validSections = commandPaletteItems.map((item) => item.section);
-    return stored && validSections.includes(stored as (typeof validSections)[number]) ? stored : "About";
-  });
+  // Section is driven by the URL hash (#resume, #portfolio, ...) so every tab is linkable
+  // and the back button works. Nothing is persisted across visits.
+  const [selected, setSelectedState] = useState<Section>(() => sectionFromHash(window.location.hash));
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteQuery, setPaletteQuery] = useState("");
-  const [visitorMode, setVisitorMode] = useState<"recruiter" | "client" | "engineer">(() => {
-    if (typeof window === "undefined") return "recruiter";
-    const stored = localStorage.getItem("visitor-mode");
-    if (stored === "recruiter" || stored === "client" || stored === "engineer") return stored;
-    return "recruiter";
-  });
   const [activePaletteIndex, setActivePaletteIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
 
@@ -46,13 +45,27 @@ const Main: React.FC = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("visitor-mode", visitorMode);
-  }, [visitorMode]);
+  const setSelected = useCallback((value: string) => {
+    const next = sectionFromHash(`#${value}`);
+    if (next === "About") {
+      history.replaceState(null, "", window.location.pathname);
+    } else {
+      window.location.hash = next.toLowerCase();
+    }
+    setSelectedState(next);
+    window.scrollTo({ top: 0, behavior: shouldReduceMotion ? "auto" : "smooth" });
+  }, [shouldReduceMotion]);
 
   useEffect(() => {
-    localStorage.setItem("selected-section", selected);
-  }, [selected]);
+    const onHashChange = () => {
+      const { hash } = window.location;
+      // Ignore in-page anchors such as #main-content (skip link).
+      if (hash && !findSection(hash)) return;
+      setSelectedState(sectionFromHash(hash));
+    };
+    window.addEventListener("hashchange", onHashChange);
+    return () => window.removeEventListener("hashchange", onHashChange);
+  }, []);
 
   const filteredPaletteItems = useMemo(() => {
     const query = paletteQuery.trim();
@@ -92,33 +105,10 @@ const Main: React.FC = () => {
     };
     window.addEventListener("keydown", onPaletteKeyDown);
     return () => window.removeEventListener("keydown", onPaletteKeyDown);
-  }, [paletteOpen, filteredPaletteItems, activePaletteIndex]);
+  }, [paletteOpen, filteredPaletteItems, activePaletteIndex, setSelected]);
 
   return (
-    <div>
-      <div className="mb-4 modern-card border border-gray-800 p-3">
-        <p className="text-[11px] uppercase tracking-wider text-gray-500 mb-2">Portfolio View Mode</p>
-        <div className="flex flex-wrap gap-2">
-          {[
-            { id: "recruiter", label: "Recruiter Focus" },
-            { id: "client", label: "Client Focus" },
-            { id: "engineer", label: "Engineer Focus" },
-          ].map((mode) => (
-            <button
-              key={mode.id}
-              onClick={() => setVisitorMode(mode.id as "recruiter" | "client" | "engineer")}
-              className={`px-3 py-1.5 rounded-lg text-xs border transition-all ${
-                visitorMode === mode.id
-                  ? "bg-yellow-500 text-black border-yellow-500"
-                  : "bg-dark-300 text-gray-400 border-gray-800 hover:text-white"
-              }`}
-            >
-              {mode.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
+    <div id="main-content">
       <div className="mb-4">
         <button
           onClick={() => setPaletteOpen(true)}
@@ -144,7 +134,7 @@ const Main: React.FC = () => {
               exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             >
-              <HeroSection setSelected={setSelected} visitorMode={visitorMode} />
+              <HeroSection setSelected={setSelected} />
               <div className="h-px bg-gray-800 my-10" />
               <AboutSection />
               <div className="h-px bg-gray-800 my-10" />
@@ -176,7 +166,7 @@ const Main: React.FC = () => {
               exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
             >
-              <ProfileSection visitorMode={visitorMode} />
+              <ProfileSection />
             </motion.div>
           )}
 
