@@ -12,8 +12,10 @@ export type ExperienceEntry = {
 };
 
 export type EducationEntry = {
-  title: string;
-  degree: string;
+  /** What was earned or completed. This is the entry's heading. */
+  qualification: string;
+  /** Awarding body. Omitted where naming it would identify a location. */
+  institution?: string;
   period: string;
   details?: string;
   links?: { label: string; url: string }[];
@@ -29,14 +31,13 @@ export type Certification = {
 
 const education: EducationEntry[] = [
   {
-    title: "Adama Science and Technology University",
-    degree: "B.Sc. in Software Engineering",
+    qualification: "B.Sc. in Software Engineering",
     period: "Graduated 2022",
     details: "Software development, data structures and algorithms, system design, and database systems.",
   },
   {
-    title: "Algorithms & Data Structures Training Program",
-    degree: "Africa to Silicon Valley (A2SV)",
+    qualification: "Algorithms & Data Structures Training Program",
+    institution: "Africa to Silicon Valley (A2SV)",
     period: "Jun 2024 — Jun 2025",
     details: "Solved 400+ problems (DP, graphs, optimization)",
     links: [
@@ -104,7 +105,7 @@ const experience: ExperienceEntry[] = [
   },
   {
     role: "Senior Technical Mentor – Machine Learning",
-    company: "CSEC-ASTU",
+    company: "CSEC (university computing club)",
     period: "Sep 2022 — Jun 2023",
     points: [
       "Mentored 40+ students in ML system design, evaluation, and deployment.",
@@ -160,7 +161,7 @@ const certifications: Certification[] = [
 ];
 
 const timelineSummary = [
-  { year: "2022", title: "B.Sc. Software Engineering (ASTU). Started freelance ML work and mentoring at CSEC-ASTU." },
+  { year: "2022", title: "B.Sc. Software Engineering. Started freelance ML work and mentoring at CSEC." },
   { year: "2023", title: "Full-stack engineer at Faris Technology: Django APIs and Flutter apps for 5+ clients." },
   { year: "2024", title: "A2SV algorithms program. Benchmark and evaluation work begins at Afriwork (Turing)." },
   { year: "2025", title: "Terminal-Bench 2.0/3.0 task authoring at Revelo and AfterQuery. Smart Gebere released." },

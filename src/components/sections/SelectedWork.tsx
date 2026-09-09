@@ -25,7 +25,7 @@ const picks = [
 /** Landing-page framing: what it does and the one fact that makes it credible. */
 const blurbs: Record<string, string> = {
   "Smart Gebere – AI Agricultural Assistant":
-    "Flutter app that diagnoses crop disease on-device for Ethiopian farmers, built to work when the network does not. Open source, 17 stars.",
+    "Flutter app that diagnoses crop disease on-device for smallholder farmers, built to work when the network does not. Open source, 17 stars.",
   "Benchmark & Evaluation Design for AI Coding Agents":
     "Terminal-Bench 2.0/3.0 and SWE-bench style tasks: Docker environments, hidden tests, golden solutions, stress-tested against frontier models.",
   "Full Stack eCommerce Platform":

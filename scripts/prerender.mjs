@@ -79,10 +79,7 @@ const person = {
   email: `mailto:${SITE.email}`,
   jobTitle: "Software Engineer",
   description: routeMeta({ kind: "home" }).description,
-  alumniOf: [
-    { "@type": "CollegeOrUniversity", name: "Adama Science and Technology University" },
-    { "@type": "Organization", name: "Africa to Silicon Valley (A2SV)" },
-  ],
+  alumniOf: [{ "@type": "Organization", name: "Africa to Silicon Valley (A2SV)" }],
   sameAs: [SITE.github, SITE.linkedin, SITE.medium, SITE.leetcode, SITE.codeforces],
   knowsAbout: [
     "Machine Learning",
@@ -227,7 +224,7 @@ const bodyFor = (route) => {
         <h2>Experience</h2>
         ${list(resume.experience.map((e) => `${esc(e.role)}, ${esc(e.company)} (${esc(e.period)})`))}
         <h2>Education</h2>
-        ${list(resume.education.map((e) => `${esc(e.degree)}, ${esc(e.title)} (${esc(e.period)})`))}
+        ${list(resume.education.map((e) => `${esc(e.qualification)}${e.institution ? `, ${esc(e.institution)}` : ""} (${esc(e.period)})`))}
         <h2>Writing</h2>
         ${list(posts.map((post) => link(post.link, post.title)))}`;
     case "projects":
@@ -264,7 +261,7 @@ const bodyFor = (route) => {
           )
           .join("\n        ")}
         <h2>Education</h2>
-        ${list(resume.education.map((e) => `${esc(e.degree)}, ${esc(e.title)} (${esc(e.period)}). ${esc(e.details ?? "")}`))}
+        ${list(resume.education.map((e) => `${esc(e.qualification)}${e.institution ? `, ${esc(e.institution)}` : ""} (${esc(e.period)}). ${esc(e.details ?? "")}`))}
         <h2>Certifications</h2>
         ${list(resume.certifications.map((c) => `${esc(c.title)}, ${esc(c.issuer)}${c.link ? ` (${link(c.link, "certificate")})` : ""}`))}
         <h2>Skills</h2>
@@ -363,7 +360,7 @@ ${resume.experience.map((e) => `- ${e.role}, ${e.company} (${e.period}): ${e.poi
 
 ## Education
 
-${resume.education.map((e) => `- ${e.degree}, ${e.title} (${e.period})`).join("\n")}
+${resume.education.map((e) => `- ${e.qualification}${e.institution ? `, ${e.institution}` : ""} (${e.period})`).join("\n")}
 `;
 await writeFile(join(dist, "llms.txt"), llms);
 
@@ -383,7 +380,7 @@ const jsonResume = {
     ],
   },
   work: resume.experience.map((e) => ({ name: e.company, position: e.role, ...(e.location ? { location: e.location } : {}), summary: e.period, highlights: e.points })),
-  education: resume.education.map((e) => ({ institution: e.title, area: e.degree, studyType: e.degree, endDate: e.period })),
+  education: resume.education.map((e) => ({ ...(e.institution ? { institution: e.institution } : {}), area: e.qualification, studyType: e.qualification, endDate: e.period })),
   certificates: resume.certifications.map((c) => ({ name: c.title, issuer: c.issuer, ...(c.link ? { url: c.link } : {}) })),
   skills: ["programming", "ml", "mlops", "datascience", "tools"].map((category) => ({
     name: category,

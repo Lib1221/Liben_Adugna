@@ -84,9 +84,9 @@ const ResumeSection: React.FC = () => {
 
         <Block title="Education">
           {education.map((edu) => (
-            <Entry key={edu.title} meta={edu.period}>
-              <h4 className="text-[17px] font-semibold text-white">{edu.title}</h4>
-              <p className="mt-0.5 text-sm text-yellow-500">{edu.degree}</p>
+            <Entry key={edu.qualification} meta={edu.period}>
+              <h4 className="text-[17px] font-semibold text-white">{edu.qualification}</h4>
+              {edu.institution && <p className="mt-0.5 text-sm text-yellow-500">{edu.institution}</p>}
               {edu.details && <p className="mt-2 max-w-prose text-[15px] leading-relaxed text-gray-400">{edu.details}</p>}
               {edu.links && (
                 <div className="mt-3 flex flex-wrap gap-4">

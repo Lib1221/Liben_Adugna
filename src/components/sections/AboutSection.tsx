@@ -39,7 +39,7 @@ const AboutSection: React.FC = () => (
       </p>
 
       <p>
-        Underneath that: a B.Sc. in Software Engineering from ASTU, 400+ algorithm problems through the A2SV
+        Underneath that: a B.Sc. in Software Engineering, 400+ algorithm problems through the A2SV
         program, and a year mentoring 40+ students in ML system design. I care most about debugging, about
         performance you can measure, and about code that is still readable a year later.
       </p>
