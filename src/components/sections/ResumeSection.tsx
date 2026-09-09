@@ -1,189 +1,161 @@
 import React from "react";
-import { BookOpen, Briefcase, Award, Download, ExternalLink, Printer } from "lucide-react";
+import { Download, ExternalLink, Printer } from "lucide-react";
 import { m } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 import { trackEvent } from "../../utils/analytics";
 import { resume } from "../../data/resume";
 
+/**
+ * A CV, laid out like one: period in the left column, the work in the right, separated by
+ * rules. The previous version stacked every entry in its own bordered box with a gold icon
+ * chip per heading, which made six roles read as six unrelated cards.
+ */
 const ResumeSection: React.FC = () => {
   const { education, experience, certifications, timelineSummary } = resume;
 
+  // Only credentials with a verifiable link earn a row of their own; the rest are listed
+  // compactly rather than padded out to fill a grid.
+  const verified = certifications.filter((cert) => cert.link);
+  const unverified = certifications.filter((cert) => !cert.link);
+
   return (
     <section>
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
-        <SectionHeader as="h1" title="Resume" accent="" subtitle="Experience, education, and credentials with measurable outcomes." />
-        <div className="flex flex-wrap gap-2 print:hidden">
-          <a
-            href="/resume.pdf"
-            download
-            onClick={() => trackEvent("resume_download")}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 transition-colors"
-          >
-            <Download size={18} aria-hidden="true" />
-            Download CV
-          </a>
-          <button
-            type="button"
-            onClick={() => {
-              trackEvent("resume_print");
-              window.print();
-            }}
-            className="inline-flex items-center gap-2 px-4 py-2.5 bg-dark-300 border border-gray-700 text-gray-200 rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-colors"
-          >
-            <Printer size={18} aria-hidden="true" />
-            Print
-          </button>
-        </div>
-      </div>
-
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="modern-card border border-gray-800 p-4 mb-8"
-      >
-        <p className="text-xs uppercase tracking-wider text-gray-500 mb-4">Career Timeline</p>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
-          {timelineSummary.map((step) => (
-            <div key={step.year} className="p-3 rounded-xl bg-dark-300 border border-gray-700">
-              <p className="text-sm font-bold text-yellow-500">{step.year}</p>
-              <p className="text-xs text-gray-300 mt-1">{step.title}</p>
-            </div>
-          ))}
-        </div>
-      </m.div>
-
-      {/* Education */}
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="mb-10"
-      >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-yellow-500/10 rounded-lg">
-            <BookOpen size={20} className="text-yellow-500" />
-          </div>
-          <h3 className="text-xl font-semibold text-white">Education</h3>
-        </div>
-        
-        {education.map((edu, index) => (
-          <div
-            key={index}
-            className="p-5 bg-dark-300 border border-gray-800 rounded-xl mb-4"
-          >
-            <h4 className="text-lg font-semibold text-white">{edu.title}</h4>
-            <p className="text-yellow-500 text-sm mt-1">{edu.degree}</p>
-            <p className="text-gray-500 text-sm mt-1">{edu.period}</p>
-            {edu.details && (
-              <p className="text-gray-400 text-sm mt-2">{edu.details}</p>
-            )}
-            {edu.links && (
-              <div className="flex gap-3 mt-2">
-                {edu.links.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs text-yellow-500 hover:text-yellow-400 transition-colors"
-                  >
-                    <ExternalLink size={12} />
-                    {link.label}
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
-      </m.div>
-
-      {/* Experience */}
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="mb-10"
-      >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-yellow-500/10 rounded-lg">
-            <Briefcase size={20} className="text-yellow-500" />
-          </div>
-          <h3 className="text-xl font-semibold text-white">Experience</h3>
-        </div>
-        
-        <div className="space-y-4">
-          {experience.map((exp, index) => (
-            <div
-              key={index}
-              className="p-5 bg-dark-300 border border-gray-800 rounded-xl"
+      <SectionHeader
+        as="h1"
+        title="Resume"
+        subtitle="Six years across full-stack delivery, machine learning, and AI evaluation. Every line here has a number or an artefact behind it."
+        aside={
+          <div className="flex flex-wrap gap-2 print:hidden">
+            <a
+              href="/resume.pdf"
+              download
+              onClick={() => trackEvent("resume_download")}
+              className="inline-flex items-center gap-2 rounded-lg bg-yellow-500 px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-yellow-400"
             >
-              <h4 className="text-lg font-semibold text-white">{exp.role}</h4>
-              <p className="text-yellow-500 text-sm">{exp.company}</p>
-              <p className="text-gray-500 text-xs mt-1">{exp.period} • {exp.location}</p>
-              <ul className="mt-4 space-y-2">
-                {exp.points.map((point, i) => (
-                  <li key={i} className="flex items-start gap-2 text-gray-400 text-sm">
-                    <span className="w-1.5 h-1.5 mt-1.5 bg-yellow-500 rounded-full flex-shrink-0" />
-                    {point}
+              <Download size={15} aria-hidden="true" />
+              PDF
+            </a>
+            <button
+              type="button"
+              onClick={() => {
+                trackEvent("resume_print");
+                window.print();
+              }}
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-700 px-4 py-2 text-sm text-gray-300 transition-colors hover:border-gray-600 hover:text-white"
+            >
+              <Printer size={15} aria-hidden="true" />
+              Print
+            </button>
+          </div>
+        }
+      />
+
+      <m.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {/* Timeline: four years, one line each. It orients the reader before the detail. */}
+        <ol className="mb-14 grid gap-px overflow-hidden rounded-lg border border-gray-800 bg-gray-800 sm:grid-cols-2 lg:grid-cols-4">
+          {timelineSummary.map((step) => (
+            <li key={step.year} className="bg-dark-400 p-4">
+              <p className="tabular eyebrow mb-2 text-yellow-500/80">{step.year}</p>
+              <p className="text-[13px] leading-relaxed text-gray-300">{step.title}</p>
+            </li>
+          ))}
+        </ol>
+
+        <Block title="Experience">
+          {experience.map((exp) => (
+            <Entry key={`${exp.role}-${exp.company}`} meta={exp.period} sub={exp.location}>
+              <h4 className="text-[17px] font-semibold text-white">{exp.role}</h4>
+              <p className="mt-0.5 text-sm text-yellow-500">{exp.company}</p>
+              <ul className="mt-3 space-y-2">
+                {exp.points.map((point) => (
+                  <li key={point} className="flex gap-3 text-[15px] leading-relaxed text-gray-400">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gray-600" aria-hidden="true" />
+                    <span className="max-w-prose">{point}</span>
                   </li>
                 ))}
               </ul>
-            </div>
+            </Entry>
           ))}
-        </div>
-      </m.div>
+        </Block>
 
-      {/* Certifications */}
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-      >
-        <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-yellow-500/10 rounded-lg">
-            <Award size={20} className="text-yellow-500" />
-          </div>
-          <h3 className="text-xl font-semibold text-white">Certifications</h3>
-        </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {certifications.map((cert, index) => (
-            <div
-              key={index}
-              className="p-5 bg-dark-300 border border-gray-800 rounded-xl hover:border-yellow-500/50 transition-colors group"
-            >
-              <div className="mb-2">
-                <h4 className="font-semibold text-white group-hover:text-yellow-500 transition-colors">{cert.title}</h4>
-                <p className="text-yellow-500 text-sm">{cert.issuer}</p>
-              </div>
-              <p className="text-gray-400 text-sm mb-3">{cert.description}</p>
-              <div className="flex flex-wrap gap-1 mb-3">
-                {cert.skills.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-2 py-0.5 bg-dark-200 border border-gray-700 rounded text-xs text-gray-400"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-              {cert.link && (
+        <Block title="Education">
+          {education.map((edu) => (
+            <Entry key={edu.title} meta={edu.period}>
+              <h4 className="text-[17px] font-semibold text-white">{edu.title}</h4>
+              <p className="mt-0.5 text-sm text-yellow-500">{edu.degree}</p>
+              {edu.details && <p className="mt-2 max-w-prose text-[15px] leading-relaxed text-gray-400">{edu.details}</p>}
+              {edu.links && (
+                <div className="mt-3 flex flex-wrap gap-4">
+                  {edu.links.map((link) => (
+                    <a
+                      key={link.label}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[13px] text-gray-400 transition-colors hover:text-yellow-500"
+                    >
+                      <ExternalLink size={12} aria-hidden="true" />
+                      {link.label}
+                    </a>
+                  ))}
+                </div>
+              )}
+            </Entry>
+          ))}
+        </Block>
+
+        <Block title="Credentials">
+          {verified.map((cert) => (
+            <Entry key={cert.title} meta={cert.issuer}>
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h4 className="text-[17px] font-semibold text-white">{cert.title}</h4>
                 <a
                   href={cert.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1 text-xs text-yellow-500 hover:text-yellow-400 transition-colors"
+                  className="inline-flex items-center gap-1.5 text-[13px] text-yellow-500 transition-colors hover:text-yellow-400"
                 >
-                  <ExternalLink size={12} />
-                  View Certificate
+                  <ExternalLink size={12} aria-hidden="true" />
+                  Verify
                 </a>
-              )}
-            </div>
+              </div>
+              <p className="mt-2 max-w-prose text-[15px] leading-relaxed text-gray-400">{cert.description}</p>
+            </Entry>
           ))}
-        </div>
+
+          {unverified.length > 0 && (
+            <Entry meta="Coursework">
+              <p className="max-w-prose text-[15px] leading-relaxed text-gray-400">
+                {unverified.map((cert) => `${cert.title} (${cert.issuer})`).join(" · ")}
+              </p>
+            </Entry>
+          )}
+        </Block>
       </m.div>
     </section>
   );
 };
+
+const Block: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
+  <div className="mb-14 last:mb-0">
+    <h3 className="eyebrow mb-1 border-b border-gray-800 pb-4">{title}</h3>
+    <div className="divide-y divide-gray-800">{children}</div>
+  </div>
+);
+
+/** Period on the left at small caps, content on the right. Collapses to one column on mobile. */
+const Entry: React.FC<{ meta: string; sub?: string; children: React.ReactNode }> = ({ meta, sub, children }) => (
+  <div className="grid gap-2 py-6 md:grid-cols-[8.5rem_1fr] md:gap-8">
+    <div className="pt-0.5">
+      <p className="tabular text-[13px] text-gray-400">{meta}</p>
+      {sub && <p className="mt-0.5 text-xs text-gray-500">{sub}</p>}
+    </div>
+    <div className="min-w-0">{children}</div>
+  </div>
+);
 
 export default ResumeSection;

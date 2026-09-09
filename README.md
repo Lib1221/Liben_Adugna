@@ -39,7 +39,8 @@ See `.env.example`.
 | Experience, education, certifications | `src/data/resume.ts` |
 | Headline, availability, "Right now", metrics | `src/data/siteContent.ts` |
 | Articles | `src/data/posts.ts` |
-| Skills | `src/data/skills.ts` (chatbot) and `src/components/sections/skills.tsx` (grid with icons) |
+| Stack: tools, the sentence describing each domain, and the daily list | `src/data/skills.ts` (`skills`, `stackDomains`, `dailyStack`) |
+| Engagements listed under "What I take on" | `src/components/sections/ServicesSection.tsx` |
 | Page titles and descriptions | `src/lib/site.ts` (`routeMeta`) |
 | Static crawlable HTML per page | `scripts/prerender.mjs` (`bodyFor`) |
 | Preview card design | `api/og.ts` |

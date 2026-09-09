@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <meta name="author" content="Liben Adugna" />
-    <meta name="theme-color" content="#0A0A0A" />
+    <meta name="theme-color" content="#09090B" />
     <meta name="application-name" content="liben.dev" />
     <meta name="referrer" content="origin-when-cross-origin" />
     <meta name="format-detection" content="telephone=no" />
@@ -134,17 +134,20 @@
     <!-- @route-head:end -->
 
     <style>
+      /* Painted before any stylesheet resolves, so a slow CSS fetch never flashes white. */
+      html { background: #09090B; color-scheme: dark; }
+
       /* Static shell shown until the app hydrates. Same palette as the app so there is no flash. */
       #root .static-shell {
         max-width: 48rem;
         margin: 0 auto;
         padding: 3rem 1.25rem;
         font-family: Inter, ui-sans-serif, system-ui, sans-serif;
-        color: #d1d5db;
-        line-height: 1.6;
+        color: #B4B4BE;
+        line-height: 1.65;
       }
-      #root .static-shell h1 { color: #fff; font-size: 2rem; margin: 0 0 0.5rem; }
-      #root .static-shell h2 { color: #fff; font-size: 1.25rem; margin: 2rem 0 0.5rem; }
+      #root .static-shell h1 { color: #fff; font-size: 2rem; letter-spacing: -0.025em; margin: 0 0 0.5rem; }
+      #root .static-shell h2 { color: #fff; font-size: 1.25rem; letter-spacing: -0.02em; margin: 2rem 0 0.5rem; }
       #root .static-shell a { color: #f5b800; }
       #root .static-shell ul { padding-left: 1.25rem; }
       .skip-link {

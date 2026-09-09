@@ -30,8 +30,8 @@ const RouteFallback: React.FC = () => (
 
 const NotFound: React.FC<{ path: string }> = ({ path }) => (
   <section className="py-10">
-    <p className="text-[11px] uppercase tracking-wider text-yellow-500 mb-2">404</p>
-    <h1 className="text-3xl font-bold text-white mb-3">That page does not exist</h1>
+    <p className="eyebrow mb-3 text-yellow-500">404</p>
+    <h1 className="mb-3 text-display font-semibold text-white">That page does not exist</h1>
     <p className="text-gray-400 mb-6">
       Nothing lives at <code className="px-1.5 py-0.5 bg-dark-300 rounded text-gray-200">{path}</code>. Try one of these instead.
     </p>
@@ -40,7 +40,7 @@ const NotFound: React.FC<{ path: string }> = ({ path }) => (
         <button
           key={section}
           onClick={() => navigate(pathForSection(section))}
-          className="px-4 py-2 bg-dark-300 border border-gray-700 rounded-lg text-sm text-gray-200 hover:border-yellow-500 hover:text-yellow-500"
+          className="rounded-lg border border-gray-700 px-4 py-2 text-sm text-gray-200 transition-colors hover:border-yellow-500 hover:text-yellow-500"
         >
           {section === "Portfolio" ? "Projects" : section === "Blog" ? "Writing" : section}
         </button>
@@ -140,21 +140,15 @@ const Main: React.FC = () => {
     switch (route.kind) {
       case "home":
         return (
-          <>
+          <div className="space-y-16 md:space-y-20">
             <HeroSection setSelected={setSelected} />
-            <div className="h-px bg-gray-800 my-10" />
             <SelectedWork setSelected={setSelected} />
-            <div className="h-px bg-gray-800 my-10" />
             <NowSection />
-            <div className="h-px bg-gray-800 my-10" />
             <AboutSection />
-            <div className="h-px bg-gray-800 my-10" />
             <ServicesSection />
-            <div className="h-px bg-gray-800 my-10" />
             <SkillsSection />
-            <div className="h-px bg-gray-800 my-10" />
             <TestimonialsSection />
-          </>
+          </div>
         );
       case "resume":
         return <ResumeSection />;
@@ -173,20 +167,23 @@ const Main: React.FC = () => {
 
   return (
     <main id="main-content" ref={contentRef}>
-      <div className="mb-4 print:hidden">
+      <div className="flex items-start justify-between gap-4">
+        <div className="min-w-0 flex-1">
+          <Navbar selected={selected} setSelected={setSelected} />
+        </div>
         <button
           onClick={() => setPaletteOpen(true)}
-          className="w-full md:w-auto inline-flex items-center gap-2 px-4 py-2 bg-dark-400 border border-gray-800 rounded-xl text-sm text-gray-400 hover:text-white hover:border-gray-600 transition-all"
+          className="mt-1 hidden shrink-0 items-center gap-2 rounded-lg border border-gray-800 px-3 py-2 text-[13px] text-gray-500 transition-colors hover:border-gray-700 hover:text-gray-300 md:inline-flex print:hidden"
         >
-          <Search size={14} aria-hidden="true" />
-          Quick Navigate
-          <span className="text-xs text-gray-500 ml-1">Ctrl/Cmd + K</span>
+          <Search size={13} aria-hidden="true" />
+          Jump to
+          <kbd className="rounded border border-gray-800 bg-dark-300 px-1.5 py-0.5 font-sans text-[11px] text-gray-500">
+            ⌘K
+          </kbd>
         </button>
       </div>
 
-      <Navbar selected={selected} setSelected={setSelected} />
-
-      <div className="bg-dark-400 border border-gray-800 rounded-2xl p-6 md:p-8 print:border-0 print:p-0">
+      <div className="print:border-0 print:p-0">
         <AnimatePresence mode="wait">
           <m.div
             key={routeKey}
@@ -220,7 +217,7 @@ const Main: React.FC = () => {
               onClick={(e) => e.stopPropagation()}
               role="dialog"
               aria-label="Quick navigate"
-              className="max-w-lg mx-auto mt-24 modern-card border border-gray-700 p-4"
+              className="surface mx-auto mt-24 max-w-lg p-4"
             >
               <input
                 autoFocus
@@ -228,7 +225,7 @@ const Main: React.FC = () => {
                 onChange={(e) => setPaletteQuery(e.target.value)}
                 placeholder="Type to navigate..."
                 aria-label="Search sections"
-                className="w-full px-4 py-3 bg-dark-300 border border-gray-700 rounded-xl text-sm text-white focus:outline-none focus:border-yellow-500 mb-3"
+                className="mb-3 w-full rounded-lg border border-gray-800 bg-dark-300 px-3.5 py-2.5 text-sm text-white transition-colors focus:border-yellow-500 focus:outline-none"
               />
               <div className="space-y-2 max-h-72 overflow-y-auto">
                 {filteredPaletteItems.map((item, index) => (

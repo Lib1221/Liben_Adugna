@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
-import { FaGithub, FaYoutube, FaExternalLinkAlt, FaLock } from "react-icons/fa";
-import { Search } from "lucide-react";
+import { FaGithub, FaYoutube, FaLock } from "react-icons/fa";
+import { ArrowRight, ArrowUpRight, Search } from "lucide-react";
 import { projects } from "../../data/projects";
 import { techIcons } from "../../data/techIcons";
 import type { Project } from "../../data/projects";
@@ -62,29 +62,8 @@ const ProfileSection: React.FC = () => {
       <SectionHeader
         as="h1"
         title="Projects"
-        accent=""
-        subtitle="Filter by category, stack or visibility. Every project has its own page."
+        subtitle="Every project has its own page with the problem, the approach, and what it cost. Filter by domain, stack or visibility."
       />
-
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="modern-card p-4 border border-gray-800 text-center">
-          <p className="text-2xl font-bold text-yellow-500">{projects.length}</p>
-          <p className="text-xs text-gray-500">Total Projects</p>
-        </div>
-        <div className="modern-card p-4 border border-gray-800 text-center">
-          <p className="text-2xl font-bold text-yellow-500">
-            {projects.filter(p => p.category === "AI/ML" || p.category === "Data Science").length}
-          </p>
-          <p className="text-xs text-gray-500">AI/ML Projects</p>
-        </div>
-        <div className="modern-card p-4 border border-gray-800 text-center">
-          <p className="text-2xl font-bold text-yellow-500">
-            {projects.filter(p => p.category === "Mobile").length}
-          </p>
-          <p className="text-xs text-gray-500">Mobile Apps</p>
-        </div>
-      </div>
 
       <FeaturedProject
         project={featuredProject}
@@ -94,89 +73,45 @@ const ProfileSection: React.FC = () => {
         }}
       />
 
-      {/* Filters */}
-      <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">Categories</p>
-      <div className="flex flex-wrap gap-2 mb-8">
+      {/* Filters: one toolbar rather than four labelled blocks down the page. */}
+      <div className="mb-8 flex flex-wrap items-center gap-1 border-b border-gray-800 pb-4">
         {categories.map((cat) => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-              ${activeCategory === cat
+            aria-pressed={activeCategory === cat}
+            className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+              activeCategory === cat
                 ? "bg-yellow-500 text-black"
-                : "bg-dark-300 text-gray-400 hover:text-white border border-gray-800"
-              }`}
+                : "text-gray-400 hover:bg-dark-300 hover:text-white"
+            }`}
           >
             {cat}
           </button>
         ))}
       </div>
-      <div className="grid md:grid-cols-3 gap-4 mb-8">
-        <div>
-          <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">Visibility</p>
-          <div className="flex flex-wrap gap-2">
-            {privacyOptions.map((option) => (
-              <button
-                key={option}
-                onClick={() => setPrivacyFilter(option)}
-                className={`px-3 py-2 rounded-lg text-xs border transition-colors ${
-                  privacyFilter === option
-                    ? "bg-yellow-500 text-black border-yellow-500"
-                    : "bg-dark-300 text-gray-400 border-gray-800 hover:text-white"
-                }`}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">Stack</p>
-          <select
-            value={selectedStack}
-            onChange={(e) => setSelectedStack(e.target.value)}
-            className="w-full bg-dark-300 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-yellow-500"
-          >
-            {stackOptions.map((stack) => (
-              <option key={stack} value={stack}>
-                {stack}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div>
-          <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">Sort By</p>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="w-full bg-dark-300 border border-gray-800 rounded-lg px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-yellow-500"
-          >
-            {sortOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="mb-8">
-        <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">Search</p>
+      <div className="mb-4 space-y-3">
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" aria-hidden="true" />
           <input
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by project title, description, or technology..."
-            className="w-full pl-10 pr-4 py-2.5 bg-dark-300 border border-gray-800 rounded-xl text-sm text-gray-200 placeholder-gray-500 focus:outline-none focus:border-yellow-500"
+            aria-label="Search projects"
+            placeholder="Search title, description or technology"
+            className="w-full rounded-lg border border-gray-800 bg-dark-400 py-2 pl-9 pr-4 text-sm text-gray-200 placeholder-gray-500 transition-colors focus:border-yellow-500 focus:outline-none"
           />
         </div>
-        <p className="text-xs text-gray-500 mt-2">
-          Showing {filteredProjects.length} project{filteredProjects.length === 1 ? "" : "s"} based on active filters.
-        </p>
+
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <Select label="Visibility" value={privacyFilter} onChange={setPrivacyFilter} options={privacyOptions} />
+          <Select label="Stack" value={selectedStack} onChange={setSelectedStack} options={stackOptions} />
+          <Select label="Sort" value={sortBy} onChange={setSortBy} options={sortOptions} />
+        </div>
       </div>
+
+      <p className="mb-8 text-[13px] text-gray-500" role="status" aria-live="polite">
+        {filteredProjects.length} of {projects.length} project{projects.length === 1 ? "" : "s"}
+      </p>
 
       {/* Projects Grid */}
       {filteredProjects.length > 0 ? (
@@ -196,14 +131,35 @@ const ProfileSection: React.FC = () => {
           </AnimatePresence>
         </m.div>
       ) : (
-        <div className="modern-card border border-gray-800 p-8 text-center">
-          <p className="text-white font-medium mb-2">No project matches the current filters.</p>
-          <p className="text-sm text-gray-500">Try resetting filters or using a broader search term.</p>
-        </div>
+        <p className="border-t border-gray-800 py-12 text-center text-sm text-gray-500">
+          No project matches those filters. Try a broader search term.
+        </p>
       )}
     </section>
   );
 };
+
+const Select: React.FC<{
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: string[];
+}> = ({ label, value, onChange, options }) => (
+  <label className="flex min-w-0 items-center gap-2 rounded-lg border border-gray-800 bg-dark-400 px-3 py-2 text-sm">
+    <span className="shrink-0 whitespace-nowrap text-gray-500">{label}</span>
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="w-full min-w-0 flex-1 truncate bg-transparent text-gray-200 focus:outline-none"
+    >
+      {options.map((option) => (
+        <option key={option} value={option} className="bg-dark-300">
+          {option}
+        </option>
+      ))}
+    </select>
+  </label>
+);
 
 const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () => void }> = ({
   project,
@@ -215,54 +171,41 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
   return (
     <m.div
       layout
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      transition={{ delay: index * 0.05 }}
-      whileHover={!project.isPrivate ? { y: -4, transition: { duration: 0.2 } } : undefined}
-      className={`modern-card border rounded-xl overflow-hidden transition-all duration-300 group
-        ${project.isPrivate
-          ? "border-gray-800 hover:border-gray-600"
-          : "border-gray-800 hover:border-yellow-500/50 hover:shadow-lg hover:shadow-yellow-500/10"
-        }`}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.3, delay: index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="surface surface-interactive group overflow-hidden"
     >
-      {/* Image */}
-      <div className="relative h-48 overflow-hidden">
+      <div className="relative aspect-[16/9] overflow-hidden">
         {!imageLoaded && (
           <div className="absolute inset-0 bg-dark-200 shimmer" />
         )}
         <img
-          src={project.image || "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=600&h=400&fit=crop"}
-          alt={project.title}
+          src={project.image}
+          alt=""
           loading="lazy"
-          className={`w-full h-full object-cover transition-all duration-500 group-hover:scale-105 ${
-            imageLoaded ? 'opacity-100' : 'opacity-0'
+          decoding="async"
+          className={`h-full w-full object-cover transition-opacity duration-300 ${
+            imageLoaded ? "opacity-80 group-hover:opacity-100" : "opacity-0"
           }`}
           onLoad={() => setImageLoaded(true)}
         />
         
-        {/* Private Badge */}
         {project.isPrivate && (
-          <div
-            className="absolute top-3 right-3 flex items-center gap-1.5 px-3 py-1.5 bg-black/60 border border-gray-600 rounded-full"
-            title="Client work: code is not public, but the approach and stack are described in the case study."
+          <span
+            className="absolute right-3 top-3 inline-flex items-center gap-1.5 rounded border border-gray-700 bg-black/70 px-2 py-1 text-[11px] text-gray-300 backdrop-blur-sm"
+            title="Client work: the code is not public, but the approach and stack are described in the case study."
           >
-            <FaLock size={10} className="text-gray-300" aria-hidden="true" />
-            <span className="text-xs font-medium text-gray-300">Client work</span>
-          </div>
-        )}
-        
-        {/* Category Badge */}
-        <div className="absolute bottom-3 left-3">
-          <span className="px-3 py-1 text-xs font-medium bg-yellow-500 text-black rounded-full">
-            {project.category}
+            <FaLock size={9} aria-hidden="true" />
+            Client work
           </span>
-        </div>
+        )}
       </div>
 
-      {/* Content */}
       <div className="p-5">
-        <h3 className={`text-lg font-semibold text-white mb-1 transition-colors ${!project.isPrivate ? "group-hover:text-yellow-500" : ""}`}>
+        <p className="eyebrow mb-2">{project.category}</p>
+        <h3 className="mb-1 text-[17px] font-semibold text-white transition-colors group-hover:text-yellow-500">
           <a
             href={projectPath(project)}
             onClick={(event) => {
@@ -273,40 +216,37 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
             {project.title}
           </a>
         </h3>
-        <p className="text-sm text-yellow-500/70 mb-3">{project.role}</p>
-        <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
-          {project.description}
-        </p>
+        <p className="mb-3 text-[13px] text-gray-500">{project.role}</p>
+        <p className="mb-4 line-clamp-2 text-[14px] leading-relaxed text-gray-400">{project.description}</p>
 
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-2 mb-4">
+        <ul className="mb-5 flex flex-wrap gap-1.5">
           {project.technologies.slice(0, 4).map((tech) => (
-            <span
+            <li
               key={tech}
-              className="flex items-center gap-1.5 px-2 py-1 bg-dark-200 border border-gray-700 rounded text-xs text-gray-400"
+              className="flex items-center gap-1.5 rounded border border-gray-800 px-2 py-1 text-xs text-gray-500"
             >
               {techIcons[tech] || null}
               {tech}
-            </span>
+            </li>
           ))}
           {project.technologies.length > 4 && (
-            <span className="px-2 py-1 bg-dark-200 border border-gray-700 rounded text-xs text-gray-500">
+            <li className="rounded border border-gray-800 px-2 py-1 text-xs text-gray-500">
               +{project.technologies.length - 4}
-            </span>
+            </li>
           )}
-        </div>
+        </ul>
 
-        {/* Links */}
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex flex-wrap items-center gap-5 border-t border-gray-800 pt-4 text-[13px]">
           <a
             href={projectPath(project)}
             onClick={(event) => {
               event.preventDefault();
               onCaseStudy();
             }}
-            className="flex items-center gap-1.5 px-3 py-2 bg-yellow-500/10 border border-yellow-500/40 rounded-lg text-xs text-yellow-500 hover:bg-yellow-500/20 transition-all"
+            className="inline-flex items-center gap-1 font-medium text-yellow-500 hover:text-yellow-400"
           >
             Case study
+            <ArrowRight size={13} aria-hidden="true" />
           </a>
           {project.repoLink && (
             <a
@@ -314,9 +254,9 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("project_repo_click", { project: project.title })}
-              className="flex items-center gap-1.5 px-3 py-2 bg-dark-200 border border-gray-700 rounded-lg text-xs text-gray-400 hover:text-yellow-500 hover:border-yellow-500/50 transition-all"
+              className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-white"
             >
-              <FaGithub size={12} />
+              <FaGithub size={13} aria-hidden="true" />
               Code
             </a>
           )}
@@ -326,10 +266,10 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("project_demo_click", { project: project.title })}
-              className="flex items-center gap-1.5 px-3 py-2 bg-yellow-500 rounded-lg text-xs text-black font-medium hover:bg-yellow-400 transition-colors"
+              className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-white"
             >
-              <FaExternalLinkAlt size={10} />
-              Demo
+              Live
+              <ArrowUpRight size={12} aria-hidden="true" />
             </a>
           )}
           {project.youtubeLink && (
@@ -338,9 +278,9 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => trackEvent("project_video_click", { project: project.title })}
-              className="flex items-center gap-1.5 px-3 py-2 bg-dark-200 border border-gray-700 rounded-lg text-xs text-gray-400 hover:text-red-500 hover:border-red-500/50 transition-all"
+              className="inline-flex items-center gap-1.5 text-gray-500 transition-colors hover:text-white"
             >
-              <FaYoutube size={12} />
+              <FaYoutube size={13} aria-hidden="true" />
               Video
             </a>
           )}

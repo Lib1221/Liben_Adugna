@@ -1,5 +1,5 @@
 import { projects } from './projects';
-import { skills } from './skills';
+import { skills, stackDomains } from './skills';
 import { resume } from './resume';
 import { projectPath } from '../lib/site';
 
@@ -31,13 +31,12 @@ Strong in debugging, performance optimization, and designing reliable, maintaina
 
 Foundation in data structures and algorithms with 400+ competitive programming problems solved on LeetCode and Codeforces.`,
         approach: "Based in Adama, Ethiopia (UTC+3). Open to remote roles and to relocating within the EU.",
+        // Mirrors the four engagements listed on the site, so the assistant and the page agree.
         services: [
-            "Machine Learning & AI Development",
-            "AI Evaluation, Benchmark and Rubric Design",
-            "Full-Stack Web Development",
-            "Mobile App Development (Flutter)",
-            "Data Science & Analytics",
-            "MLOps & Automation",
+            "AI evaluation and benchmark design: tasks, rubrics and test harnesses that measure coding agents",
+            "Applied machine learning: segmentation, anomaly detection, NLP matching and forecasting",
+            "Backend and API systems: Django or Node on PostgreSQL and MongoDB",
+            "Product front ends: React and TypeScript on the web, Flutter on mobile",
         ],
     },
 
@@ -46,6 +45,13 @@ Foundation in data structures and algorithms with 400+ competitive programming p
         company: entry.company,
         period: entry.period,
         highlights: entry.points,
+    })),
+
+    stackDomains: stackDomains.map((domain) => ({
+        title: domain.title,
+        practice: domain.practice,
+        evidence: domain.evidence,
+        tools: domain.tools,
     })),
 
     skills: skills.map((skill) => skill.label),
@@ -109,6 +115,9 @@ ${portfolioData.experience.map(exp => `- ${exp.role} at ${exp.company} (${exp.pe
 
 **Services Offered:**
 ${portfolioData.personalInfo.services.map(s => `- ${s}`).join('\n')}
+
+**How he works in each area:**
+${portfolioData.stackDomains.map(d => `- ${d.title}: ${d.practice} Evidence: ${d.evidence}`).join('\n')}
 
 **Skills & Technologies by Category:**
 - Programming: ${portfolioData.skillsByCategory.programming.join(', ')}

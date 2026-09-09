@@ -2,40 +2,49 @@ import React from "react";
 import { m } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 
-const AboutSection: React.FC = () => {
-  return (
-    <section>
-      <SectionHeader title="About" accent="Me" />
+/**
+ * Narrative, capped at a readable measure. The previous version scattered gold and white
+ * spans through the prose to mark "important" words; emphasis that lands on every third
+ * phrase stops being emphasis.
+ */
+const AboutSection: React.FC = () => (
+  <section>
+    <SectionHeader eyebrow="03 / Background" title="How I got here" />
 
-      {/* Content */}
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="space-y-4"
-      >
-        <p className="text-gray-400 leading-relaxed">
-          I am a <span className="text-yellow-500 font-medium">software engineer</span> from Adama, Ethiopia. I started as a
-          full-stack developer shipping Django back ends and Flutter apps for clients, then moved into machine learning:
-          a behavioral segmentation pipeline over 450k+ records, transaction anomaly detection over 110k+ records, and an
-          NLP engine that matches resumes to job descriptions.
-        </p>
+    <m.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="max-w-prose space-y-5 text-[15px] leading-[1.75] text-gray-400"
+    >
+      <p>
+        I started where most engineers in Adama start: building whatever the client in front of me needed. That
+        meant Django back ends and Flutter apps, five or so systems, each one teaching me something the last one
+        had let me get away with. The habit that stuck was reading the failure before writing the fix.
+      </p>
 
-        <p className="text-gray-400 leading-relaxed">
-          Since 2024 most of my time goes into <span className="text-white font-medium">AI evaluation</span>: authoring
-          the software-engineering tasks, rubrics and test harnesses that vendors use to measure frontier models and coding
-          agents, and reviewing other people's tasks for ambiguity and gameable tests.
-        </p>
+      <p>
+        Machine learning came out of the same work. A client had 450k behavioural records and no idea what was in
+        them, so I built the segmentation pipeline. Then transaction anomaly detection over 110k samples, then an
+        NLP engine matching resumes to job descriptions. None of it was novel research. All of it had to be right
+        on data that nobody had cleaned.
+      </p>
 
-        <p className="text-gray-400 leading-relaxed">
-          Foundations: B.Sc. Software Engineering (ASTU, 2022), 400+ problems through the A2SV algorithms program, and
-          a year mentoring 40+ students in ML system design. I care about
-          <span className="text-white font-medium"> debugging, performance, and code that is still readable a year later</span>.
-        </p>
-      </m.div>
+      <p>
+        Since 2024 most of my time has gone into AI evaluation: authoring the software-engineering tasks, rubrics
+        and test harnesses that vendors use to measure frontier models and coding agents, and reviewing other
+        authors' tasks for ambiguity and gameable tests. It is the most useful thing I have done for my own
+        engineering. You cannot write a task that resists a strong model without being precise about what correct
+        actually means.
+      </p>
 
-    </section>
-  );
-};
+      <p>
+        Underneath that: a B.Sc. in Software Engineering from ASTU, 400+ algorithm problems through the A2SV
+        program, and a year mentoring 40+ students in ML system design. I care most about debugging, about
+        performance you can measure, and about code that is still readable a year later.
+      </p>
+    </m.div>
+  </section>
+);
 
 export default AboutSection;
