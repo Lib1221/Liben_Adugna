@@ -10,7 +10,8 @@ import {
   FaMapMarkerAlt,
 } from "react-icons/fa";
 import { SiLeetcode, SiCodeforces } from "react-icons/si";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
+import GitHubPulse from "./ui/GitHubPulse";
 
 const Sidebar: React.FC = () => {
   // Cloudinary transform: 224px square, face-cropped, auto format/quality. Matches the preload in index.html.
@@ -20,7 +21,7 @@ const Sidebar: React.FC = () => {
   const [loading, setLoading] = useState(true);
 
   return (
-    <motion.aside
+    <m.aside
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -77,7 +78,7 @@ const Sidebar: React.FC = () => {
               { label: "Python / Django", delay: 0.3 },
               { label: "Flutter", delay: 0.4 },
             ].map(({ label, delay }) => (
-              <motion.span
+              <m.span
                 key={label}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -86,7 +87,7 @@ const Sidebar: React.FC = () => {
                 className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
               >
                 {label}
-              </motion.span>
+              </m.span>
             ))}
           </div>
 
@@ -118,6 +119,7 @@ const Sidebar: React.FC = () => {
               label="Location"
               value="Adama, Ethiopia (UTC+3)"
             />
+            <GitHubPulse />
           </div>
 
           <div className="h-px bg-gray-800 mb-6" />
@@ -143,7 +145,7 @@ const Sidebar: React.FC = () => {
           </a>
         </div>
       </div>
-    </motion.aside>
+    </m.aside>
   );
 };
 
@@ -179,7 +181,7 @@ const SocialLink: React.FC<{ icon: React.ReactNode; url: string; label: string }
     title={label}
     className="p-2.5 bg-dark-300 rounded-xl text-gray-400 hover:text-yellow-500 hover:bg-dark-200"
   >
-    {icon}
+    <span aria-hidden="true">{icon}</span>
   </a>
 );
 

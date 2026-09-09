@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FaQuoteLeft, FaLinkedin } from "react-icons/fa";
 import SectionHeader from "../ui/SectionHeader";
 
@@ -38,7 +38,7 @@ const TestimonialsSection: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {testimonials.map((t, idx) => (
-          <motion.div
+          <m.div
             key={t.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -89,7 +89,7 @@ const TestimonialsSection: React.FC = () => {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>

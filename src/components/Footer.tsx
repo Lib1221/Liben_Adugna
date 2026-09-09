@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
   ];
 
   return (
-    <footer className="mt-16 border-t border-gray-800/70">
+    <footer className="mt-16 border-t border-gray-800/70 print:hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8 py-8">
         <div className="modern-card border border-gray-800 p-5 flex flex-col md:flex-row items-center justify-between gap-6">
           {/* Brand */}
@@ -36,7 +36,7 @@ const Footer: React.FC = () => {
                 aria-label={link.label}
                 className="p-2.5 bg-dark-300 border border-gray-800 rounded-lg text-gray-400 hover:text-yellow-500 hover:border-yellow-500/50 transition-all duration-200 hover:-translate-y-0.5"
               >
-                {link.icon}
+                <span aria-hidden="true">{link.icon}</span>
               </a>
             ))}
           </div>

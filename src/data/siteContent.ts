@@ -34,8 +34,16 @@ export const contactConversion = {
   ],
 };
 
-export const sections = ["About", "Resume", "Portfolio", "Blog", "Contact"] as const;
-export type Section = (typeof sections)[number];
+/** Dated status. Update the month whenever the items change; a stale date is worse than none. */
+export const now = {
+  updated: "September 2026",
+  items: [
+    "Authoring Terminal-Bench style tasks (Docker environment, hidden tests, golden solution) for AI coding-agent evaluation.",
+    "Keeping Smart Gebere useful for farmers: on-device crop disease detection, offline first.",
+    "Writing about Flutter and Django integration on Medium.",
+    "Open to remote engineering roles and to relocating within the EU.",
+  ],
+};
 
 export const commandPaletteItems = [
   { id: "about", label: "Go to About", section: "About" as const, keywords: ["intro", "overview", "bio"] },

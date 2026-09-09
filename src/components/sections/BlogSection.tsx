@@ -1,48 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { ExternalLink, X } from "lucide-react";
 import SectionHeader from "../ui/SectionHeader";
 import { rankSearchResults } from "../../utils/search";
-
-interface BlogPost {
-  title: string;
-  summary: string;
-  category: string;
-  date: string;
-  featuredImage: string;
-  link: string;
-  tags: string[];
-}
-
-const blogPosts: BlogPost[] = [
-  {
-    title: "Connecting Flutter Frontend with Django Backend",
-    summary: "Learn how to integrate your Flutter app with a Django backend for full-stack development.",
-    category: "Mobile",
-    date: "Oct 2025",
-    featuredImage: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759958313/0_lsdQqPVDMNQxIUM__bvi72n.webp",
-    link: "https://medium.com/@adugnaliben65/connecting-flutter-frontend-with-django-backend-a-complete-guide-52a75fcc6c94",
-    tags: ["Flutter", "Django", "Fullstack"],
-  },
-  {
-    title: "The Unmatched Importance of Python",
-    summary: "Explore why Python remains one of the most powerful and versatile programming languages today.",
-    category: "Backend",
-    date: "Sep 2025",
-    featuredImage: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759958499/0_KsGIANg1sUp_OSOQ_jqr764.webp",
-    link: "https://medium.com/@adugnaliben65/the-unmatched-importance-of-python-unlocking-the-power-of-modern-programming-6660dc19c46b",
-    tags: ["Python", "Programming"],
-  },
-  {
-    title: "Optimizing UI Performance in Flutter",
-    summary: "Improve your Flutter app performance with simple UI/UX optimization tips.",
-    category: "Mobile",
-    date: "Aug 2025",
-    featuredImage: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759958315/0_Rdbw_vzDDIKKuP1e_opvbpc.webp",
-    link: "https://medium.com/@adugnaliben65/optimizing-ui-performance-in-flutter-simple-tips-for-better-apps-a8835ef3677a",
-    tags: ["Flutter", "Performance"],
-  },
-];
+import { posts as blogPosts } from "../../data/posts";
+import type { BlogPost } from "../../data/posts";
 
 const BlogSection: React.FC = () => {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
@@ -89,8 +51,8 @@ const BlogSection: React.FC = () => {
 
   return (
     <section>
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex items-end justify-between mb-6">
-        <SectionHeader title="My" accent="Blog" subtitle="Filter posts by tag or search topics quickly." />
+      <m.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="flex items-end justify-between mb-6">
+        <SectionHeader as="h1" title="Writing" accent="" subtitle="Articles on Flutter, Django and Python, published on Medium." />
         <a
           href="https://medium.com/@adugnaliben65"
           target="_blank"
@@ -103,7 +65,7 @@ const BlogSection: React.FC = () => {
           </svg>
           View all on Medium
         </a>
-      </motion.div>
+      </m.div>
 
       <div className="grid md:grid-cols-[1fr_auto] gap-4 mb-6">
         <input
@@ -133,7 +95,7 @@ const BlogSection: React.FC = () => {
       {filteredPosts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPosts.map((post, index) => (
-            <motion.article
+            <m.article
               key={index}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -172,7 +134,7 @@ const BlogSection: React.FC = () => {
                 {post.summary}
               </p>
             </div>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       ) : (
@@ -185,14 +147,14 @@ const BlogSection: React.FC = () => {
       {/* Modal */}
       <AnimatePresence>
         {selectedPost && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setSelectedPost(null)}
             className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
           >
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
@@ -270,8 +232,8 @@ const BlogSection: React.FC = () => {
                   </button>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
     </section>

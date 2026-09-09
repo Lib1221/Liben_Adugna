@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 
 const AboutSection: React.FC = () => {
@@ -8,7 +8,7 @@ const AboutSection: React.FC = () => {
       <SectionHeader title="About" accent="Me" />
 
       {/* Content */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
@@ -32,7 +32,7 @@ const AboutSection: React.FC = () => {
           a year mentoring 40+ students in ML system design. I care about
           <span className="text-white font-medium"> debugging, performance, and code that is still readable a year later</span>.
         </p>
-      </motion.div>
+      </m.div>
 
     </section>
   );

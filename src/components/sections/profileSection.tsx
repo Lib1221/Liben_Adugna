@@ -1,15 +1,16 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { FaGithub, FaYoutube, FaExternalLinkAlt, FaLock } from "react-icons/fa";
 import { Search } from "lucide-react";
 import { projects } from "../../data/projects";
 import { techIcons } from "../../data/techIcons";
 import type { Project } from "../../data/projects";
 import FeaturedProject from "../ui/FeaturedProject";
-import ProjectCaseStudyModal from "../ui/ProjectCaseStudyModal";
 import SectionHeader from "../ui/SectionHeader";
 import { trackEvent } from "../../utils/analytics";
 import { rankSearchResults } from "../../utils/search";
+import { projectPath } from "../../lib/site";
+import { navigate } from "../../lib/useRoute";
 
 const categories = ["All", "AI/ML", "Data Science", "Mobile", "Web", "MLOps"];
 const privacyOptions = ["All", "Open source", "Client work"];
@@ -21,7 +22,6 @@ const ProfileSection: React.FC = () => {
   const [selectedStack, setSelectedStack] = useState("All");
   const [sortBy, setSortBy] = useState("Newest");
   const [searchQuery, setSearchQuery] = useState("");
-  const [caseStudyProject, setCaseStudyProject] = useState<Project | null>(null);
 
   const stackOptions = [
     "All",
@@ -60,9 +60,10 @@ const ProfileSection: React.FC = () => {
   return (
     <section>
       <SectionHeader
-        title="My"
-        accent="Portfolio"
-        subtitle="Explore projects by category, stack, visibility, and complexity."
+        as="h1"
+        title="Projects"
+        accent=""
+        subtitle="Filter by category, stack or visibility. Every project has its own page."
       />
 
       {/* Stats */}
@@ -89,7 +90,7 @@ const ProfileSection: React.FC = () => {
         project={featuredProject}
         onCaseStudy={() => {
           trackEvent("featured_case_study_open", { project: featuredProject.title });
-          setCaseStudyProject(featuredProject);
+          navigate(projectPath(featuredProject));
         }}
       />
 
@@ -179,7 +180,7 @@ const ProfileSection: React.FC = () => {
 
       {/* Projects Grid */}
       {filteredProjects.length > 0 ? (
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <m.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
               <ProjectCard
@@ -188,19 +189,18 @@ const ProfileSection: React.FC = () => {
                 index={index}
                 onCaseStudy={() => {
                   trackEvent("project_case_study_open", { project: project.title });
-                  setCaseStudyProject(project);
+                  navigate(projectPath(project));
                 }}
               />
             ))}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       ) : (
         <div className="modern-card border border-gray-800 p-8 text-center">
           <p className="text-white font-medium mb-2">No project matches the current filters.</p>
           <p className="text-sm text-gray-500">Try resetting filters or using a broader search term.</p>
         </div>
       )}
-      <ProjectCaseStudyModal project={caseStudyProject} onClose={() => setCaseStudyProject(null)} />
     </section>
   );
 };
@@ -213,7 +213,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
-    <motion.div
+    <m.div
       layout
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
@@ -263,7 +263,15 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
       {/* Content */}
       <div className="p-5">
         <h3 className={`text-lg font-semibold text-white mb-1 transition-colors ${!project.isPrivate ? "group-hover:text-yellow-500" : ""}`}>
-          {project.title}
+          <a
+            href={projectPath(project)}
+            onClick={(event) => {
+              event.preventDefault();
+              onCaseStudy();
+            }}
+          >
+            {project.title}
+          </a>
         </h3>
         <p className="text-sm text-yellow-500/70 mb-3">{project.role}</p>
         <p className="text-gray-500 text-sm leading-relaxed mb-4 line-clamp-2">
@@ -290,12 +298,16 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
 
         {/* Links */}
         <div className="flex gap-2 flex-wrap">
-          <button
-            onClick={onCaseStudy}
+          <a
+            href={projectPath(project)}
+            onClick={(event) => {
+              event.preventDefault();
+              onCaseStudy();
+            }}
             className="flex items-center gap-1.5 px-3 py-2 bg-yellow-500/10 border border-yellow-500/40 rounded-lg text-xs text-yellow-500 hover:bg-yellow-500/20 transition-all"
           >
-            Case Study
-          </button>
+            Case study
+          </a>
           {project.repoLink && (
             <a
               href={project.repoLink}
@@ -334,7 +346,7 @@ const ProjectCard: React.FC<{ project: Project; index: number; onCaseStudy: () =
           )}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

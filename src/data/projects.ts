@@ -1,5 +1,7 @@
 
 export type Project = {
+    /** URL segment under /projects/. Defaults to a slug of the title. */
+    slug?: string;
     title: string;
     description: string;
     technologies: string[];
@@ -22,6 +24,7 @@ export const projects: Project[] = [
     
     // 1. Behavioral User Segmentation System
     {
+        slug: "behavioral-user-segmentation",
         title: "Behavioral User Segmentation System",
         description:
             "A machine learning system that processes ~450k user interaction records to extract behavioral features and segment users using clustering techniques. Engineered session-based and frequency-based features from raw logs.",
@@ -48,6 +51,7 @@ export const projects: Project[] = [
 
     // 2. Transaction Anomaly Detection Pipeline
     {
+        slug: "transaction-anomaly-detection",
         title: "Transaction Anomaly Detection Pipeline",
         description:
             "Built anomaly detection models on ~110k transactional records using Isolation Forest and Random Forest-based classification approaches. Addressed class imbalance and improved precision through threshold tuning.",
@@ -74,6 +78,7 @@ export const projects: Project[] = [
 
     // 3. NLP-Based Resume–Job Matching Engine
     {
+        slug: "resume-job-matching",
         title: "NLP-Based Resume–Job Matching Engine",
         description:
             "Designed a text preprocessing and TF-IDF vectorization pipeline for semantic matching between resumes and job descriptions. Automated candidate scoring and ranking logic with precision@k evaluation.",
@@ -94,6 +99,7 @@ export const projects: Project[] = [
 
     // 4. Smart Gebere – AI-Powered Agricultural Assistant
     {
+        slug: "smart-gebere",
         title: "Smart Gebere – AI Agricultural Assistant",
         description:
             "A cross-platform mobile application to assist farmers with AI-driven insights and decision support. Integrated ML models for crop recommendations, disease detection, and advisory services with offline optimization.",
@@ -115,6 +121,7 @@ export const projects: Project[] = [
 
     // 5. Benchmark and evaluation design (Terminal-Bench, SWE-bench). No client names, no task contents.
     {
+        slug: "ai-benchmark-design",
         title: "Benchmark & Evaluation Design for AI Coding Agents",
         description:
             "Author and review the software-engineering tasks used to measure frontier AI coding agents: Terminal-Bench 2.0 and 3.0 at Revelo, Terminal-Bench 2 (Project Claw) at AfterQuery, and SWE-bench style tasks on Turing. Each task ships as a Docker environment, a hidden test suite and a golden solution, then gets stress-tested against current models.",
@@ -429,6 +436,7 @@ export const projects: Project[] = [
 
     // eCommerce App
     {
+        slug: "ecommerce-platform",
         title: "Full Stack eCommerce Platform",
         description:
             "A full-featured mobile-first eCommerce platform built with Django and Flutter. Includes secure authentication, Stripe payments, and a powerful admin panel.",
@@ -455,6 +463,7 @@ export const projects: Project[] = [
 
     // Portfolio Website
     {
+        slug: "liben-dev",
         title: "Portfolio Website",
         description:
             "A personal portfolio built with React, TypeScript, and Tailwind CSS — showcasing projects, skills, and resume downloads with AI chatbot integration.",

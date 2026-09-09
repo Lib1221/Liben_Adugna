@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { MapPin } from "lucide-react";
 import StatsStrip from "../ui/StatsStrip";
@@ -13,43 +13,43 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
   return (
     <section className="py-8 md:py-12">
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
         className="text-gray-500 text-sm mb-2"
       >
         Hello, I'm
-      </motion.p>
+      </m.p>
 
-      <motion.h1
+      <m.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
         className="text-4xl md:text-5xl font-bold text-white mb-4"
       >
         Liben <span className="text-gradient-accent">Adugna</span>
-      </motion.h1>
+      </m.h1>
 
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
         className="text-xl md:text-2xl text-white font-semibold leading-snug max-w-2xl mb-5"
       >
         {headline.title}
-      </motion.p>
+      </m.p>
 
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
         className="text-gray-400 text-base leading-relaxed max-w-2xl mb-6"
       >
         {headline.summary}
-      </motion.p>
+      </m.p>
 
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.45 }}
@@ -57,9 +57,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
       >
         <MapPin size={14} className="text-yellow-500" aria-hidden="true" />
         {availability.location}. {availability.note}
-      </motion.p>
+      </m.p>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
@@ -106,7 +106,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
           <FaLinkedin size={18} aria-hidden="true" />
           LinkedIn
         </a>
-      </motion.div>
+      </m.div>
       <StatsStrip metrics={impactMetrics} />
     </section>
   );

@@ -1,5 +1,7 @@
 import { projects } from './projects';
 import { skills } from './skills';
+import { resume } from './resume';
+import { projectPath } from '../lib/site';
 
 /**
  * Portfolio Context - Comprehensive knowledge base for AI Assistant
@@ -39,66 +41,12 @@ Foundation in data structures and algorithms with 400+ competitive programming p
         ],
     },
 
-    experience: [
-        {
-            role: "Freelance Machine Learning Engineer",
-            company: "Remote",
-            period: "Jul 2022 – Present",
-            highlights: [
-                "Built NLP and analytics models (TF-IDF, clustering, ensemble) on 50,000+ records, improving prediction accuracy by ~18%",
-                "Developed Django REST APIs serving 5,000+ requests/month for scalable ML integration",
-                "Deployed full-stack web applications, reducing client data-processing time by ~40%",
-            ],
-        },
-        {
-            role: "AI Benchmark Task Author (Terminal-Bench, SWE-bench)",
-            company: "Revelo, AfterQuery, Turing",
-            period: "2024 – Present",
-            highlights: [
-                "Terminal-Bench 2.0 and 3.0 task authoring at Revelo; Terminal-Bench 2 (Project Claw) at AfterQuery: Docker environments, hidden tests, golden solutions, stress-testing against frontier models",
-                "SWE-bench style repository tasks, HumanEval/MBPP style problems and WebArena/BrowserGym tasks on the Turing platform",
-                "Evaluation tasks over MongoDB and PostgreSQL backed systems: schema design, query correctness, data-integrity checks",
-                "Reviews other authors' tasks for ambiguity, leakage and gameable tests; refines rubrics",
-            ],
-        },
-        {
-            role: "AI Systems Evaluator & Data Architecture Contributor",
-            company: "Revelo",
-            period: "Mar 2025 – Mar 2026",
-            highlights: [
-                "Evaluated AI outputs on 8 ML models for correctness, consistency, and reliability",
-                "Designed behavioral data schemas supporting training and evaluation of 4 AI systems",
-                "Reviewed pull requests and refined evaluation guidelines, improving code quality and reproducibility",
-            ],
-        },
-        {
-            role: "AI Model Evaluator & Training Specialist",
-            company: "Afriwork (Turing)",
-            period: "Mar 2024 – May 2025",
-            highlights: [
-                "Evaluated model performance on MacroBenchmark tasks for correctness, reasoning quality, and reliability",
-                "Supported models in solving Kaggle-style machine learning problems and validating solution quality",
-                "Configured Databricks workflows for agent-based model training, including dataset preparation and experiment setup",
-                "Monitored agent training runs and scored outputs using structured rubric-based evaluations",
-            ],
-        },
-        {
-            role: "Full-Stack Software Engineer",
-            company: "Faris Technology Private Limited",
-            period: "Aug 2023 – Feb 2025",
-            highlights: [
-                "Developed full-stack web and Flutter mobile apps for 5+ clients",
-                "Designed and implemented REST APIs for authentication, database integration, and dynamic workflows",
-                "Reduced platform errors by ~25% through debugging, code reviews, and edge-case testing",
-            ],
-        },
-        {
-            role: "Senior Technical Mentor – Machine Learning",
-            company: "CSEC-ASTU",
-            period: "Sep 2022 – Jun 2023",
-            highlights: ["Mentored 40+ students in ML system design, evaluation, and deployment", "Supervised 8+ ML projects (NLP, anomaly detection)"],
-        },
-    ],
+    experience: resume.experience.map((entry) => ({
+        role: entry.role,
+        company: entry.company,
+        period: entry.period,
+        highlights: entry.points,
+    })),
 
     skills: skills.map((skill) => skill.label),
 
@@ -122,6 +70,7 @@ Foundation in data structures and algorithms with 400+ competitive programming p
         liveDemo: project.liveDemo,
         youtubeLink: project.youtubeLink,
         isPrivate: project.isPrivate || false,
+        page: `https://www.liben.dev${projectPath(project)}`,
     })),
 
     contactInfo: {
@@ -174,6 +123,7 @@ ${i + 1}. **${p.title}** (${p.category})${p.isPrivate ? ' [PRIVATE]' : ''}
    - Role: ${p.role}
    - Description: ${p.description}
    - Technologies: ${p.technologies.join(', ')}
+   - Page: ${p.page}
    ${p.features.length > 0 ? `- Key Features: ${p.features.slice(0, 3).join('; ')}` : ''}
 `).join('\n')}
 
@@ -193,6 +143,7 @@ ${i + 1}. **${p.title}** (${p.category})${p.isPrivate ? ' [PRIVATE]' : ''}
 6. For PRIVATE projects, explain they are proprietary work but describe the technologies and problem solved
 7. If asked about availability or hiring, direct them to the portfolio's contact section
 8. Never make up information - stick strictly to the knowledge base above
+8b. When a project comes up, include its page link so the visitor can read the case study. Site pages: https://www.liben.dev/ (about), /resume, /projects, /writing, /contact
 9. Emphasize Liben's expertise in ML systems, AI evaluation and benchmark design, and full-stack development
 
 **Response Style:**

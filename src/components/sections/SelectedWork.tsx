@@ -1,9 +1,11 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { FaGithub, FaYoutube } from "react-icons/fa";
 import SectionHeader from "../ui/SectionHeader";
 import { projects } from "../../data/projects";
+import { projectPath } from "../../lib/site";
+import { navigate } from "../../lib/useRoute";
 import { trackEvent } from "../../utils/analytics";
 
 interface SelectedWorkProps {
@@ -40,7 +42,7 @@ const SelectedWork: React.FC<SelectedWorkProps> = ({ setSelected }) => {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {items.map((project, index) => (
-          <motion.article
+          <m.article
             key={project.title}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -58,7 +60,18 @@ const SelectedWork: React.FC<SelectedWorkProps> = ({ setSelected }) => {
             </div>
             <div className="p-4 flex flex-col flex-1">
               <p className="text-[11px] uppercase tracking-wider text-yellow-500 mb-1">{project.category}</p>
-              <h3 className="text-white font-semibold leading-snug mb-2">{project.title}</h3>
+              <h3 className="text-white font-semibold leading-snug mb-2">
+                <a
+                  href={projectPath(project)}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    navigate(projectPath(project));
+                  }}
+                  className="hover:text-yellow-500"
+                >
+                  {project.title}
+                </a>
+              </h3>
               <p className="text-sm text-gray-400 leading-relaxed flex-1">{blurbs[project.title] ?? project.description}</p>
               <div className="flex flex-wrap gap-2 mt-4">
                 {project.repoLink && (
@@ -85,19 +98,21 @@ const SelectedWork: React.FC<SelectedWorkProps> = ({ setSelected }) => {
                     Video
                   </a>
                 )}
-                <button
-                  onClick={() => {
+                <a
+                  href={projectPath(project)}
+                  onClick={(event) => {
+                    event.preventDefault();
                     trackEvent("selected_work_details", { project: project.title });
-                    setSelected("Portfolio");
+                    navigate(projectPath(project));
                   }}
                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-yellow-500/10 border border-yellow-500/40 rounded-lg text-xs text-yellow-500 hover:bg-yellow-500/20"
                 >
-                  Details
+                  Case study
                   <ArrowRight size={12} aria-hidden="true" />
-                </button>
+                </a>
               </div>
             </div>
-          </motion.article>
+          </m.article>
         ))}
       </div>
 

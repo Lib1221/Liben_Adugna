@@ -20,7 +20,7 @@ import {
   SiPostgresql,
 } from "react-icons/si";
 import { FaJava, FaLinux, FaBrain, FaChartLine, FaRobot, FaCogs } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 
 interface Skill {
@@ -122,7 +122,7 @@ const SkillsSection: React.FC = () => {
       {/* Category Filter */}
       <div className="flex flex-wrap gap-2 mb-8">
         {categories.map((cat) => (
-          <motion.button
+          <m.button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
             whileHover={{ scale: 1.05 }}
@@ -134,12 +134,12 @@ const SkillsSection: React.FC = () => {
               }`}
           >
             {cat.label}
-          </motion.button>
+          </m.button>
         ))}
       </div>
 
       {/* Skills Grid */}
-      <motion.div
+      <m.div
         className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3"
         layout
       >
@@ -148,7 +148,7 @@ const SkillsSection: React.FC = () => {
             const Icon = skill.icon;
             const isHovered = hoveredSkill === skill.label;
             return (
-              <motion.div
+              <m.div
                 key={skill.label}
                 layout
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -166,7 +166,7 @@ const SkillsSection: React.FC = () => {
               >
                 {/* Glow backdrop */}
                 {isHovered && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="absolute inset-0 rounded-xl"
@@ -175,6 +175,7 @@ const SkillsSection: React.FC = () => {
                 )}
                 <Icon
                   size={24}
+                  aria-hidden="true"
                   style={{ color: isHovered ? skill.color : "#9CA3AF", transition: "color 0.2s" }}
                 />
                 <span
@@ -183,15 +184,15 @@ const SkillsSection: React.FC = () => {
                 >
                   {skill.label}
                 </span>
-              </motion.div>
+              </m.div>
             );
           })}
         </AnimatePresence>
-      </motion.div>
+      </m.div>
 
       {/* Category legend */}
       {activeCategory === "all" && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -210,7 +211,7 @@ const SkillsSection: React.FC = () => {
               {cat.label}
             </button>
           ))}
-        </motion.div>
+        </m.div>
       )}
     </section>
   );

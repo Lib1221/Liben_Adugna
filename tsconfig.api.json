@@ -7,7 +7,17 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "noEmit": true,
-    "types": ["node"]
+    "types": [
+      "node"
+    ],
+    "lib": [
+      "ES2022",
+      "DOM"
+    ]
   },
-  "include": ["api/**/*.ts", "src/data/portfolioContext.ts", "src/data/projects.ts", "src/data/skills.ts"]
+  "include": [
+    "api/**/*.ts",
+    "src/lib/site.ts",
+    "src/data/*.ts"
+  ]
 }

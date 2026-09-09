@@ -20,6 +20,15 @@ export default {
           800: '#8C6900',
           900: '#664D00',
         },
+        // Tailwind's gray-500 (#6B7280) fails 4.5:1 on our card backgrounds. Lifted so small
+        // grey text passes WCAG AA without touching every component.
+        gray: {
+          400: '#A3A7B3',
+          500: '#8B9099',
+          600: '#6B7280',
+          700: '#374151',
+          800: '#1F2937',
+        },
         dark: {
           50: '#2A2A2A',
           100: '#232323',

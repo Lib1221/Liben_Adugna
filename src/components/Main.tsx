@@ -1,36 +1,92 @@
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Navbar from "./Navbar";
 import HeroSection from "./sections/HeroSection";
-import AboutSection from "./sections/AboutSection";
 import SelectedWork from "./sections/SelectedWork";
+import NowSection from "./sections/NowSection";
+import AboutSection from "./sections/AboutSection";
 import ServicesSection from "./sections/ServicesSection";
 import SkillsSection from "./sections/skills";
 import TestimonialsSection from "./sections/TestimonialsSection";
-import ResumeSection from "./sections/ResumeSection";
-import ProfileSection from "./sections/profileSection";
-import BlogSection from "./sections/BlogSection";
-import ContactSection from "./sections/ContactSection";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { m, AnimatePresence, useReducedMotion } from "framer-motion";
 import { Search } from "lucide-react";
-import { commandPaletteItems, sections } from "../data/siteContent";
-import type { Section } from "../data/siteContent";
+import { commandPaletteItems } from "../data/siteContent";
+import { pathForSection, pathForRoute, sectionForRoute } from "../lib/site";
+import type { Section } from "../lib/site";
+import { useRoute, navigate } from "../lib/useRoute";
 import { rankSearchResults } from "../utils/search";
 
-const findSection = (hash: string): Section | undefined => {
-  const key = hash.replace(/^#\/?/, "").toLowerCase();
-  return sections.find((section) => section.toLowerCase() === key);
-};
+// Everything outside the landing view loads on demand, so the first paint pays only for the landing view.
+const ResumeSection = lazy(() => import("./sections/ResumeSection"));
+const ProfileSection = lazy(() => import("./sections/profileSection"));
+const BlogSection = lazy(() => import("./sections/BlogSection"));
+const ContactSection = lazy(() => import("./sections/ContactSection"));
+const ProjectPage = lazy(() => import("./pages/ProjectPage"));
 
-const sectionFromHash = (hash: string): Section => findSection(hash) ?? "About";
+const RouteFallback: React.FC = () => (
+  <div className="py-16 text-center text-sm text-gray-400" role="status" aria-live="polite">
+    Loading…
+  </div>
+);
+
+const NotFound: React.FC<{ path: string }> = ({ path }) => (
+  <section className="py-10">
+    <p className="text-[11px] uppercase tracking-wider text-yellow-500 mb-2">404</p>
+    <h1 className="text-3xl font-bold text-white mb-3">That page does not exist</h1>
+    <p className="text-gray-400 mb-6">
+      Nothing lives at <code className="px-1.5 py-0.5 bg-dark-300 rounded text-gray-200">{path}</code>. Try one of these instead.
+    </p>
+    <div className="flex flex-wrap gap-2">
+      {(["About", "Resume", "Portfolio", "Blog", "Contact"] as Section[]).map((section) => (
+        <button
+          key={section}
+          onClick={() => navigate(pathForSection(section))}
+          className="px-4 py-2 bg-dark-300 border border-gray-700 rounded-lg text-sm text-gray-200 hover:border-yellow-500 hover:text-yellow-500"
+        >
+          {section === "Portfolio" ? "Projects" : section === "Blog" ? "Writing" : section}
+        </button>
+      ))}
+    </div>
+  </section>
+);
 
 const Main: React.FC = () => {
-  // Section is driven by the URL hash (#resume, #portfolio, ...) so every tab is linkable
-  // and the back button works. Nothing is persisted across visits.
-  const [selected, setSelectedState] = useState<Section>(() => sectionFromHash(window.location.hash));
+  const route = useRoute();
+  const selected = sectionForRoute(route);
   const [paletteOpen, setPaletteOpen] = useState(false);
   const [paletteQuery, setPaletteQuery] = useState("");
   const [activePaletteIndex, setActivePaletteIndex] = useState(0);
   const shouldReduceMotion = useReducedMotion();
+  const contentRef = useRef<HTMLDivElement>(null);
+  const routeKey = pathForRoute(route);
+  const firstRender = useRef(true);
+
+  const setSelected = useCallback((value: string) => {
+    const section = (["About", "Resume", "Portfolio", "Blog", "Contact"] as Section[]).find((s) => s === value) ?? "About";
+    navigate(pathForSection(section));
+  }, []);
+
+  // After a client-side navigation: scroll up and move focus to the new content for keyboard and screen-reader users.
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    window.scrollTo({ top: 0, behavior: shouldReduceMotion ? "auto" : "smooth" });
+    // The new view mounts after the exit animation and a possible lazy chunk load, so poll briefly.
+    let attempts = 0;
+    const timer = window.setInterval(() => {
+      attempts += 1;
+      const heading = contentRef.current?.querySelector<HTMLElement>(`[data-route="${CSS.escape(routeKey)}"] h1`);
+      if (heading) {
+        heading.setAttribute("tabindex", "-1");
+        heading.focus({ preventScroll: true });
+        window.clearInterval(timer);
+      } else if (attempts > 20) {
+        window.clearInterval(timer);
+      }
+    }, 100);
+    return () => window.clearInterval(timer);
+  }, [routeKey, shouldReduceMotion]);
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
@@ -38,44 +94,16 @@ const Main: React.FC = () => {
         e.preventDefault();
         setPaletteOpen((prev) => !prev);
       }
-      if (e.key === "Escape") {
-        setPaletteOpen(false);
-      }
+      if (e.key === "Escape") setPaletteOpen(false);
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, []);
 
-  const setSelected = useCallback((value: string) => {
-    const next = sectionFromHash(`#${value}`);
-    if (next === "About") {
-      history.replaceState(null, "", window.location.pathname);
-    } else {
-      window.location.hash = next.toLowerCase();
-    }
-    setSelectedState(next);
-    window.scrollTo({ top: 0, behavior: shouldReduceMotion ? "auto" : "smooth" });
-  }, [shouldReduceMotion]);
-
-  useEffect(() => {
-    const onHashChange = () => {
-      const { hash } = window.location;
-      // Ignore in-page anchors such as #main-content (skip link).
-      if (hash && !findSection(hash)) return;
-      setSelectedState(sectionFromHash(hash));
-    };
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
-
   const filteredPaletteItems = useMemo(() => {
     const query = paletteQuery.trim();
     const ranked = rankSearchResults(
-      commandPaletteItems.map((item) => ({
-        item,
-        text: `${item.label} ${item.section}`,
-        keywords: item.keywords,
-      })),
+      commandPaletteItems.map((item) => ({ item, text: `${item.label} ${item.section}`, keywords: item.keywords })),
       query,
     );
     return ranked.map((result) => result.item);
@@ -108,114 +136,90 @@ const Main: React.FC = () => {
     return () => window.removeEventListener("keydown", onPaletteKeyDown);
   }, [paletteOpen, filteredPaletteItems, activePaletteIndex, setSelected]);
 
+  const view = (() => {
+    switch (route.kind) {
+      case "home":
+        return (
+          <>
+            <HeroSection setSelected={setSelected} />
+            <div className="h-px bg-gray-800 my-10" />
+            <SelectedWork setSelected={setSelected} />
+            <div className="h-px bg-gray-800 my-10" />
+            <NowSection />
+            <div className="h-px bg-gray-800 my-10" />
+            <AboutSection />
+            <div className="h-px bg-gray-800 my-10" />
+            <ServicesSection />
+            <div className="h-px bg-gray-800 my-10" />
+            <SkillsSection />
+            <div className="h-px bg-gray-800 my-10" />
+            <TestimonialsSection />
+          </>
+        );
+      case "resume":
+        return <ResumeSection />;
+      case "projects":
+        return <ProfileSection />;
+      case "project":
+        return <ProjectPage project={route.project} />;
+      case "writing":
+        return <BlogSection />;
+      case "contact":
+        return <ContactSection />;
+      case "notfound":
+        return <NotFound path={route.path} />;
+    }
+  })();
+
   return (
-    <div id="main-content">
-      <div className="mb-4">
+    <main id="main-content" ref={contentRef}>
+      <div className="mb-4 print:hidden">
         <button
           onClick={() => setPaletteOpen(true)}
           className="w-full md:w-auto inline-flex items-center gap-2 px-4 py-2 bg-dark-400 border border-gray-800 rounded-xl text-sm text-gray-400 hover:text-white hover:border-gray-600 transition-all"
         >
-          <Search size={14} />
+          <Search size={14} aria-hidden="true" />
           Quick Navigate
           <span className="text-xs text-gray-500 ml-1">Ctrl/Cmd + K</span>
         </button>
       </div>
 
-      {/* Navbar */}
       <Navbar selected={selected} setSelected={setSelected} />
 
-      {/* Main content */}
-      <div className="bg-dark-400 border border-gray-800 rounded-2xl p-6 md:p-8">
+      <div className="bg-dark-400 border border-gray-800 rounded-2xl p-6 md:p-8 print:border-0 print:p-0">
         <AnimatePresence mode="wait">
-          {selected === "About" && (
-            <motion.div
-              key="about"
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-            >
-              <HeroSection setSelected={setSelected} />
-              <div className="h-px bg-gray-800 my-10" />
-              <SelectedWork setSelected={setSelected} />
-              <div className="h-px bg-gray-800 my-10" />
-              <AboutSection />
-              <div className="h-px bg-gray-800 my-10" />
-              <ServicesSection />
-              <div className="h-px bg-gray-800 my-10" />
-              <SkillsSection />
-              <div className="h-px bg-gray-800 my-10" />
-              <TestimonialsSection />
-            </motion.div>
-          )}
-
-          {selected === "Resume" && (
-            <motion.div
-              key="resume"
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-            >
-              <ResumeSection />
-            </motion.div>
-          )}
-
-          {selected === "Portfolio" && (
-            <motion.div
-              key="portfolio"
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-            >
-              <ProfileSection />
-            </motion.div>
-          )}
-
-          {selected === "Blog" && (
-            <motion.div
-              key="blog"
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-            >
-              <BlogSection />
-            </motion.div>
-          )}
-
-          {selected === "Contact" && (
-            <motion.div
-              key="contact"
-              initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -20 }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.3 }}
-            >
-              <ContactSection />
-            </motion.div>
-          )}
+          <m.div
+            key={routeKey}
+            data-route={routeKey}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: shouldReduceMotion ? 0 : -12 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.25 }}
+          >
+            <Suspense fallback={<RouteFallback />}>{view}</Suspense>
+          </m.div>
         </AnimatePresence>
       </div>
 
       {/* Mobile spacing for bottom navigation */}
-      <div className="h-[calc(env(safe-area-inset-bottom,0px)+92px)] md:h-0" />
+      <div className="h-[calc(env(safe-area-inset-bottom,0px)+92px)] md:h-0 print:hidden" />
 
       <AnimatePresence>
         {paletteOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setPaletteOpen(false)}
             className="fixed inset-0 z-50 bg-black/70 p-4"
           >
-            <motion.div
+            <m.div
               initial={{ opacity: 0, scale: 0.97, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.97, y: 10 }}
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-label="Quick navigate"
               className="max-w-lg mx-auto mt-24 modern-card border border-gray-700 p-4"
             >
               <input
@@ -223,6 +227,7 @@ const Main: React.FC = () => {
                 value={paletteQuery}
                 onChange={(e) => setPaletteQuery(e.target.value)}
                 placeholder="Type to navigate..."
+                aria-label="Search sections"
                 className="w-full px-4 py-3 bg-dark-300 border border-gray-700 rounded-xl text-sm text-white focus:outline-none focus:border-yellow-500 mb-3"
               />
               <div className="space-y-2 max-h-72 overflow-y-auto">
@@ -243,15 +248,13 @@ const Main: React.FC = () => {
                     {item.label}
                   </button>
                 ))}
-                {filteredPaletteItems.length === 0 && (
-                  <p className="text-sm text-gray-500 px-2 py-3">No result found.</p>
-                )}
+                {filteredPaletteItems.length === 0 && <p className="text-sm text-gray-500 px-2 py-3">No result found.</p>}
               </div>
-            </motion.div>
-          </motion.div>
+            </m.div>
+          </m.div>
         )}
       </AnimatePresence>
-    </div>
+    </main>
   );
 };
 
