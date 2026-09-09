@@ -1,99 +1,65 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { Typewriter } from "react-simple-typewriter";
+import { m } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { MapPin } from "lucide-react";
 import StatsStrip from "../ui/StatsStrip";
-import { impactMetrics } from "../../data/siteContent";
+import { impactMetrics, headline, availability } from "../../data/siteContent";
 import { trackEvent } from "../../utils/analytics";
 
 interface HeroSectionProps {
   setSelected: (section: string) => void;
-  visitorMode: "recruiter" | "client" | "engineer";
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ setSelected, visitorMode }) => {
-  const roles = [
-    "ML Engineer",
-    "AI Systems Reviewer",
-    "Full Stack Developer",
-    "Code Evaluator",
-    "Data Scientist",
-  ];
-  const modeCopy = {
-    recruiter:
-      "Focused on measurable outcomes, reliability, and clean delivery across ML and full-stack systems.",
-    client:
-      "Focused on business value, product quality, and delivering production-ready systems from idea to deployment.",
-    engineer:
-      "Focused on architecture, performance, and maintainable implementation details across the full stack.",
-  };
-
+const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
   return (
     <section className="py-8 md:py-12">
-      {/* Greeting */}
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
         className="text-gray-500 text-sm mb-2"
       >
         Hello, I'm
-      </motion.p>
+      </m.p>
 
-      {/* Name */}
-      <motion.h1
+      <m.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
         className="text-4xl md:text-5xl font-bold text-white mb-4"
       >
         Liben <span className="text-gradient-accent">Adugna</span>
-      </motion.h1>
+      </m.h1>
 
-      {/* Role */}
-      <motion.div
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
-        className="text-xl md:text-2xl mb-6"
+        className="text-xl md:text-2xl text-white font-semibold leading-snug max-w-2xl mb-5"
       >
-        <span className="text-gray-400">I'm a </span>
-        <span className="text-yellow-500 font-semibold">
-          <Typewriter
-            words={roles}
-            loop={true}
-            cursor
-            cursorStyle="|"
-            typeSpeed={60}
-            deleteSpeed={40}
-            delaySpeed={2000}
-          />
-        </span>
-      </motion.div>
+        {headline.title}
+      </m.p>
 
-      {/* Description */}
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4 }}
-        className="text-gray-400 text-base leading-relaxed max-w-2xl mb-8"
+        className="text-gray-400 text-base leading-relaxed max-w-2xl mb-6"
       >
-        Software Engineer with expertise in machine learning systems, code evaluation, and full-stack 
-        development. Experienced in validating AI-generated outputs, reviewing system implementations, 
-        and building scalable web and mobile applications. Strong in debugging, performance optimization, 
-        and designing reliable, maintainable software systems.
-      </motion.p>
-      <motion.p
+        {headline.summary}
+      </m.p>
+
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.45 }}
-        className="text-sm text-yellow-500/90 max-w-2xl mb-8"
+        className="inline-flex items-center gap-2 text-sm text-gray-300 mb-8"
       >
-        {modeCopy[visitorMode]}
-      </motion.p>
+        <MapPin size={14} className="text-yellow-500" aria-hidden="true" />
+        {availability.location}. {availability.note}
+      </m.p>
 
-      {/* Buttons */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
@@ -108,15 +74,25 @@ const HeroSection: React.FC<HeroSectionProps> = ({ setSelected, visitorMode }) =
         >
           Get in Touch
         </button>
-        
+
+        <button
+          onClick={() => {
+            trackEvent("hero_cta_portfolio");
+            setSelected("Portfolio");
+          }}
+          className="inline-flex items-center gap-2 px-5 py-3 bg-dark-300 border border-gray-700 text-white font-medium rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-all"
+        >
+          See my work
+        </button>
+
         <a
-          href="https://github.com/lib1221"
+          href="https://github.com/Lib1221"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent("hero_cta_github")}
           className="inline-flex items-center gap-2 px-5 py-3 bg-dark-300 border border-gray-700 text-white font-medium rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-all"
         >
-          <FaGithub size={18} />
+          <FaGithub size={18} aria-hidden="true" />
           GitHub
         </a>
 
@@ -127,10 +103,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({ setSelected, visitorMode }) =
           onClick={() => trackEvent("hero_cta_linkedin")}
           className="inline-flex items-center gap-2 px-5 py-3 bg-dark-300 border border-gray-700 text-white font-medium rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-all"
         >
-          <FaLinkedin size={18} />
+          <FaLinkedin size={18} aria-hidden="true" />
           LinkedIn
         </a>
-      </motion.div>
+      </m.div>
       <StatsStrip metrics={impactMetrics} />
     </section>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { FaExternalLinkAlt, FaGithub, FaYoutube } from "react-icons/fa";
 import type { Project } from "../../data/projects";
 
@@ -10,7 +10,7 @@ interface FeaturedProjectProps {
 
 const FeaturedProject: React.FC<FeaturedProjectProps> = ({ project, onCaseStudy }) => {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       className="modern-card border border-yellow-500/30 overflow-hidden mb-8"
@@ -74,7 +74,7 @@ const FeaturedProject: React.FC<FeaturedProjectProps> = ({ project, onCaseStudy 
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 };
 

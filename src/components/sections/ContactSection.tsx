@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { FaEnvelope, FaPaperPlane, FaCheck, FaExclamationTriangle } from "react-icons/fa";
 import { CalendarDays } from "lucide-react";
 import SectionHeader from "../ui/SectionHeader";
@@ -70,12 +70,13 @@ const ContactSection: React.FC = () => {
   return (
     <section>
       <SectionHeader
+        as="h1"
         title="Get in"
         accent="Touch"
         subtitle="Open to ML/AI, full-stack, and product engineering collaborations."
       />
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="modern-card border border-gray-800 p-5 mb-8"
@@ -103,11 +104,11 @@ const ContactSection: React.FC = () => {
             Book a Call
           </a>
         </div>
-      </motion.div>
+      </m.div>
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Contact Info */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
@@ -135,10 +136,10 @@ const ContactSection: React.FC = () => {
               </div>
             </div>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Contact Form */}
-        <motion.form
+        <m.form
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
@@ -148,7 +149,7 @@ const ContactSection: React.FC = () => {
           {/* Success Message */}
           <AnimatePresence>
             {submitted && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -156,12 +157,12 @@ const ContactSection: React.FC = () => {
               >
                 <FaCheck />
                 Message sent successfully!
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
           <AnimatePresence>
             {errorMessage && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -169,7 +170,7 @@ const ContactSection: React.FC = () => {
               >
                 <FaExclamationTriangle />
                 {errorMessage}
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
 
@@ -234,7 +235,7 @@ const ContactSection: React.FC = () => {
               </>
             )}
           </button>
-        </motion.form>
+        </m.form>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import React from "react";
 import { FaMobileAlt, FaLaptopCode, FaBrain, FaServer, FaRobot, FaCogs } from "react-icons/fa";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 
 const services = [
@@ -14,14 +14,14 @@ const services = [
   {
     icon: FaLaptopCode,
     title: "Web Development",
-    text: "React & Node.js with modern tooling. Dashboards, admin panels, and data-driven UIs with SSR and SEO optimization.",
+    text: "React and TypeScript front ends on Django or Node back ends. Dashboards, admin panels and data-heavy UIs.",
     color: "#61DAFB",
     gradient: "from-cyan-400/10 to-cyan-500/5",
   },
   {
     icon: FaServer,
     title: "Backend Development",
-    text: "High-performance backend services with Django and Node.js. RESTful APIs serving 5,000+ requests/month.",
+    text: "Django and Node.js services on PostgreSQL or MongoDB. REST APIs serving 5,000+ requests/month.",
     color: "#44B78B",
     gradient: "from-emerald-500/10 to-emerald-600/5",
   },
@@ -34,8 +34,8 @@ const services = [
   },
   {
     icon: FaRobot,
-    title: "AI Systems Evaluation",
-    text: "Validate AI outputs for correctness, consistency, and reliability. Structured evaluation frameworks for 8+ ML models.",
+    title: "AI Evaluation and Benchmark Design",
+    text: "Author software-engineering tasks, rubrics and test harnesses that measure AI coding agents. Tasks that cannot be gamed, tests that prove correctness.",
     color: "#8B5CF6",
     gradient: "from-violet-500/10 to-violet-600/5",
   },
@@ -51,13 +51,13 @@ const services = [
 const ServicesSection: React.FC = () => {
   return (
     <section>
-      <SectionHeader title="What I'm" accent="Doing" />
+      <SectionHeader title="What I" accent="Do" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {services.map((service, idx) => {
           const Icon = service.icon;
           return (
-            <motion.div
+            <m.div
               key={service.title}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -78,7 +78,7 @@ const ServicesSection: React.FC = () => {
               />
 
               <div className="relative flex items-start gap-4">
-                <motion.div
+                <m.div
                   whileHover={{ rotate: [0, -10, 10, 0] }}
                   transition={{ duration: 0.4 }}
                   className="p-3 rounded-lg transition-all duration-300"
@@ -89,7 +89,7 @@ const ServicesSection: React.FC = () => {
                     style={{ color: service.color }}
                     className="transition-colors duration-300"
                   />
-                </motion.div>
+                </m.div>
 
                 <div className="flex-1">
                   <h3
@@ -109,7 +109,7 @@ const ServicesSection: React.FC = () => {
                 className="absolute bottom-0 left-0 h-0.5 w-0 group-hover:w-full transition-all duration-500 rounded-b-xl"
                 style={{ backgroundColor: service.color }}
               />
-            </motion.div>
+            </m.div>
           );
         })}
       </div>

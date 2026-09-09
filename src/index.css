@@ -1,6 +1,4 @@
 /* index.css */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -137,5 +135,46 @@ body {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
+  }
+}
+
+/* Print: the resume page becomes a clean CV. Everything else on the page is chrome. */
+@media print {
+  body {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  .scroll-progress,
+  .skip-link {
+    display: none !important;
+  }
+  .modern-card,
+  .bg-dark-400,
+  .bg-dark-300,
+  .bg-dark-200 {
+    background: #fff !important;
+    border-color: #ddd !important;
+    box-shadow: none !important;
+  }
+  .text-white,
+  .text-gray-200,
+  .text-gray-300 {
+    color: #111 !important;
+  }
+  .text-gray-400,
+  .text-gray-500 {
+    color: #444 !important;
+  }
+  .text-yellow-500 {
+    color: #8a6a00 !important;
+  }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #555;
+  }
+  .max-w-7xl {
+    max-width: none !important;
+    padding: 0 !important;
   }
 }

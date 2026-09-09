@@ -1,7 +1,7 @@
-import { SiFlutter, SiDart, SiFirebase, SiReact, SiTypescript, SiTailwindcss, SiFramer, SiDjango, SiPostgresql, SiDocker, SiMongodb, SiLaravel, SiPython, SiTensorflow, SiScikitlearn, SiNextdotjs } from "react-icons/si";
-import type { JSX } from "react";
 
 export type Project = {
+    /** URL segment under /projects/. Defaults to a slug of the title. */
+    slug?: string;
     title: string;
     description: string;
     technologies: string[];
@@ -24,6 +24,7 @@ export const projects: Project[] = [
     
     // 1. Behavioral User Segmentation System
     {
+        slug: "behavioral-user-segmentation",
         title: "Behavioral User Segmentation System",
         description:
             "A machine learning system that processes ~450k user interaction records to extract behavioral features and segment users using clustering techniques. Engineered session-based and frequency-based features from raw logs.",
@@ -50,6 +51,7 @@ export const projects: Project[] = [
 
     // 2. Transaction Anomaly Detection Pipeline
     {
+        slug: "transaction-anomaly-detection",
         title: "Transaction Anomaly Detection Pipeline",
         description:
             "Built anomaly detection models on ~110k transactional records using Isolation Forest and Random Forest-based classification approaches. Addressed class imbalance and improved precision through threshold tuning.",
@@ -76,6 +78,7 @@ export const projects: Project[] = [
 
     // 3. NLP-Based Resume–Job Matching Engine
     {
+        slug: "resume-job-matching",
         title: "NLP-Based Resume–Job Matching Engine",
         description:
             "Designed a text preprocessing and TF-IDF vectorization pipeline for semantic matching between resumes and job descriptions. Automated candidate scoring and ranking logic with precision@k evaluation.",
@@ -96,6 +99,7 @@ export const projects: Project[] = [
 
     // 4. Smart Gebere – AI-Powered Agricultural Assistant
     {
+        slug: "smart-gebere",
         title: "Smart Gebere – AI Agricultural Assistant",
         description:
             "A cross-platform mobile application to assist farmers with AI-driven insights and decision support. Integrated ML models for crop recommendations, disease detection, and advisory services with offline optimization.",
@@ -110,8 +114,34 @@ export const projects: Project[] = [
             "Translates agricultural challenges into data-driven solutions",
         ],
         image: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_2_xmic9m.png",
-        repoLink: "https://github.com/lib1221/Smart_Gebere",
+        repoLink: "https://github.com/Lib1221/Smart_Gebere",
         youtubeLink: "https://youtu.be/C8Kw2S8Khf0",
+        category: "AI/ML",
+    },
+
+    // 5. Benchmark and evaluation design (Terminal-Bench, SWE-bench). No client names, no task contents.
+    {
+        slug: "ai-benchmark-design",
+        title: "Benchmark & Evaluation Design for AI Coding Agents",
+        description:
+            "Author and review the software-engineering tasks used to measure frontier AI coding agents: Terminal-Bench 2.0 and 3.0 at Revelo, Terminal-Bench 2 (Project Claw) at AfterQuery, and SWE-bench style tasks on Turing. Each task ships as a Docker environment, a hidden test suite and a golden solution, then gets stress-tested against current models.",
+        technologies: ["Docker", "Python", "Bash", "pytest", "Harbor", "MongoDB", "PostgreSQL"],
+        role: "Benchmark Task Author & Reviewer",
+        duration: "2024 — Present",
+        features: [
+            "Task design that cannot be gamed: unambiguous instructions, hidden tests, no solution leakage in the environment",
+            "Reproducible Docker environments with seeded data, including MongoDB and PostgreSQL backed tasks",
+            "Golden solutions plus full local validation loops before submission",
+            "Stress-testing against frontier models to calibrate difficulty",
+            "Review of other authors' tasks for ambiguity, flaky tests and rubric gaps",
+        ],
+        challenges: [
+            "Writing tests that fail for the right reason and pass only for a correct fix",
+            "Keeping tasks hard for strong models without making them artificial",
+        ],
+        architecture: "task.toml + instruction.md -> environment/Dockerfile -> tests/test.sh -> solution/solve.sh -> agent runs",
+        impactMetrics: ["Terminal-Bench 2.0 / 3.0", "SWE-bench style", "MongoDB + PostgreSQL tasks"],
+        image: "/covers/benchmark.svg",
         category: "AI/ML",
     },
 
@@ -255,7 +285,6 @@ export const projects: Project[] = [
         ],
         image:
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_wpj5hv.png",
-        repoLink: "https://github.com/wako-coder/mela-App",
         category: "Mobile",
     },
 
@@ -285,7 +314,6 @@ export const projects: Project[] = [
         ],
         image:
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760337483/Blue_Modern_Money_Managing_Mobile_App_Promotion_Facebook_Ad_1_xqfntf.png",
-        repoLink: "https://github.com/lib1221/gosho-dating-app",
         category: "Mobile",
     },
 
@@ -334,7 +362,7 @@ export const projects: Project[] = [
         ],
         image:
             "https://cdn.dribbble.com/userupload/14399174/file/original-7e7f9a4a0de5ad54b3c3bb6d9159e47a.png?resize=1200x900",
-        repoLink: "https://github.com/lib1221/flutter-exam",
+        repoLink: "https://github.com/Lib1221/flutter-exam",
         category: "Mobile",
     },
 
@@ -402,13 +430,13 @@ export const projects: Project[] = [
             "Admin dashboard for user and product management",
         ],
         image: "https://img.youtube.com/vi/qLFG0Y1u77g/0.jpg",
-        repoLink: "https://github.com/lib1221/Advanced_java_shopping",
         youtubeLink: "https://www.youtube.com/watch?v=qLFG0Y1u77g",
         category: "Web",
     },
 
     // eCommerce App
     {
+        slug: "ecommerce-platform",
         title: "Full Stack eCommerce Platform",
         description:
             "A full-featured mobile-first eCommerce platform built with Django and Flutter. Includes secure authentication, Stripe payments, and a powerful admin panel.",
@@ -428,48 +456,29 @@ export const projects: Project[] = [
             "Stripe PaymentSheet integration",
             "Django Admin for user and product management",
         ],
-        image:
-            "https://cdn.dribbble.com/userupload/12505408/file/original-4a4cb74637e6d92fcd0379878678de06.png?resize=1200x900",
-        repoLink: "https://github.com/lib1221/ecommerce-full-stack-mobile",
+        image: "/covers/ecommerce.svg",
+        repoLink: "https://github.com/Lib1221/ecommerce-full-stack-mobile",
         category: "Web",
     },
 
     // Portfolio Website
     {
+        slug: "liben-dev",
         title: "Portfolio Website",
         description:
             "A personal portfolio built with React, TypeScript, and Tailwind CSS — showcasing projects, skills, and resume downloads with AI chatbot integration.",
-        technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Gemini AI"],
+        technologies: ["React", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel Functions", "Gemini AI"],
         role: "Frontend Developer",
         duration: "2025",
         features: [
-            "Responsive, mobile-first design",
-            "AI-powered chatbot for visitor interactions",
-            "Integrated resume download and GitHub links",
+            "Responsive, mobile-first design with hash-routed sections",
+            "Gemini assistant behind a serverless endpoint (API key never ships to the browser)",
+            "Static crawlable content for search engines and link previews",
         ],
         image:
             "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1760339187/Contact_j5lvc6.png",
-        repoLink: "https://github.com/lib1221/portfolio",
+        repoLink: "https://github.com/Lib1221/Liben_Adugna",
         liveDemo: "https://www.liben.dev",
         category: "Web",
     },
 ];
-
-export const techIcons: Record<string, JSX.Element> = {
-    Flutter: <SiFlutter className="text-blue-400 w-4 h-4" />,
-    Dart: <SiDart className="text-blue-600 w-4 h-4" />,
-    Firebase: <SiFirebase className="text-yellow-400 w-4 h-4" />,
-    React: <SiReact className="text-cyan-400 w-4 h-4" />,
-    "TypeScript": <SiTypescript className="text-blue-500 w-4 h-4" />,
-    "Tailwind CSS": <SiTailwindcss className="text-teal-400 w-4 h-4" />,
-    "Framer Motion": <SiFramer className="text-purple-400 w-4 h-4" />,
-    Django: <SiDjango className="text-green-700 w-4 h-4" />,
-    PostgreSQL: <SiPostgresql className="text-blue-700 w-4 h-4" />,
-    Docker: <SiDocker className="text-blue-500 w-4 h-4" />,
-    MongoDB: <SiMongodb className="text-green-600 w-4 h-4" />,
-    Laravel: <SiLaravel className="text-red-600 w-4 h-4" />,
-    Python: <SiPython className="text-yellow-500 w-4 h-4" />,
-    TensorFlow: <SiTensorflow className="text-orange-500 w-4 h-4" />,
-    "Scikit-learn": <SiScikitlearn className="text-orange-400 w-4 h-4" />,
-    "Next.js": <SiNextdotjs className="text-white w-4 h-4" />,
-};

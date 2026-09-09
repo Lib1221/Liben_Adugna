@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 
 const AboutSection: React.FC = () => {
@@ -8,43 +8,32 @@ const AboutSection: React.FC = () => {
       <SectionHeader title="About" accent="Me" />
 
       {/* Content */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
         className="space-y-4"
       >
         <p className="text-gray-400 leading-relaxed">
-          I am a <span className="text-yellow-500 font-medium">Software Engineer</span> with expertise in 
-          machine learning systems, code evaluation, and full-stack development. Experienced in validating 
-          AI-generated outputs, reviewing system implementations, and building scalable web and mobile applications.
+          I am a <span className="text-yellow-500 font-medium">software engineer</span> from Adama, Ethiopia. I started as a
+          full-stack developer shipping Django back ends and Flutter apps for clients, then moved into machine learning:
+          a behavioral segmentation pipeline over 450k+ records, transaction anomaly detection over 110k+ records, and an
+          NLP engine that matches resumes to job descriptions.
         </p>
 
         <p className="text-gray-400 leading-relaxed">
-          My work spans <span className="text-white font-medium">ML model development</span>, data preprocessing 
-          pipelines, and NLP applications. I've processed datasets with 450k+ records for behavioral segmentation, 
-          built anomaly detection systems, and designed semantic matching engines.
+          Since 2024 most of my time goes into <span className="text-white font-medium">AI evaluation</span>: authoring
+          the software-engineering tasks, rubrics and test harnesses that vendors use to measure frontier models and coding
+          agents, and reviewing other people's tasks for ambiguity and gameable tests.
         </p>
 
         <p className="text-gray-400 leading-relaxed">
-          Strong in <span className="text-white font-medium">debugging, performance optimization</span>, and 
-          designing reliable, maintainable software systems. I bring a solid foundation in data structures, 
-          algorithms, and system thinking from solving 400+ competitive programming problems.
+          Foundations: B.Sc. Software Engineering (ASTU, 2022), 400+ problems through the A2SV algorithms program, and
+          a year mentoring 40+ students in ML system design. I care about
+          <span className="text-white font-medium"> debugging, performance, and code that is still readable a year later</span>.
         </p>
-      </motion.div>
+      </m.div>
 
-      {/* Quote */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="mt-6 p-4 modern-card border-l-4 border-yellow-500 rounded-r-xl"
-      >
-        <p className="text-gray-300 italic">
-          "Software Engineer specializing in ML systems, code evaluation, and AI-powered solutions 
-          — building reliable, scalable systems that solve real-world problems."
-        </p>
-      </motion.div>
     </section>
   );
 };

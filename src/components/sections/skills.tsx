@@ -16,9 +16,11 @@ import {
   SiNumpy,
   SiJupyter,
   SiDocker,
+  SiMongodb,
+  SiPostgresql,
 } from "react-icons/si";
-import { FaJava, FaDatabase, FaLinux, FaBrain, FaChartLine, FaRobot, FaCogs } from "react-icons/fa";
-import { motion, AnimatePresence } from "framer-motion";
+import { FaJava, FaLinux, FaBrain, FaChartLine, FaRobot, FaCogs } from "react-icons/fa";
+import { m, AnimatePresence } from "framer-motion";
 import SectionHeader from "../ui/SectionHeader";
 
 interface Skill {
@@ -44,6 +46,7 @@ const skills: Skill[] = [
   { icon: FaBrain,       label: "NLP",              color: "#8B5CF6", category: "ml" },
   { icon: FaCogs,        label: "Feature Eng.",     color: "#F59E0B", category: "ml" },
   { icon: FaChartLine,   label: "Model Evaluation", color: "#06B6D4", category: "ml" },
+  { icon: FaCogs,        label: "Benchmark Design", color: "#F5B800", category: "ml" },
 
   { icon: SiDocker,      label: "Docker",           color: "#2496ED", category: "mlops" },
   { icon: SiDjango,      label: "Django REST",      color: "#44B78B", category: "mlops" },
@@ -58,7 +61,8 @@ const skills: Skill[] = [
 
   { icon: SiGit,         label: "Git",              color: "#F05032", category: "tools" },
   { icon: SiGithub,      label: "GitHub",           color: "#E6EDF3", category: "tools" },
-  { icon: FaDatabase,    label: "SQL",              color: "#336791", category: "tools" },
+  { icon: SiPostgresql,  label: "PostgreSQL",       color: "#336791", category: "tools" },
+  { icon: SiMongodb,     label: "MongoDB",          color: "#47A248", category: "tools" },
   { icon: FaLinux,       label: "Linux",            color: "#FCC624", category: "tools" },
   { icon: SiPostman,     label: "Postman",          color: "#FF6C37", category: "tools" },
   { icon: SiFirebase,    label: "Firebase",         color: "#FFCA28", category: "tools" },
@@ -81,6 +85,8 @@ const categoryColors: Record<string, string> = {
   tools:       "#F05032",
 };
 
+const coreStack = ["Python", "Django REST", "Flutter", "TypeScript", "React", "PostgreSQL", "MongoDB", "Docker"];
+
 const SkillsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState("all");
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
@@ -93,10 +99,30 @@ const SkillsSection: React.FC = () => {
     <section>
       <SectionHeader title="Technical" accent="Skills" />
 
+      {/* Core stack: what I reach for daily. Everything below is the wider toolbox. */}
+      <div className="mb-8 p-4 modern-card border border-yellow-500/30 rounded-xl">
+        <p className="text-[11px] uppercase tracking-wider text-yellow-500 mb-3">Daily stack</p>
+        <div className="flex flex-wrap gap-2">
+          {coreStack.map((label) => {
+            const skill = skills.find((s) => s.label === label);
+            const Icon = skill?.icon;
+            return (
+              <span
+                key={label}
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-dark-300 border border-gray-700 text-sm text-gray-200"
+              >
+                {Icon && <Icon size={16} style={{ color: skill?.color }} aria-hidden="true" />}
+                {label}
+              </span>
+            );
+          })}
+        </div>
+      </div>
+
       {/* Category Filter */}
       <div className="flex flex-wrap gap-2 mb-8">
         {categories.map((cat) => (
-          <motion.button
+          <m.button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
             whileHover={{ scale: 1.05 }}
@@ -108,12 +134,12 @@ const SkillsSection: React.FC = () => {
               }`}
           >
             {cat.label}
-          </motion.button>
+          </m.button>
         ))}
       </div>
 
       {/* Skills Grid */}
-      <motion.div
+      <m.div
         className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3"
         layout
       >
@@ -122,7 +148,7 @@ const SkillsSection: React.FC = () => {
             const Icon = skill.icon;
             const isHovered = hoveredSkill === skill.label;
             return (
-              <motion.div
+              <m.div
                 key={skill.label}
                 layout
                 initial={{ opacity: 0, scale: 0.8 }}
@@ -140,7 +166,7 @@ const SkillsSection: React.FC = () => {
               >
                 {/* Glow backdrop */}
                 {isHovered && (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="absolute inset-0 rounded-xl"
@@ -149,6 +175,7 @@ const SkillsSection: React.FC = () => {
                 )}
                 <Icon
                   size={24}
+                  aria-hidden="true"
                   style={{ color: isHovered ? skill.color : "#9CA3AF", transition: "color 0.2s" }}
                 />
                 <span
@@ -157,15 +184,15 @@ const SkillsSection: React.FC = () => {
                 >
                   {skill.label}
                 </span>
-              </motion.div>
+              </m.div>
             );
           })}
         </AnimatePresence>
-      </motion.div>
+      </m.div>
 
       {/* Category legend */}
       {activeCategory === "all" && (
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -184,7 +211,7 @@ const SkillsSection: React.FC = () => {
               {cat.label}
             </button>
           ))}
-        </motion.div>
+        </m.div>
       )}
     </section>
   );

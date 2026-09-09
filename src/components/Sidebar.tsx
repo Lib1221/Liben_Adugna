@@ -7,18 +7,21 @@ import {
   FaInstagram,
   FaDownload,
   FaBrain,
+  FaMapMarkerAlt,
 } from "react-icons/fa";
 import { SiLeetcode, SiCodeforces } from "react-icons/si";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
+import GitHubPulse from "./ui/GitHubPulse";
 
 const Sidebar: React.FC = () => {
+  // Cloudinary transform: 224px square, face-cropped, auto format/quality. Matches the preload in index.html.
   const avatar =
-    "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759949739/liben_fupt3c.jpg";
+    "https://res.cloudinary.com/dkiuz3gfn/image/upload/w_224,h_224,c_fill,g_face,q_auto,f_auto/v1759949739/liben_fupt3c.jpg";
 
   const [loading, setLoading] = useState(true);
 
   return (
-    <motion.aside
+    <m.aside
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -39,6 +42,10 @@ const Sidebar: React.FC = () => {
               <img
                 src={avatar}
                 alt="Liben Adugna"
+                width={112}
+                height={112}
+                fetchPriority="high"
+                decoding="async"
                 className={`w-28 h-28 rounded-full object-cover border-4 border-yellow-500 transition-opacity duration-300 ${
                   loading ? "opacity-0" : "opacity-100"
                 }`}
@@ -66,12 +73,12 @@ const Sidebar: React.FC = () => {
           {/* Role Pills */}
           <div className="flex flex-wrap justify-center gap-1.5 mb-4">
             {[
-              { label: "ML Engineer", delay: 0.1 },
-              { label: "AI Reviewer", delay: 0.2 },
-              { label: "Full Stack", delay: 0.3 },
-              { label: "Code Evaluator", delay: 0.4 },
+              { label: "ML systems", delay: 0.1 },
+              { label: "AI benchmark design", delay: 0.2 },
+              { label: "Python / Django", delay: 0.3 },
+              { label: "Flutter", delay: 0.4 },
             ].map(({ label, delay }) => (
-              <motion.span
+              <m.span
                 key={label}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -80,7 +87,7 @@ const Sidebar: React.FC = () => {
                 className="text-[11px] px-2.5 py-1 rounded-lg bg-dark-300 text-gray-400 border border-gray-700/50"
               >
                 {label}
-              </motion.span>
+              </m.span>
             ))}
           </div>
 
@@ -92,7 +99,7 @@ const Sidebar: React.FC = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span className="text-[11px] text-emerald-400">
-                Available for Hire
+                Open to remote roles and EU relocation
               </span>
             </div>
           </div>
@@ -105,19 +112,26 @@ const Sidebar: React.FC = () => {
               icon={<FaEnvelope />}
               label="Email"
               value="libenadugna285@gmail.com"
+              href="mailto:libenadugna285@gmail.com"
             />
+            <ContactItem
+              icon={<FaMapMarkerAlt />}
+              label="Location"
+              value="Adama, Ethiopia (UTC+3)"
+            />
+            <GitHubPulse />
           </div>
 
           <div className="h-px bg-gray-800 mb-6" />
 
           {/* Social Links */}
           <div className="flex flex-wrap justify-center gap-2 mb-6">
-            <SocialLink icon={<FaLinkedin size={18} />} url="https://www.linkedin.com/in/liben-adugna-6b192a2b9/" />
-            <SocialLink icon={<FaGithub size={18} />} url="https://github.com/lib1221" />
-            <SocialLink icon={<FaTelegram size={18} />} url="https://t.me/liben12" />
-            <SocialLink icon={<FaInstagram size={18} />} url="https://instagram.com/libenadugna" />
-            <SocialLink icon={<SiLeetcode size={18} />} url="https://leetcode.com/libenadugna" />
-            <SocialLink icon={<SiCodeforces size={18} />} url="https://codeforces.com/profile/Hehehc" />
+            <SocialLink icon={<FaLinkedin size={18} />} url="https://www.linkedin.com/in/liben-adugna-6b192a2b9/" label="LinkedIn" />
+            <SocialLink icon={<FaGithub size={18} />} url="https://github.com/Lib1221" label="GitHub" />
+            <SocialLink icon={<FaTelegram size={18} />} url="https://t.me/liben12" label="Telegram" />
+            <SocialLink icon={<FaInstagram size={18} />} url="https://instagram.com/libenadugna" label="Instagram" />
+            <SocialLink icon={<SiLeetcode size={18} />} url="https://leetcode.com/libenadugna" label="LeetCode" />
+            <SocialLink icon={<SiCodeforces size={18} />} url="https://codeforces.com/profile/Hehehc" label="Codeforces" />
           </div>
 
           {/* Resume */}
@@ -131,34 +145,43 @@ const Sidebar: React.FC = () => {
           </a>
         </div>
       </div>
-    </motion.aside>
+    </m.aside>
   );
 };
 
-const ContactItem: React.FC<{ icon: React.ReactNode; label: string; value: string }> = ({
+const ContactItem: React.FC<{ icon: React.ReactNode; label: string; value: string; href?: string }> = ({
   icon,
   label,
   value,
+  href,
 }) => (
   <div className="flex items-center gap-3 p-3 bg-dark-300 rounded-xl">
-    <div className="p-2 bg-yellow-500/10 rounded-lg text-yellow-500">
+    <div className="p-2 bg-yellow-500/10 rounded-lg text-yellow-500" aria-hidden="true">
       {icon}
     </div>
     <div className="min-w-0 flex-1">
       <p className="text-[10px] text-gray-500">{label}</p>
-      <p className="text-sm text-white truncate">{value}</p>
+      {href ? (
+        <a href={href} className="block text-sm text-white truncate hover:text-yellow-500">
+          {value}
+        </a>
+      ) : (
+        <p className="text-sm text-white truncate">{value}</p>
+      )}
     </div>
   </div>
 );
 
-const SocialLink: React.FC<{ icon: React.ReactNode; url: string }> = ({ icon, url }) => (
+const SocialLink: React.FC<{ icon: React.ReactNode; url: string; label: string }> = ({ icon, url, label }) => (
   <a
     href={url}
     target="_blank"
     rel="noopener noreferrer"
+    aria-label={label}
+    title={label}
     className="p-2.5 bg-dark-300 rounded-xl text-gray-400 hover:text-yellow-500 hover:bg-dark-200"
   >
-    {icon}
+    <span aria-hidden="true">{icon}</span>
   </a>
 );
 

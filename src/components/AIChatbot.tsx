@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence, useDragControls, useReducedMotion } from 'framer-motion';
+import { m, AnimatePresence, useDragControls, useReducedMotion } from 'framer-motion';
 import { X, Send, Sparkles, Loader2, GripVertical, Minimize2, Maximize2, Copy, Check } from 'lucide-react';
 import geminiService from '../services/geminiService';
 import { trackEvent } from '../utils/analytics';
@@ -104,7 +104,7 @@ const AIChatbot: React.FC = () => {
       };
       setMessages([welcomeMessage]);
     }
-  }, [isOpen]);
+  }, [isOpen, messages.length]);
 
   useEffect(() => {
     if (isOpen) {
@@ -152,17 +152,16 @@ const AIChatbot: React.FC = () => {
       };
       
       setMessages(prev => [...prev, aiMessage]);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Chatbot error:', error);
-      
+      const reason = error instanceof Error ? error.message : "";
+
       let errorText = "I'm having trouble connecting. Please try again later.";
-      
-      if (error?.message?.includes('API key')) {
-        errorText = "API configuration issue. Please contact Liben directly.";
-      } else if (error?.message?.includes('quota')) {
-        errorText = "API limit reached. Please try again in a few minutes.";
-      } else if (error?.message?.includes('not initialized')) {
-        errorText = "The AI service is initializing. Please try again in a moment.";
+
+      if (reason.includes('not configured')) {
+        errorText = "The assistant is not set up yet. Please email Liben directly.";
+      } else if (reason.includes('quota')) {
+        errorText = "The assistant is busy right now. Please try again in a minute.";
       }
       
       const errorMessage: Message = {
@@ -198,7 +197,7 @@ const AIChatbot: React.FC = () => {
   return (
     <>
       {/* Floating Button */}
-      <motion.button
+      <m.button
         onClick={() => setIsOpen(!isOpen)}
         className="fixed right-5 md:right-6 z-50 w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 hover:bg-yellow-400 transition-colors"
         whileHover={{ scale: 1.05 }}
@@ -212,12 +211,12 @@ const AIChatbot: React.FC = () => {
         aria-label="Open AI Assistant"
       >
         <Sparkles className="w-6 h-6 text-black" />
-      </motion.button>
+      </m.button>
 
       {/* Chat Window - Draggable */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div
+          <m.div
             drag
             dragControls={dragControls}
             dragMomentum={false}
@@ -236,7 +235,7 @@ const AIChatbot: React.FC = () => {
             }}
           >
             {/* Header - Draggable Handle */}
-            <motion.div 
+            <m.div 
               className="p-3 bg-yellow-500 flex items-center justify-between cursor-grab active:cursor-grabbing"
               onPointerDown={(e) => dragControls.start(e)}
             >
@@ -266,7 +265,7 @@ const AIChatbot: React.FC = () => {
                   <X className="w-4 h-4 text-black" />
                 </button>
               </div>
-            </motion.div>
+            </m.div>
 
             {/* Messages - Hidden when minimized */}
             {!isMinimized && (
@@ -382,7 +381,7 @@ const AIChatbot: React.FC = () => {
                 </div>
               </>
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </>

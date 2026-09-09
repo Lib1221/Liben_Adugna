@@ -1,6 +1,6 @@
 import React from "react";
-import { motion } from "framer-motion";
-import { FaQuoteLeft, FaStar, FaLinkedin } from "react-icons/fa";
+import { m } from "framer-motion";
+import { FaQuoteLeft, FaLinkedin } from "react-icons/fa";
 import SectionHeader from "../ui/SectionHeader";
 
 interface Testimonial {
@@ -9,7 +9,6 @@ interface Testimonial {
   role: string;
   company: string;
   content: string;
-  rating: number;
   linkedin?: string;
 }
 
@@ -20,7 +19,6 @@ const testimonials: Testimonial[] = [
     role: "CEO",
     company: "Faris Technology Private Limited",
     content: "Liben demonstrated exceptional skills during his time at Faris Technology. His work on full-stack development, REST APIs, and mobile applications significantly improved our delivery for clients. He brings a strong foundation in both engineering and problem-solving.",
-    rating: 5,
     linkedin: "https://et.linkedin.com/in/elias-yirdaw-54318217b",
   },
   {
@@ -29,7 +27,6 @@ const testimonials: Testimonial[] = [
     role: "AI Systems Lead",
     company: "",
     content: "Working with Liben on AI systems evaluation was a pleasure. His attention to detail in reviewing code and evaluating AI outputs for correctness and consistency greatly contributed to our quality standards. He brings both technical depth and clear communication.",
-    rating: 5,
     linkedin: "",
   },
 ];
@@ -41,7 +38,7 @@ const TestimonialsSection: React.FC = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
         {testimonials.map((t, idx) => (
-          <motion.div
+          <m.div
             key={t.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -60,17 +57,6 @@ const TestimonialsSection: React.FC = () => {
             <p className="text-gray-300 text-sm leading-relaxed flex-1">
               "{t.content}"
             </p>
-
-            {/* Stars */}
-            <div className="flex gap-1">
-              {[...Array(5)].map((_, i) => (
-                <FaStar
-                  key={i}
-                  size={13}
-                  className={i < t.rating ? "text-yellow-500" : "text-gray-700"}
-                />
-              ))}
-            </div>
 
             {/* Divider */}
             <div className="h-px bg-gray-800" />
@@ -99,11 +85,11 @@ const TestimonialsSection: React.FC = () => {
                   )}
                 </div>
                 <p className="text-xs text-gray-500 truncate">
-                  {t.role} · {t.company}
+                  {t.company ? `${t.role} · ${t.company}` : t.role}
                 </p>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </div>
     </section>
