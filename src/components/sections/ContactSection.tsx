@@ -177,7 +177,7 @@ const ContactSection: React.FC = () => {
               libenadugna285@gmail.com
             </a>
             <p className="mt-2 text-[13px] text-gray-500">{contactConversion.responseTime}.</p>
-            <p className="mt-1 text-[13px] text-gray-500">{availability.location}.</p>
+            <p className="mt-1 text-[13px] text-gray-500">{availability.hours}.</p>
           </div>
 
           <div>

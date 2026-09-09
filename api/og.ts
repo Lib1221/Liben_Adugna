@@ -62,7 +62,7 @@ export default function handler(request: Request) {
         "div",
         { style: { display: "flex", alignItems: "center", fontSize: 24, color: "#9ca3af" } },
         h("div", { style: { width: 14, height: 14, borderRadius: 7, background: "#22c55e", marginRight: 12, display: "flex" } }),
-        "liben.dev · Adama, Ethiopia (UTC+3) · open to remote roles",
+        "liben.dev · remote · open to new roles",
       ),
     ),
     h(

@@ -18,7 +18,7 @@ const AboutSection: React.FC = () => (
       className="max-w-prose space-y-5 text-[15px] leading-[1.75] text-gray-400"
     >
       <p>
-        I started where most engineers in Adama start: building whatever the client in front of me needed. That
+        I started where most engineers start: building whatever the client in front of me needed. That
         meant Django back ends and Flutter apps, five or so systems, each one teaching me something the last one
         had let me get away with. The habit that stuck was reading the failure before writing the fix.
       </p>

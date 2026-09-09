@@ -73,8 +73,8 @@ const Sidebar: React.FC = () => {
             libenadugna285@gmail.com
           </a>
         </Row>
-        <Row label="Based in">
-          <span className="text-gray-200">Adama, Ethiopia · UTC+3</span>
+        <Row label="Hours">
+          <span className="text-gray-200">Full overlap with Europe</span>
         </Row>
         <Row label="Replies in">
           <span className="text-gray-200">Under 24 hours</span>

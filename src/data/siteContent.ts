@@ -12,9 +12,10 @@ export const headline = {
     "software-engineering tasks, rubrics and test harnesses used to measure frontier AI models and coding agents.",
 };
 
+/** Deliberately states no city, country or timezone: availability, not whereabouts. */
 export const availability = {
-  location: "Adama, Ethiopia (UTC+3, full overlap with European working hours)",
-  note: "Open to remote roles and to relocating within the EU.",
+  hours: "Full overlap with European working hours",
+  note: "Open to remote roles, and to relocation with a preference for the EU.",
 };
 
 export const impactMetrics: ImpactMetric[] = [

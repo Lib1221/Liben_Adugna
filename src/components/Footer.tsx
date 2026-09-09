@@ -17,7 +17,7 @@ const Footer: React.FC = () => (
       <div>
         <p className="text-sm text-gray-300">Liben Adugna</p>
         <p className="mt-1 text-[13px] text-gray-500">
-          {availability.location.split(" (")[0]} · {availability.note} · Updated {now.updated}
+          {availability.note} · Updated {now.updated}
         </p>
       </div>
 

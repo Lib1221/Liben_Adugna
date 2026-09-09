@@ -1,7 +1,7 @@
 import React from "react";
 import { m } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import StatsStrip from "../ui/StatsStrip";
 import { impactMetrics, headline, availability } from "../../data/siteContent";
 import { trackEvent } from "../../utils/analytics";
@@ -30,9 +30,9 @@ const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => (
       <p className="mt-6 max-w-prose text-[17px] leading-relaxed text-gray-400">{headline.summary}</p>
 
       <p className="mt-6 inline-flex items-start gap-2 text-sm text-gray-400">
-        <MapPin size={15} className="mt-0.5 shrink-0 text-yellow-500" aria-hidden="true" />
+        <Clock size={15} className="mt-0.5 shrink-0 text-yellow-500" aria-hidden="true" />
         <span>
-          {availability.location}. <span className="text-gray-300">{availability.note}</span>
+          {availability.hours}. <span className="text-gray-300">{availability.note}</span>
         </span>
       </p>
 

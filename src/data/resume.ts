@@ -6,7 +6,8 @@ export type ExperienceEntry = {
   role: string;
   company: string;
   period: string;
-  location: string;
+  /** Omitted for on-site roles; "Remote" is an arrangement, not a whereabouts. */
+  location?: string;
   points: string[];
 };
 
@@ -73,7 +74,6 @@ const experience: ExperienceEntry[] = [
     role: "AI Systems Evaluator & Data Architecture Contributor",
     company: "Revelo",
     period: "Mar 2025 — Mar 2026",
-    location: "Adama, Ethiopia",
     points: [
       "Evaluated AI outputs on 8 ML models for correctness, consistency, and reliability using structured validation metrics.",
       "Designed behavioral data schemas supporting training and evaluation of 4 AI systems.",
@@ -96,7 +96,6 @@ const experience: ExperienceEntry[] = [
     role: "Full-Stack Software Engineer",
     company: "Faris Technology Private Limited",
     period: "Aug 2023 — Feb 2025",
-    location: "Addis Ababa, Ethiopia",
     points: [
       "Developed full-stack web and Flutter mobile apps for 5+ clients, delivering real-time data updates and responsive interfaces.",
       "Designed and implemented REST APIs for user authentication, database integration, and dynamic workflows.",
@@ -107,7 +106,6 @@ const experience: ExperienceEntry[] = [
     role: "Senior Technical Mentor – Machine Learning",
     company: "CSEC-ASTU",
     period: "Sep 2022 — Jun 2023",
-    location: "Adama, Ethiopia",
     points: [
       "Mentored 40+ students in ML system design, evaluation, and deployment.",
       "Supervised 8+ ML projects covering NLP and anomaly detection.",

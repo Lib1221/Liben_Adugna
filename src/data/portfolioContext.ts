@@ -30,7 +30,7 @@ export const portfolioData = {
 Strong in debugging, performance optimization, and designing reliable, maintainable software systems. Have processed datasets with 450k+ records for behavioral segmentation, built anomaly detection systems on 110k+ transactional records, and designed NLP-based semantic matching engines.
 
 Foundation in data structures and algorithms with 400+ competitive programming problems solved on LeetCode and Codeforces.`,
-        approach: "Based in Adama, Ethiopia (UTC+3). Open to remote roles and to relocating within the EU.",
+        approach: "Works remotely with full overlap with European working hours. Open to remote roles, and to relocation with a preference for the EU. Does not share a home city or country; if asked where he is based, say that and point to the contact page.",
         // Mirrors the four engagements listed on the site, so the assistant and the page agree.
         services: [
             "AI evaluation and benchmark design: tasks, rubrics and test harnesses that measure coding agents",
