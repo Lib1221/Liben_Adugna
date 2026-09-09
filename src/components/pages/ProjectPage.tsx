@@ -14,19 +14,20 @@ interface ProjectPageProps {
 }
 
 const Bullets: React.FC<{ items: string[] }> = ({ items }) => (
-  <ul className="space-y-2">
+  <ul className="space-y-2.5">
     {items.map((item) => (
-      <li key={item} className="flex gap-3 text-gray-300 text-sm leading-relaxed">
-        <span className="w-1.5 h-1.5 rounded-full bg-yellow-500 mt-2 shrink-0" aria-hidden="true" />
-        <span>{item}</span>
+      <li key={item} className="flex gap-3 text-[15px] leading-relaxed text-gray-400">
+        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-gray-600" aria-hidden="true" />
+        <span className="max-w-prose">{item}</span>
       </li>
     ))}
   </ul>
 );
 
+/** Case-study sections are separated by a rule and a small-caps label, like the resume. */
 const Section: React.FC<{ title: string; children: React.ReactNode }> = ({ title, children }) => (
-  <section className="mb-8">
-    <h2 className="text-lg font-semibold text-white mb-3">{title}</h2>
+  <section className="mb-10">
+    <h2 className="eyebrow mb-4 border-b border-gray-800 pb-3">{title}</h2>
     {children}
   </section>
 );
@@ -54,24 +55,29 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
       </a>
 
       <m.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35 }}>
-        <div className="relative rounded-2xl overflow-hidden border border-gray-800 mb-6 bg-dark-200">
-          <img src={project.image} alt="" className="w-full h-44 md:h-72 object-cover" decoding="async" />
-          <div className="hidden md:block absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent" aria-hidden="true" />
-          <div className="p-5 md:p-6 md:absolute md:bottom-0 md:left-0 md:right-0 bg-dark-300 md:bg-transparent border-t border-gray-800 md:border-0">
-            <p className="text-[11px] uppercase tracking-wider text-yellow-500 mb-1 flex items-center gap-2">
-              {project.category}
-              {project.isPrivate && (
-                <span className="inline-flex items-center gap-1 text-gray-300 normal-case tracking-normal">
-                  <Lock size={11} aria-hidden="true" /> client work
-                </span>
-              )}
-            </p>
-            <h1 className="text-2xl md:text-3xl font-bold text-white leading-tight">{project.title}</h1>
-            <p className="text-sm text-gray-300 mt-1">
-              {project.role} · {project.duration}
-            </p>
-          </div>
+        <div className="mb-8 overflow-hidden rounded-xl border border-gray-800 bg-dark-200">
+          <img
+            src={project.image}
+            alt=""
+            className="aspect-[21/9] w-full object-cover"
+            decoding="async"
+          />
         </div>
+
+        <header className="mb-8">
+          <p className="eyebrow mb-3 flex items-center gap-2 text-yellow-500/90">
+            {project.category}
+            {project.isPrivate && (
+              <span className="inline-flex items-center gap-1 tracking-normal text-gray-400 normal-case">
+                <Lock size={11} aria-hidden="true" /> client work
+              </span>
+            )}
+          </p>
+          <h1 className="text-display font-semibold text-white">{project.title}</h1>
+          <p className="mt-2 text-sm text-gray-400">
+            {project.role} · {project.duration}
+          </p>
+        </header>
 
         <div className="flex flex-wrap gap-2 mb-8">
           {project.repoLink && (
@@ -120,12 +126,12 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
         <div className="grid lg:grid-cols-[1fr_260px] gap-8">
           <div>
             <Section title="Problem">
-              <p className="text-gray-300 text-sm leading-relaxed">{project.description}</p>
+              <p className="max-w-prose text-[15px] leading-relaxed text-gray-400">{project.description}</p>
             </Section>
 
             {project.architecture && (
               <Section title="How it is built">
-                <p className="text-gray-300 text-sm leading-relaxed font-mono bg-dark-300 border border-gray-800 rounded-lg p-3 overflow-x-auto">
+                <p className="overflow-x-auto rounded-lg border border-gray-800 bg-dark-400 p-4 font-mono text-[13px] leading-relaxed text-gray-300">
                   {project.architecture}
                 </p>
               </Section>
@@ -147,7 +153,7 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
               <Section title="Result">
                 <div className="flex flex-wrap gap-2">
                   {project.impactMetrics.map((metric) => (
-                    <span key={metric} className="px-3 py-1.5 text-sm bg-yellow-500/10 border border-yellow-500/30 rounded-lg text-yellow-400">
+                    <span key={metric} className="rounded-lg border border-yellow-500/30 bg-yellow-500/[0.07] px-3 py-1.5 text-sm text-yellow-400">
                       {metric}
                     </span>
                   ))}
@@ -157,8 +163,8 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
           </div>
 
           <aside className="space-y-6">
-            <div className="modern-card border border-gray-800 rounded-xl p-4">
-              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Stack</p>
+            <div className="surface p-5">
+              <p className="eyebrow mb-3">Stack</p>
               <ul className="space-y-2">
                 {project.technologies.map((tech) => (
                   <li key={tech} className="flex items-center gap-2 text-sm text-gray-200">
@@ -170,15 +176,15 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
                 ))}
               </ul>
             </div>
-            <div className="modern-card border border-gray-800 rounded-xl p-4">
-              <p className="text-[11px] uppercase tracking-wider text-gray-400 mb-3">Role</p>
+            <div className="surface p-5">
+              <p className="eyebrow mb-3">Role</p>
               <p className="text-sm text-gray-200">{project.role}</p>
               <p className="text-xs text-gray-400 mt-1">{project.duration}</p>
             </div>
             <a
               href="/contact"
               onClick={(event) => go(event, "/contact")}
-              className="block text-center px-4 py-2.5 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 text-sm"
+              className="block rounded-lg bg-yellow-500 px-4 py-2.5 text-center text-sm font-semibold text-black transition-colors hover:bg-yellow-400"
             >
               Discuss a similar project
             </a>
@@ -187,16 +193,16 @@ const ProjectPage: React.FC<ProjectPageProps> = ({ project }) => {
 
         {related.length > 0 && (
           <section className="mt-10 pt-8 border-t border-gray-800">
-            <h2 className="text-lg font-semibold text-white mb-4">Related work</h2>
+            <h2 className="eyebrow mb-5 border-b border-gray-800 pb-3">Related work</h2>
             <div className="grid sm:grid-cols-3 gap-4">
               {related.map((candidate) => (
                 <a
                   key={candidate.title}
                   href={projectPath(candidate)}
                   onClick={(event) => go(event, projectPath(candidate))}
-                  className="modern-card border border-gray-800 rounded-xl p-4 hover:border-yellow-500/50 transition-colors group"
+                  className="surface surface-interactive group p-5"
                 >
-                  <p className="text-[11px] uppercase tracking-wider text-yellow-500 mb-1">{candidate.category}</p>
+                  <p className="eyebrow mb-2">{candidate.category}</p>
                   <p className="text-white font-medium leading-snug group-hover:text-yellow-500">{candidate.title}</p>
                   <p className="text-xs text-gray-400 mt-2 line-clamp-2">{candidate.description}</p>
                   <span className="inline-flex items-center gap-1 text-xs text-gray-400 mt-3 group-hover:text-yellow-500">

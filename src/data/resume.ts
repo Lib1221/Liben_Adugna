@@ -6,13 +6,16 @@ export type ExperienceEntry = {
   role: string;
   company: string;
   period: string;
-  location: string;
+  /** Omitted for on-site roles; "Remote" is an arrangement, not a whereabouts. */
+  location?: string;
   points: string[];
 };
 
 export type EducationEntry = {
-  title: string;
-  degree: string;
+  /** What was earned or completed. This is the entry's heading. */
+  qualification: string;
+  /** Awarding body. Omitted where naming it would identify a location. */
+  institution?: string;
   period: string;
   details?: string;
   links?: { label: string; url: string }[];
@@ -28,14 +31,13 @@ export type Certification = {
 
 const education: EducationEntry[] = [
   {
-    title: "Adama Science and Technology University",
-    degree: "B.Sc. in Software Engineering",
+    qualification: "B.Sc. in Software Engineering",
     period: "Graduated 2022",
     details: "Software development, data structures and algorithms, system design, and database systems.",
   },
   {
-    title: "Algorithms & Data Structures Training Program",
-    degree: "Africa to Silicon Valley (A2SV)",
+    qualification: "Algorithms & Data Structures Training Program",
+    institution: "Africa to Silicon Valley (A2SV)",
     period: "Jun 2024 — Jun 2025",
     details: "Solved 400+ problems (DP, graphs, optimization)",
     links: [
@@ -73,7 +75,6 @@ const experience: ExperienceEntry[] = [
     role: "AI Systems Evaluator & Data Architecture Contributor",
     company: "Revelo",
     period: "Mar 2025 — Mar 2026",
-    location: "Adama, Ethiopia",
     points: [
       "Evaluated AI outputs on 8 ML models for correctness, consistency, and reliability using structured validation metrics.",
       "Designed behavioral data schemas supporting training and evaluation of 4 AI systems.",
@@ -96,7 +97,6 @@ const experience: ExperienceEntry[] = [
     role: "Full-Stack Software Engineer",
     company: "Faris Technology Private Limited",
     period: "Aug 2023 — Feb 2025",
-    location: "Addis Ababa, Ethiopia",
     points: [
       "Developed full-stack web and Flutter mobile apps for 5+ clients, delivering real-time data updates and responsive interfaces.",
       "Designed and implemented REST APIs for user authentication, database integration, and dynamic workflows.",
@@ -105,9 +105,8 @@ const experience: ExperienceEntry[] = [
   },
   {
     role: "Senior Technical Mentor – Machine Learning",
-    company: "CSEC-ASTU",
+    company: "CSEC (university computing club)",
     period: "Sep 2022 — Jun 2023",
-    location: "Adama, Ethiopia",
     points: [
       "Mentored 40+ students in ML system design, evaluation, and deployment.",
       "Supervised 8+ ML projects covering NLP and anomaly detection.",
@@ -162,7 +161,7 @@ const certifications: Certification[] = [
 ];
 
 const timelineSummary = [
-  { year: "2022", title: "B.Sc. Software Engineering (ASTU). Started freelance ML work and mentoring at CSEC-ASTU." },
+  { year: "2022", title: "B.Sc. Software Engineering. Started freelance ML work and mentoring at CSEC." },
   { year: "2023", title: "Full-stack engineer at Faris Technology: Django APIs and Flutter apps for 5+ clients." },
   { year: "2024", title: "A2SV algorithms program. Benchmark and evaluation work begins at Afriwork (Turing)." },
   { year: "2025", title: "Terminal-Bench 2.0/3.0 task authoring at Revelo and AfterQuery. Smart Gebere released." },

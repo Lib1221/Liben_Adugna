@@ -1,116 +1,160 @@
-/* index.css */
+/* index.css — design tokens first, then the small set of primitives components share. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Global Styles */
+/* ---------------------------------------------------------------------------
+   Tokens. Every colour, radius and elevation in the UI resolves to one of these.
+   Components must not invent their own values; if something is missing, add it here.
+   --------------------------------------------------------------------------- */
+:root {
+  /* Ground and surfaces: a four-step ramp, each one step lighter than the last. */
+  --ground: #09090B;
+  --surface-1: #0F0F12;
+  --surface-2: #141418;
+  --surface-3: #1B1B20;
+
+  /* Hairlines. The UI is separated by rules, not by shadows. */
+  --line: #26262C;
+  --line-strong: #35353D;
+
+  /* Text ramp. All four pass AA on --surface-1. */
+  --text: #F4F4F5;
+  --text-muted: #B4B4BE;
+  --text-dim: #8C8C97;
+  --text-faint: #6E6E79;
+
+  /* One accent. Used for interactive state and emphasis, never for decoration. */
+  --accent: #F5B800;
+  --accent-hover: #FFD24D;
+  --accent-ink: #0A0A0A;
+  --accent-wash: rgba(245, 184, 0, 0.1);
+  --accent-line: rgba(245, 184, 0, 0.32);
+
+  /* Status. Exactly one non-accent hue, reserved for availability. */
+  --live: #34D399;
+
+  --radius-sm: 6px;
+  --radius: 10px;
+  --radius-lg: 14px;
+
+  /* Motion. Two durations, one easing. Anything else is noise. */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --fast: 140ms;
+  --slow: 320ms;
+}
+
 * {
-  scroll-behavior: smooth;
   box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
-  background:
-    radial-gradient(circle at 20% 0%, rgba(245, 184, 0, 0.08), transparent 35%),
-    radial-gradient(circle at 80% 10%, rgba(99, 102, 241, 0.08), transparent 30%),
-    #0A0A0A;
-  color: #FFFFFF;
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+  background: var(--ground);
+  color: var(--text);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-:root {
-  --surface-1: #111111;
-  --surface-2: #161616;
-  --surface-3: #1f1f1f;
-  --text-soft: #9ca3af;
-  --accent: #f5b800;
-  --accent-soft: rgba(245, 184, 0, 0.16);
+/* Headings carry the display face; body copy stays in Inter. */
+h1, h2, h3, .font-display {
+  font-family: 'Space Grotesk', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
-/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: var(--ground);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #F5B800;
-  border-radius: 3px;
+  background: var(--line-strong);
+  border: 3px solid var(--ground);
+  border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4A000;
+  background: var(--text-faint);
 }
 
-/* Selection */
 ::selection {
-  background: rgba(245, 184, 0, 0.3);
-  color: #FFFFFF;
+  background: rgba(245, 184, 0, 0.28);
+  color: #fff;
 }
 
-/* Focus styles */
 *:focus-visible {
-  outline: 2px solid #F5B800;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
+  border-radius: 3px;
 }
 
-/* Scroll Progress Bar */
+/* ---------------------------------------------------------------------------
+   Primitives
+   --------------------------------------------------------------------------- */
+
+/* The one card treatment on the site. Flat surface, hairline border, no glow. */
+.surface {
+  background: var(--surface-1);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+/* Interactive surfaces lift their border, never their shadow. */
+.surface-interactive {
+  transition: border-color var(--fast) var(--ease), background-color var(--fast) var(--ease);
+}
+
+.surface-interactive:hover {
+  border-color: var(--line-strong);
+  background: var(--surface-2);
+}
+
+/* Small caps label that opens a section or a field group. */
+.eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+/* Numerals in metrics and timelines line up in columns. */
+.tabular {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
+}
+
 .scroll-progress {
   position: fixed;
   top: 0;
   left: 0;
   height: 2px;
-  background: linear-gradient(90deg, #F5B800, #FFD966);
+  background: var(--accent);
   z-index: 9999;
-  transition: width 0.1s ease;
+  transition: width 0.1s linear;
 }
 
-/* Shimmer effect */
+/* Placeholder fill while an image decodes. */
 .shimmer {
-  background: linear-gradient(90deg, transparent, rgba(245, 184, 0, 0.1), transparent);
+  background: linear-gradient(90deg, var(--surface-2) 0%, var(--surface-3) 50%, var(--surface-2) 100%);
   background-size: 200% 100%;
-  animation: shimmer 2s infinite;
+  animation: shimmer 1.4s linear infinite;
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-/* Glow effect */
-.glow-yellow {
-  box-shadow: 0 0 20px rgba(245, 184, 0, 0.3);
-}
-
-/* Private badge */
-.badge-private {
-  animation: pulse-glow 2s ease-in-out infinite;
-}
-
-.modern-card {
-  background: linear-gradient(140deg, rgba(26, 26, 26, 0.92), rgba(16, 16, 16, 0.92));
-  border-radius: 1rem;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
-}
-
-.modern-card:hover {
-  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.3);
-}
-
-.text-gradient-accent {
-  background: linear-gradient(90deg, #f5b800 0%, #ffd965 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .safe-bottom-pad {
@@ -121,34 +165,36 @@ body {
   bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
 }
 
-@keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
-  }
-  50% {
-    box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
 
-/* Print: the resume page becomes a clean CV. Everything else on the page is chrome. */
+/* ---------------------------------------------------------------------------
+   Print: the resume route becomes a clean CV. Everything else is chrome.
+   --------------------------------------------------------------------------- */
 @media print {
   body {
     background: #fff !important;
     color: #111 !important;
   }
+
+  h1, h2, h3 {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
   .scroll-progress,
   .skip-link {
     display: none !important;
   }
-  .modern-card,
+
+  .surface,
   .bg-dark-400,
   .bg-dark-300,
   .bg-dark-200 {
@@ -156,23 +202,28 @@ body {
     border-color: #ddd !important;
     box-shadow: none !important;
   }
+
   .text-white,
   .text-gray-200,
   .text-gray-300 {
     color: #111 !important;
   }
+
   .text-gray-400,
   .text-gray-500 {
     color: #444 !important;
   }
+
   .text-yellow-500 {
     color: #8a6a00 !important;
   }
+
   a[href^="http"]::after {
     content: " (" attr(href) ")";
     font-size: 0.8em;
     color: #555;
   }
+
   .max-w-7xl {
     max-width: none !important;
     padding: 0 !important;

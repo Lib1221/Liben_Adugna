@@ -1,7 +1,7 @@
 import React from "react";
 import { m } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { MapPin } from "lucide-react";
+import { ArrowRight, Clock } from "lucide-react";
 import StatsStrip from "../ui/StatsStrip";
 import { impactMetrics, headline, availability } from "../../data/siteContent";
 import { trackEvent } from "../../utils/analytics";
@@ -10,89 +10,65 @@ interface HeroSectionProps {
   setSelected: (section: string) => void;
 }
 
-const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
-  return (
-    <section className="py-8 md:py-12">
-      <m.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
-        className="text-gray-500 text-sm mb-2"
-      >
-        Hello, I'm
-      </m.p>
+/** One shared entrance. Staggering every line individually reads as a template. */
+const enter = {
+  initial: { opacity: 0, y: 12 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.45, ease: [0.22, 1, 0.36, 1] as const },
+};
 
-      <m.h1
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="text-4xl md:text-5xl font-bold text-white mb-4"
-      >
-        Liben <span className="text-gradient-accent">Adugna</span>
-      </m.h1>
+const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => (
+  <section className="pb-10 pt-4 md:pb-14 md:pt-6">
+    <m.div {...enter}>
+      {/* The name stays inside the h1 so the page still ranks for it, but the claim is what
+          the reader sees first. Nobody arrives here needing to be told hello. */}
+      <h1>
+        <span className="eyebrow mb-4 block">Liben Adugna · Software Engineer</span>
+        <span className="block max-w-3xl text-display font-semibold text-white">{headline.title}</span>
+      </h1>
 
-      <m.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.3 }}
-        className="text-xl md:text-2xl text-white font-semibold leading-snug max-w-2xl mb-5"
-      >
-        {headline.title}
-      </m.p>
+      <p className="mt-6 max-w-prose text-[17px] leading-relaxed text-gray-400">{headline.summary}</p>
 
-      <m.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4 }}
-        className="text-gray-400 text-base leading-relaxed max-w-2xl mb-6"
-      >
-        {headline.summary}
-      </m.p>
+      <p className="mt-6 inline-flex items-start gap-2 text-sm text-gray-400">
+        <Clock size={15} className="mt-0.5 shrink-0 text-yellow-500" aria-hidden="true" />
+        <span>
+          {availability.hours}. <span className="text-gray-300">{availability.note}</span>
+        </span>
+      </p>
 
-      <m.p
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.45 }}
-        className="inline-flex items-center gap-2 text-sm text-gray-300 mb-8"
-      >
-        <MapPin size={14} className="text-yellow-500" aria-hidden="true" />
-        {availability.location}. {availability.note}
-      </m.p>
-
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5 }}
-        className="flex flex-wrap gap-3"
-      >
-        <button
-          onClick={() => {
-            trackEvent("hero_cta_contact");
-            setSelected("Contact");
-          }}
-          className="inline-flex items-center gap-2 px-6 py-3 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 transition-colors"
-        >
-          Get in Touch
-        </button>
-
+      <div className="mt-8 flex flex-wrap items-center gap-3">
         <button
           onClick={() => {
             trackEvent("hero_cta_portfolio");
             setSelected("Portfolio");
           }}
-          className="inline-flex items-center gap-2 px-5 py-3 bg-dark-300 border border-gray-700 text-white font-medium rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-all"
+          className="inline-flex items-center gap-2 rounded-lg bg-yellow-500 px-5 py-2.5 font-semibold text-black transition-colors hover:bg-yellow-400"
         >
-          See my work
+          See selected work
+          <ArrowRight size={16} aria-hidden="true" />
         </button>
+
+        <button
+          onClick={() => {
+            trackEvent("hero_cta_contact");
+            setSelected("Contact");
+          }}
+          className="inline-flex items-center gap-2 rounded-lg border border-gray-700 px-5 py-2.5 font-medium text-gray-200 transition-colors hover:border-gray-600 hover:text-white"
+        >
+          Get in touch
+        </button>
+
+        {/* Profiles are supporting links, not headline actions, so they sit at text weight. */}
+        <span className="ml-1 hidden h-5 w-px bg-gray-800 sm:block" aria-hidden="true" />
 
         <a
           href="https://github.com/Lib1221"
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent("hero_cta_github")}
-          className="inline-flex items-center gap-2 px-5 py-3 bg-dark-300 border border-gray-700 text-white font-medium rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-all"
+          className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-yellow-500"
         >
-          <FaGithub size={18} aria-hidden="true" />
+          <FaGithub size={16} aria-hidden="true" />
           GitHub
         </a>
 
@@ -101,15 +77,16 @@ const HeroSection: React.FC<HeroSectionProps> = ({ setSelected }) => {
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent("hero_cta_linkedin")}
-          className="inline-flex items-center gap-2 px-5 py-3 bg-dark-300 border border-gray-700 text-white font-medium rounded-xl hover:border-yellow-500 hover:text-yellow-500 transition-all"
+          className="inline-flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-yellow-500"
         >
-          <FaLinkedin size={18} aria-hidden="true" />
+          <FaLinkedin size={16} aria-hidden="true" />
           LinkedIn
         </a>
-      </m.div>
-      <StatsStrip metrics={impactMetrics} />
-    </section>
-  );
-};
+      </div>
+    </m.div>
+
+    <StatsStrip metrics={impactMetrics} />
+  </section>
+);
 
 export default HeroSection;

@@ -6,15 +6,10 @@ const ScrollToTop: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.scrollY > 400) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-    };
+    const toggleVisibility = () => setIsVisible(window.scrollY > 400);
 
-    window.addEventListener("scroll", toggleVisibility);
+    toggleVisibility();
+    window.addEventListener("scroll", toggleVisibility, { passive: true });
     return () => window.removeEventListener("scroll", toggleVisibility);
   }, []);
 
@@ -29,15 +24,15 @@ const ScrollToTop: React.FC = () => {
     <AnimatePresence>
       {isVisible && (
         <m.button
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 8 }}
+          transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
           onClick={scrollToTop}
-          className="fixed left-6 z-40 p-3 modern-card border border-gray-700 rounded-xl text-gray-400 hover:text-yellow-500 hover:border-yellow-500 transition-all duration-200 shadow-lg"
-          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 24px)" }}
+          className="surface fixed left-5 z-40 bottom-[calc(env(safe-area-inset-bottom,0px)+84px)] p-2.5 text-gray-500 transition-colors hover:border-gray-600 hover:text-white md:left-6 md:bottom-[calc(env(safe-area-inset-bottom,0px)+24px)]"
           aria-label="Scroll to top"
         >
-          <FaArrowUp size={18} />
+          <FaArrowUp size={15} aria-hidden="true" />
         </m.button>
       )}
     </AnimatePresence>

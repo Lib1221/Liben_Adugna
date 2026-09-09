@@ -42,25 +42,22 @@ const ScrollProgress: React.FC = () => {
 function App() {
   return (
     <LazyMotion features={domMax} strict>
-    <div className="min-h-screen w-full bg-dark-500 relative">
-      <div className="pointer-events-none absolute inset-0 opacity-60">
-        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[520px] h-[520px] rounded-full bg-yellow-500/10 blur-3xl" />
+    <div className="relative min-h-screen w-full bg-dark-500">
+      <div className="print:hidden">
+        <ScrollProgress />
       </div>
-      {/* Scroll Progress Bar */}
-      <div className="print:hidden"><ScrollProgress /></div>
 
-      {/* Main layout */}
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-8 relative z-10">
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Left sidebar */}
-          <div className="w-full lg:w-80 flex-shrink-0 print:hidden">
-            <div className="lg:sticky lg:top-8">
+      {/* Sidebar is a card, the content column sits open on the page. Boxing both produced a
+          card-inside-a-card and cost the content its breathing room. */}
+      <div className="mx-auto max-w-6xl px-4 py-10 md:px-8 md:py-14">
+        <div className="flex flex-col gap-10 lg:flex-row lg:gap-14">
+          <div className="w-full flex-shrink-0 lg:w-72 print:hidden">
+            <div className="lg:sticky lg:top-10">
               <Sidebar />
             </div>
           </div>
 
-          {/* Right main content */}
-          <div className="flex-1 min-w-0">
+          <div className="min-w-0 flex-1">
             <Main />
           </div>
         </div>

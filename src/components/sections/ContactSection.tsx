@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { m, AnimatePresence } from "framer-motion";
-import { FaEnvelope, FaPaperPlane, FaCheck, FaExclamationTriangle } from "react-icons/fa";
-import { CalendarDays } from "lucide-react";
+import { FaCheck, FaExclamationTriangle } from "react-icons/fa";
+import { CalendarDays, Mail, Send } from "lucide-react";
 import SectionHeader from "../ui/SectionHeader";
-import { contactConversion } from "../../data/siteContent";
+import { contactConversion, availability } from "../../data/siteContent";
 import { trackEvent } from "../../utils/analytics";
 
 const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const fieldId = useId();
   const web3FormsAccessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,7 +24,7 @@ const ContactSection: React.FC = () => {
     setErrorMessage("");
 
     if (!web3FormsAccessKey) {
-      setErrorMessage("Contact form is not configured yet. Please email directly.");
+      setErrorMessage("The form is not configured on this deployment. Email me directly and it will reach me.");
       setIsSubmitting(false);
       return;
     }
@@ -36,209 +33,201 @@ const ContactSection: React.FC = () => {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          access_key: web3FormsAccessKey,
-          ...formData,
-        }),
+        body: JSON.stringify({ access_key: web3FormsAccessKey, ...formData }),
       });
 
       if (response.ok) {
         trackEvent("contact_submit_success");
         setSubmitted(true);
         setFormData({ name: "", email: "", message: "" });
-        setTimeout(() => setSubmitted(false), 5000);
+        setTimeout(() => setSubmitted(false), 8000);
       } else {
-        setErrorMessage("Failed to send message. Please try again or email directly.");
+        setErrorMessage("That did not send. Try again, or email me directly.");
       }
     } catch (error) {
       console.error("Error submitting form:", error);
-      setErrorMessage("Something went wrong while sending. Please try again later.");
+      setErrorMessage("Something went wrong on the way out. Try again, or email me directly.");
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const contactInfo = [
-    {
-      icon: <FaEnvelope size={18} />,
-      label: "Email",
-      value: "libenadugna285@gmail.com",
-      href: "mailto:libenadugna285@gmail.com",
-    },
-  ];
-
   return (
     <section>
       <SectionHeader
         as="h1"
-        title="Get in"
-        accent="Touch"
-        subtitle="Open to ML/AI, full-stack, and product engineering collaborations."
+        title="Contact"
+        subtitle="Open to ML and AI engineering roles, evaluation work, and full-stack builds. Tell me what you are trying to ship and I will tell you honestly whether I am the right person."
       />
 
-      <m.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="modern-card border border-gray-800 p-5 mb-8"
-      >
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <div>
-            <p className="text-sm text-white font-semibold">Project Collaboration</p>
-            <p className="text-xs text-gray-400 mt-1">{contactConversion.responseTime}</p>
-            <div className="flex flex-wrap gap-2 mt-3">
-              {contactConversion.acceptedProjects.map((projectType) => (
-                <span key={projectType} className="px-2.5 py-1 text-xs rounded-full bg-dark-300 border border-gray-700 text-gray-300">
-                  {projectType}
-                </span>
-              ))}
-            </div>
-          </div>
-          <a
-            href={contactConversion.bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => trackEvent("contact_book_call_click")}
-            className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 transition-colors"
-          >
-            <CalendarDays size={16} />
-            Book a Call
-          </a>
-        </div>
-      </m.div>
-
-      <div className="grid md:grid-cols-2 gap-8">
-        {/* Contact Info */}
-        <m.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="space-y-4"
-        >
-          {contactInfo.map((info, index) => (
-            <div
-              key={index}
-              className="flex items-center gap-4 p-4 bg-dark-300 border border-gray-800 rounded-xl"
-            >
-              <div className="p-3 bg-yellow-500/10 rounded-lg text-yellow-500">
-                {info.icon}
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 uppercase tracking-wider">
-                  {info.label}
-                </p>
-                <a
-                  href={info.href}
-                  onClick={() => trackEvent("contact_email_click")}
-                  className="text-white hover:text-yellow-500 transition-colors"
-                >
-                  {info.value}
-                </a>
-              </div>
-            </div>
-          ))}
-        </m.div>
-
-        {/* Contact Form */}
+      <div className="grid gap-12 md:grid-cols-[1fr_18rem] md:gap-14">
+        {/* Form leads: it is the action the page exists for. */}
         <m.form
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           onSubmit={handleSubmit}
-          className="p-6 bg-dark-300 border border-gray-800 rounded-xl space-y-5"
+          className="space-y-5"
         >
-          {/* Success Message */}
           <AnimatePresence>
             {submitted && (
-              <m.div
-                initial={{ opacity: 0, y: -10 }}
+              <m.p
+                key="ok"
+                role="status"
+                initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="flex items-center gap-2 p-4 bg-green-500/10 border border-green-500/30 rounded-xl text-green-400"
+                exit={{ opacity: 0, y: -6 }}
+                className="flex items-center gap-2 rounded-lg border border-live/30 bg-live/[0.08] p-3 text-sm text-live"
               >
-                <FaCheck />
-                Message sent successfully!
-              </m.div>
+                <FaCheck size={13} aria-hidden="true" />
+                Sent. I reply within a day, usually sooner.
+              </m.p>
             )}
-          </AnimatePresence>
-          <AnimatePresence>
             {errorMessage && (
-              <m.div
-                initial={{ opacity: 0, y: -10 }}
+              <m.p
+                key="err"
+                role="alert"
+                initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="flex items-center gap-2 p-4 bg-red-500/10 border border-red-500/30 rounded-xl text-red-400"
+                exit={{ opacity: 0, y: -6 }}
+                className="flex items-start gap-2 rounded-lg border border-red-500/30 bg-red-500/[0.08] p-3 text-sm text-red-400"
               >
-                <FaExclamationTriangle />
+                <FaExclamationTriangle size={13} className="mt-0.5 shrink-0" aria-hidden="true" />
                 {errorMessage}
-              </m.div>
+              </m.p>
             )}
           </AnimatePresence>
 
-          {/* Name */}
-          <div>
-            <label className="block text-xs text-gray-500 mb-2">Your Name</label>
+          <Field id={`${fieldId}-name`} label="Name">
             <input
+              id={`${fieldId}-name`}
               type="text"
               name="name"
               value={formData.name}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-500"
-              placeholder="John Doe"
+              autoComplete="name"
+              className={inputClass}
             />
-          </div>
+          </Field>
 
-          {/* Email */}
-          <div>
-            <label className="block text-xs text-gray-500 mb-2">Your Email</label>
+          <Field id={`${fieldId}-email`} label="Email">
             <input
+              id={`${fieldId}-email`}
               type="email"
               name="email"
               value={formData.email}
               onChange={handleChange}
               required
-              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-500"
-              placeholder="john@example.com"
+              autoComplete="email"
+              className={inputClass}
             />
-          </div>
+          </Field>
 
-          {/* Message */}
-          <div>
-            <label className="block text-xs text-gray-500 mb-2">Message</label>
+          <Field
+            id={`${fieldId}-message`}
+            label="Message"
+            hint="What are you building, and what is currently in the way?"
+          >
             <textarea
+              id={`${fieldId}-message`}
               name="message"
               value={formData.message}
               onChange={handleChange}
               required
-              rows={4}
-              className="w-full px-4 py-3 bg-dark-200 border border-gray-700 rounded-xl text-white focus:outline-none focus:border-yellow-500 resize-none"
-              placeholder="Your message..."
+              rows={6}
+              className={`${inputClass} resize-y`}
             />
-          </div>
+          </Field>
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={isSubmitting}
             onClick={() => trackEvent("contact_submit_attempt")}
-            className="w-full flex items-center justify-center gap-2 py-4 bg-yellow-500 text-black font-semibold rounded-xl hover:bg-yellow-400 disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-lg bg-yellow-500 px-5 py-2.5 font-semibold text-black transition-colors hover:bg-yellow-400 disabled:cursor-not-allowed disabled:opacity-60"
           >
             {isSubmitting ? (
               <>
-                <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                Sending...
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-black/25 border-t-black" aria-hidden="true" />
+                Sending
               </>
             ) : (
               <>
-                <FaPaperPlane />
-                Send Message
+                <Send size={15} aria-hidden="true" />
+                Send message
               </>
             )}
           </button>
         </m.form>
+
+        <m.aside
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-8 text-[14px]"
+        >
+          <div>
+            <p className="eyebrow mb-3">Direct</p>
+            <a
+              href="mailto:libenadugna285@gmail.com"
+              onClick={() => trackEvent("contact_email_click")}
+              className="inline-flex items-center gap-2 text-gray-200 transition-colors hover:text-yellow-500"
+            >
+              <Mail size={15} aria-hidden="true" />
+              libenadugna285@gmail.com
+            </a>
+            <p className="mt-2 text-[13px] text-gray-500">{contactConversion.responseTime}.</p>
+            <p className="mt-1 text-[13px] text-gray-500">{availability.hours}.</p>
+          </div>
+
+          <div>
+            <p className="eyebrow mb-3">Rather talk</p>
+            <a
+              href={contactConversion.bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackEvent("contact_book_call_click")}
+              className="inline-flex items-center gap-2 rounded-lg border border-gray-700 px-4 py-2 text-gray-200 transition-colors hover:border-yellow-500 hover:text-yellow-500"
+            >
+              <CalendarDays size={15} aria-hidden="true" />
+              Book 30 minutes
+            </a>
+          </div>
+
+          <div>
+            <p className="eyebrow mb-3">Work I take on</p>
+            <ul className="space-y-2 text-gray-400">
+              {contactConversion.acceptedProjects.map((projectType) => (
+                <li key={projectType} className="flex gap-2.5">
+                  <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-yellow-500" aria-hidden="true" />
+                  {projectType}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </m.aside>
       </div>
     </section>
   );
 };
+
+const inputClass =
+  "w-full rounded-lg border border-gray-800 bg-dark-400 px-3.5 py-2.5 text-[15px] text-white transition-colors focus:border-yellow-500 focus:outline-none";
+
+/** Labels are bound to their control, which the previous version's bare <label> was not. */
+const Field: React.FC<{ id: string; label: string; hint?: string; children: React.ReactNode }> = ({
+  id,
+  label,
+  hint,
+  children,
+}) => (
+  <div>
+    <label htmlFor={id} className="mb-2 block text-[13px] font-medium text-gray-300">
+      {label}
+    </label>
+    {hint && <p className="mb-2 text-[13px] text-gray-500">{hint}</p>}
+    {children}
+  </div>
+);
 
 export default ContactSection;

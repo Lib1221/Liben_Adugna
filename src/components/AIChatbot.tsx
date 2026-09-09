@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { m, AnimatePresence, useDragControls, useReducedMotion } from 'framer-motion';
+import { m, AnimatePresence, useDragControls } from 'framer-motion';
 import { X, Send, Sparkles, Loader2, GripVertical, Minimize2, Maximize2, Copy, Check } from 'lucide-react';
 import geminiService from '../services/geminiService';
 import { trackEvent } from '../utils/analytics';
@@ -78,7 +78,6 @@ const AIChatbot: React.FC = () => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const dragControls = useDragControls();
-  const shouldReduceMotion = useReducedMotion();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -197,21 +196,17 @@ const AIChatbot: React.FC = () => {
   return (
     <>
       {/* Floating Button */}
-      <m.button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed right-5 md:right-6 z-50 w-14 h-14 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg shadow-yellow-500/30 hover:bg-yellow-400 transition-colors"
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        style={{
-          display: isOpen ? "none" : "flex",
-          bottom: "calc(env(safe-area-inset-bottom, 0px) + 24px)",
-        }}
-        animate={shouldReduceMotion ? undefined : { y: [0, -4, 0] }}
-        transition={shouldReduceMotion ? undefined : { duration: 3.2, repeat: Infinity, repeatType: "loop" }}
-        aria-label="Open AI Assistant"
+      {/* A launcher that bobs forever competes with the page for attention every second the
+          reader is trying to read it. It sits still and waits. */}
+      <button
+        onClick={() => setIsOpen(true)}
+        className="fixed right-5 z-50 bottom-[calc(env(safe-area-inset-bottom,0px)+84px)] inline-flex items-center gap-2 rounded-full bg-yellow-500 px-4 py-3 font-semibold text-black shadow-lg shadow-black/40 transition-colors hover:bg-yellow-400 md:right-6 md:bottom-[calc(env(safe-area-inset-bottom,0px)+24px)]"
+        style={{ display: isOpen ? "none" : "inline-flex" }}
+        aria-label="Ask about Liben"
       >
-        <Sparkles className="w-6 h-6 text-black" />
-      </m.button>
+        <Sparkles className="h-4 w-4" aria-hidden="true" />
+        <span className="text-sm">Ask about Liben</span>
+      </button>
 
       {/* Chat Window - Draggable */}
       <AnimatePresence>
@@ -224,7 +219,7 @@ const AIChatbot: React.FC = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className={`fixed z-50 ${isMinimized ? 'w-[280px]' : 'w-[calc(100vw-32px)] sm:w-[380px]'} ${isMinimized ? '' : 'h-[520px]'} flex flex-col bg-dark-500 border border-gray-800 rounded-2xl shadow-2xl overflow-hidden`}
+            className={`fixed z-50 ${isMinimized ? 'w-[280px]' : 'h-[520px] w-[calc(100vw-32px)] sm:w-[380px]'} flex flex-col overflow-hidden rounded-xl border border-gray-800 bg-dark-500 shadow-2xl shadow-black/60`}
             style={{
               right: 16,
               bottom:
@@ -235,34 +230,29 @@ const AIChatbot: React.FC = () => {
             }}
           >
             {/* Header - Draggable Handle */}
-            <m.div 
-              className="p-3 bg-yellow-500 flex items-center justify-between cursor-grab active:cursor-grabbing"
+            <m.div
+              className="flex cursor-grab items-center justify-between border-b border-gray-800 bg-dark-400 p-3 active:cursor-grabbing"
               onPointerDown={(e) => dragControls.start(e)}
             >
-              <div className="flex items-center gap-2">
-                <GripVertical className="w-4 h-4 text-black/50" />
-                <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-yellow-500" />
-                </div>
-                <div>
-                  <h3 className="text-black font-semibold text-sm">AI Assistant</h3>
-                  {!isMinimized && <p className="text-black/60 text-xs">Ask about Liben</p>}
-                </div>
+              <div className="flex min-w-0 items-center gap-2">
+                <GripVertical className="h-4 w-4 shrink-0 text-gray-600" aria-hidden="true" />
+                <Sparkles className="h-4 w-4 shrink-0 text-yellow-500" aria-hidden="true" />
+                <h3 className="truncate text-sm font-semibold text-white">Ask about Liben</h3>
               </div>
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setIsMinimized(!isMinimized)}
-                  className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
+                  className="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-dark-300 hover:text-white"
                   aria-label={isMinimized ? "Maximize chat" : "Minimize chat"}
                 >
-                  {isMinimized ? <Maximize2 className="w-4 h-4 text-black" /> : <Minimize2 className="w-4 h-4 text-black" />}
+                  {isMinimized ? <Maximize2 className="h-4 w-4" /> : <Minimize2 className="h-4 w-4" />}
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  className="p-1.5 hover:bg-black/10 rounded-lg transition-colors"
+                  className="rounded-md p-1.5 text-gray-500 transition-colors hover:bg-dark-300 hover:text-white"
                   aria-label="Close chat"
                 >
-                  <X className="w-4 h-4 text-black" />
+                  <X className="h-4 w-4" />
                 </button>
               </div>
             </m.div>
@@ -277,10 +267,10 @@ const AIChatbot: React.FC = () => {
                       className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                     >
                       <div
-                        className={`max-w-[85%] p-3 rounded-2xl ${
+                        className={`max-w-[85%] rounded-xl p-3 ${
                           message.sender === 'user'
-                            ? 'bg-yellow-500 text-black rounded-br-sm'
-                            : 'bg-dark-300 text-gray-200 border border-gray-700 rounded-bl-sm'
+                            ? 'rounded-br-sm bg-yellow-500 text-black'
+                            : 'rounded-bl-sm border border-gray-800 bg-dark-400 text-gray-200'
                         }`}
                       >
                         <div className="text-sm leading-relaxed">

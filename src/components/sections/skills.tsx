@@ -1,218 +1,102 @@
 import React, { useState } from "react";
-import {
-  SiFlutter,
-  SiFirebase,
-  SiTypescript,
-  SiReact,
-  SiDjango,
-  SiPython,
-  SiPostman,
-  SiGit,
-  SiGithub,
-  SiNodedotjs,
-  SiTensorflow,
-  SiScikitlearn,
-  SiPandas,
-  SiNumpy,
-  SiJupyter,
-  SiDocker,
-  SiMongodb,
-  SiPostgresql,
-} from "react-icons/si";
-import { FaJava, FaLinux, FaBrain, FaChartLine, FaRobot, FaCogs } from "react-icons/fa";
-import { m, AnimatePresence } from "framer-motion";
+import { m } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import SectionHeader from "../ui/SectionHeader";
+import { stackDomains, dailyStack } from "../../data/skills";
 
-interface Skill {
-  icon: React.ElementType;
-  label: string;
-  category: "programming" | "ml" | "mlops" | "datascience" | "tools";
-  color: string;
-}
-
-const skills: Skill[] = [
-  { icon: SiPython,      label: "Python",           color: "#3776AB", category: "programming" },
-  { icon: FaJava,        label: "Java",             color: "#ED8B00", category: "programming" },
-  { icon: SiTypescript,  label: "TypeScript",       color: "#3178C6", category: "programming" },
-  { icon: SiReact,       label: "React",            color: "#61DAFB", category: "programming" },
-  { icon: SiNodedotjs,   label: "Node.js",          color: "#68A063", category: "programming" },
-  { icon: SiFlutter,     label: "Flutter",          color: "#02569B", category: "programming" },
-  { icon: FaCogs,        label: "DSA",              color: "#9333EA", category: "programming" },
-
-  { icon: SiScikitlearn, label: "Scikit-learn",     color: "#F7931E", category: "ml" },
-  { icon: SiTensorflow,  label: "TensorFlow",       color: "#FF6F00", category: "ml" },
-  { icon: FaBrain,       label: "Ensemble Models",  color: "#10B981", category: "ml" },
-  { icon: FaRobot,       label: "Anomaly Detection",color: "#EF4444", category: "ml" },
-  { icon: FaBrain,       label: "NLP",              color: "#8B5CF6", category: "ml" },
-  { icon: FaCogs,        label: "Feature Eng.",     color: "#F59E0B", category: "ml" },
-  { icon: FaChartLine,   label: "Model Evaluation", color: "#06B6D4", category: "ml" },
-  { icon: FaCogs,        label: "Benchmark Design", color: "#F5B800", category: "ml" },
-
-  { icon: SiDocker,      label: "Docker",           color: "#2496ED", category: "mlops" },
-  { icon: SiDjango,      label: "Django REST",      color: "#44B78B", category: "mlops" },
-  { icon: FaCogs,        label: "ML Pipelines",     color: "#22C55E", category: "mlops" },
-  { icon: FaCogs,        label: "Automation",       color: "#A855F7", category: "mlops" },
-
-  { icon: SiPandas,      label: "Pandas",           color: "#150458", category: "datascience" },
-  { icon: SiNumpy,       label: "NumPy",            color: "#4DABCF", category: "datascience" },
-  { icon: SiJupyter,     label: "Jupyter",          color: "#F37626", category: "datascience" },
-  { icon: FaChartLine,   label: "Visualization",    color: "#EC4899", category: "datascience" },
-  { icon: FaChartLine,   label: "Statistics",       color: "#14B8A6", category: "datascience" },
-
-  { icon: SiGit,         label: "Git",              color: "#F05032", category: "tools" },
-  { icon: SiGithub,      label: "GitHub",           color: "#E6EDF3", category: "tools" },
-  { icon: SiPostgresql,  label: "PostgreSQL",       color: "#336791", category: "tools" },
-  { icon: SiMongodb,     label: "MongoDB",          color: "#47A248", category: "tools" },
-  { icon: FaLinux,       label: "Linux",            color: "#FCC624", category: "tools" },
-  { icon: SiPostman,     label: "Postman",          color: "#FF6C37", category: "tools" },
-  { icon: SiFirebase,    label: "Firebase",         color: "#FFCA28", category: "tools" },
-];
-
-const categories = [
-  { id: "all",         label: "All" },
-  { id: "programming", label: "Programming" },
-  { id: "ml",          label: "ML / AI" },
-  { id: "mlops",       label: "MLOps" },
-  { id: "datascience", label: "Data Science" },
-  { id: "tools",       label: "Tools" },
-];
-
-const categoryColors: Record<string, string> = {
-  programming: "#3178C6",
-  ml:          "#F7931E",
-  mlops:       "#22C55E",
-  datascience: "#EC4899",
-  tools:       "#F05032",
-};
-
-const coreStack = ["Python", "Django REST", "Flutter", "TypeScript", "React", "PostgreSQL", "MongoDB", "Docker"];
-
+/**
+ * Stack, presented as five domains rather than a grid of logos.
+ *
+ * A logo wall answers "which tools has he heard of". The question a reader actually has is
+ * "what does he do with them and how do I know", so each domain leads with a sentence of
+ * practice and a line of evidence; the tool names sit underneath as supporting detail.
+ */
 const SkillsSection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState("all");
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
-
-  const filteredSkills = activeCategory === "all"
-    ? skills
-    : skills.filter(s => s.category === activeCategory);
+  const [openId, setOpenId] = useState<string | null>(stackDomains[0]?.id ?? null);
 
   return (
     <section>
-      <SectionHeader title="Technical" accent="Skills" />
+      <SectionHeader
+        eyebrow="05 / Stack"
+        title="What I work with, and what I do with it"
+        subtitle="Grouped by the problem it solves. Expand a row for the tools underneath."
+      />
 
-      {/* Core stack: what I reach for daily. Everything below is the wider toolbox. */}
-      <div className="mb-8 p-4 modern-card border border-yellow-500/30 rounded-xl">
-        <p className="text-[11px] uppercase tracking-wider text-yellow-500 mb-3">Daily stack</p>
+      <div className="mb-8">
+        <p className="eyebrow mb-3">On an ordinary day</p>
         <div className="flex flex-wrap gap-2">
-          {coreStack.map((label) => {
-            const skill = skills.find((s) => s.label === label);
-            const Icon = skill?.icon;
-            return (
-              <span
-                key={label}
-                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-dark-300 border border-gray-700 text-sm text-gray-200"
-              >
-                {Icon && <Icon size={16} style={{ color: skill?.color }} aria-hidden="true" />}
-                {label}
-              </span>
-            );
-          })}
+          {dailyStack.map((tool) => (
+            <span
+              key={tool}
+              className="rounded-md border border-yellow-500/30 bg-yellow-500/[0.06] px-2.5 py-1 text-[13px] text-gray-300"
+            >
+              {tool}
+            </span>
+          ))}
         </div>
       </div>
 
-      {/* Category Filter */}
-      <div className="flex flex-wrap gap-2 mb-8">
-        {categories.map((cat) => (
-          <m.button
-            key={cat.id}
-            onClick={() => setActiveCategory(cat.id)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200
-              ${activeCategory === cat.id
-                ? "bg-yellow-500 text-black shadow-lg shadow-yellow-500/30"
-                : "bg-dark-300 text-gray-400 hover:text-white hover:bg-dark-200 border border-gray-800 hover:border-gray-600"
-              }`}
-          >
-            {cat.label}
-          </m.button>
-        ))}
-      </div>
+      <div className="divide-y divide-gray-800 border-y border-gray-800">
+        {stackDomains.map((domain) => {
+          const isOpen = openId === domain.id;
+          const panelId = `stack-panel-${domain.id}`;
 
-      {/* Skills Grid */}
-      <m.div
-        className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3"
-        layout
-      >
-        <AnimatePresence mode="popLayout">
-          {filteredSkills.map((skill) => {
-            const Icon = skill.icon;
-            const isHovered = hoveredSkill === skill.label;
-            return (
-              <m.div
-                key={skill.label}
-                layout
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.8 }}
-                transition={{ duration: 0.2 }}
-                onMouseEnter={() => setHoveredSkill(skill.label)}
-                onMouseLeave={() => setHoveredSkill(null)}
-                className="relative flex flex-col items-center gap-2 p-4 modern-card border border-gray-800 rounded-xl transition-all duration-300 cursor-default group"
-                style={{
-                  borderColor: isHovered ? skill.color + "80" : undefined,
-                  boxShadow: isHovered ? `0 0 18px ${skill.color}30` : undefined,
-                  transform: isHovered ? "translateY(-3px)" : undefined,
-                }}
-              >
-                {/* Glow backdrop */}
-                {isHovered && (
-                  <m.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="absolute inset-0 rounded-xl"
-                    style={{ background: `radial-gradient(circle at center, ${skill.color}15 0%, transparent 70%)` }}
-                  />
-                )}
-                <Icon
-                  size={24}
-                  aria-hidden="true"
-                  style={{ color: isHovered ? skill.color : "#9CA3AF", transition: "color 0.2s" }}
-                />
-                <span
-                  className="text-xs text-center leading-tight transition-colors duration-200"
-                  style={{ color: isHovered ? "#FFFFFF" : "#6B7280" }}
+          return (
+            <div key={domain.id}>
+              <h3>
+                <button
+                  type="button"
+                  onClick={() => setOpenId(isOpen ? null : domain.id)}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  className="group flex w-full items-start gap-4 py-5 text-left"
                 >
-                  {skill.label}
-                </span>
-              </m.div>
-            );
-          })}
-        </AnimatePresence>
-      </m.div>
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-yellow-500" aria-hidden="true" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[17px] font-semibold text-white transition-colors group-hover:text-yellow-500">
+                      {domain.title}
+                    </span>
+                    <span className="mt-1.5 block max-w-prose text-[15px] leading-relaxed text-gray-400">
+                      {domain.practice}
+                    </span>
+                  </span>
+                  <ChevronDown
+                    size={18}
+                    aria-hidden="true"
+                    className={`mt-1 shrink-0 text-gray-500 transition-transform duration-200 group-hover:text-gray-300 ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+              </h3>
 
-      {/* Category legend */}
-      {activeCategory === "all" && (
-        <m.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.3 }}
-          className="flex flex-wrap gap-3 mt-6 pt-6 border-t border-gray-800"
-        >
-          {categories.slice(1).map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-white transition-colors"
-            >
-              <span
-                className="w-2 h-2 rounded-full"
-                style={{ backgroundColor: categoryColors[cat.id] }}
-              />
-              {cat.label}
-            </button>
-          ))}
-        </m.div>
-      )}
+              {isOpen && (
+                <m.div
+                  id={panelId}
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                  className="pb-6 pl-[26px]"
+                >
+                  <p className="mb-4 border-l-2 border-yellow-500/40 pl-3 text-[13px] leading-relaxed text-gray-300">
+                    {domain.evidence}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {domain.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="rounded border border-gray-800 bg-dark-300 px-2 py-1 text-xs text-gray-400"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </m.div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 };

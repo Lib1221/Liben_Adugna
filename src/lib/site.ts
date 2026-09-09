@@ -17,8 +17,6 @@ export const SITE = {
   leetcode: "https://leetcode.com/libenadugna",
   codeforces: "https://codeforces.com/profile/Hehehc",
   portrait: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759949739/liben_fupt3c.jpg",
-  location: "Adama, Ethiopia",
-  timezone: "UTC+3",
   updated: "2026-09-08",
 } as const;
 
@@ -151,7 +149,7 @@ export const routeMeta = (route: Route): RouteMeta => {
         path: "/",
         title: "Liben Adugna | Software Engineer, ML Systems and AI Benchmark Design",
         description:
-          "Software engineer in Adama, Ethiopia. I build ML-backed products with Python, Django and Flutter, and author the evaluation benchmarks used to test AI coding agents.",
+          "Software engineer building ML-backed products with Python, Django and Flutter, and authoring the evaluation benchmarks used to test AI coding agents. Remote, with full overlap with European working hours.",
         ogTitle: "Software Engineer",
         ogSubtitle: headline.title,
       };
@@ -162,7 +160,7 @@ export const routeMeta = (route: Route): RouteMeta => {
         description:
           "Experience, education and certifications of Liben Adugna: freelance ML engineering since 2022, benchmark task authoring for Terminal-Bench and SWE-bench, full-stack delivery with Django and Flutter.",
         ogTitle: "Resume",
-        ogSubtitle: `Software engineer · ${SITE.location} (${SITE.timezone}) · ${availability.note}`,
+        ogSubtitle: `Software engineer · ${availability.hours} · ${availability.note}`,
       };
     case "projects":
       return {
