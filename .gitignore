@@ -33,3 +33,16 @@ build/
 # Environment files
 .env
 
+# Added: common build, cache, secret and editor files
+.pnp/
+.pnp.js
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+.eslintcache
+coverage/
+.env.*
+!.env.example
+.vscode/
+.idea/
