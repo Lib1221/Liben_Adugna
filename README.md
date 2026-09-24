@@ -50,3 +50,11 @@ Bump `SITE.updated` in `src/lib/site.ts` and `now.updated` in `src/data/siteCont
 ## Deployment notes
 
 `vercel.json` sets clean URLs, an SPA fallback for client-side navigation, immutable caching for hashed assets, and security headers. Directory index files from the prerender take precedence over the fallback, so every route serves its own prerendered HTML on first load.
+
+## Documentation
+
+Developer docs live in [`docs/`](docs/):
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Setup](docs/SETUP.md)
+- [Contributing](docs/CONTRIBUTING.md)
