@@ -22,6 +22,7 @@ export const portfolioData = {
             "Anomaly detection and classification",
             "Django REST API development",
             "Terminal-Bench, SWE-bench and Harbor-format task authoring",
+            "Real-time 3D web development with three.js (glTF assets, PBR materials, custom shaders)",
             "MongoDB and PostgreSQL data modeling and evaluation",
             "Performance optimization and debugging",
         ],
