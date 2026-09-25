@@ -93,6 +93,7 @@ const person = {
     "Flutter",
     "React",
     "TypeScript",
+    "Three.js",
     "PostgreSQL",
     "MongoDB",
     "Docker",

@@ -35,6 +35,7 @@ export const skills: SkillEntry[] = [
   { label: "React", color: "#61DAFB", category: "programming" },
   { label: "Node.js", color: "#68A063", category: "programming" },
   { label: "Flutter", color: "#02569B", category: "programming" },
+  { label: "Three.js", color: "#049EF4", category: "programming" },
   { label: "Data Structures & Algorithms", color: "#9333EA", category: "programming" },
 
   // Machine learning & AI
@@ -93,7 +94,7 @@ export const stackDomains: StackDomain[] = [
     practice:
       "Django or Node behind React and Flutter clients. Offline-first where the network cannot be trusted, and API contracts that survive a mobile release cycle.",
     evidence: "5+ client systems delivered; Django REST APIs serving 5,000+ requests a month.",
-    tools: ["Python", "TypeScript", "Dart", "Django REST Framework", "React", "Flutter", "Node.js", "Java"],
+    tools: ["Python", "TypeScript", "Dart", "Django REST Framework", "React", "Flutter", "Three.js", "Node.js", "Java"],
   },
   {
     id: "datascience",

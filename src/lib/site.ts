@@ -17,7 +17,7 @@ export const SITE = {
   leetcode: "https://leetcode.com/libenadugna",
   codeforces: "https://codeforces.com/profile/Hehehc",
   portrait: "https://res.cloudinary.com/dkiuz3gfn/image/upload/v1759949739/liben_fupt3c.jpg",
-  updated: "2026-09-08",
+  updated: "2026-09-25",
 } as const;
 
 export type Section = "About" | "Resume" | "Portfolio" | "Blog" | "Contact";
@@ -158,7 +158,7 @@ export const routeMeta = (route: Route): RouteMeta => {
         path: "/resume",
         title: "Resume | Liben Adugna",
         description:
-          "Experience, education and certifications of Liben Adugna: freelance ML engineering since 2022, benchmark task authoring for Terminal-Bench and SWE-bench, full-stack delivery with Django and Flutter.",
+          "Experience, education and certifications of Liben Adugna: freelance ML engineering since 2022, benchmark task authoring for Terminal-Bench and SWE-bench, interactive three.js scenes for AI agent training, full-stack delivery with Django and Flutter.",
         ogTitle: "Resume",
         ogSubtitle: `Software engineer · ${availability.hours} · ${availability.note}`,
       };
